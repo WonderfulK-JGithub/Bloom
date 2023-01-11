@@ -23,7 +23,7 @@ public class enemymovement : MonoBehaviour
 
         if (chase)
         {
-            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(onGround);
+            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
         }
     }
 
@@ -32,6 +32,14 @@ public class enemymovement : MonoBehaviour
         if (collision.gameObject.layer == 6)
         {
             onGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            onGround = false;
         }
     }
 }
