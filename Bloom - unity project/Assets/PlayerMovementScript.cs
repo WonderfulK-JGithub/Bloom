@@ -5,15 +5,19 @@ using UnityEngine;
 public class PlayerMovementScript : MonoBehaviour
 {
     [Header("Movement parameters")]
-    [SerializeField] float maxVelocity;
+    [SerializeField] float speed;
     [SerializeField] float acceleration;
     [SerializeField] float airAcceleration;
 
-    [SerializeField] float friction;
+    [SerializeField] float gravity = -9.82f;
 
+    [Header("Info")]
+    public static bool isGrounded = false;
+    public static bool completelyGrounded = false;
+    public static bool isMoving = false;
+
+    Vector3 targetVelocity;
     Rigidbody rb;
-
-    public bool isGrounded = false;
 
     private void Start()
     {
@@ -24,43 +28,49 @@ public class PlayerMovementScript : MonoBehaviour
     {
         GroundCheck();
 
-        //Clamp velocity
-        //Vector3 newVelocity = velocity.normalized;
-        //newVelocity *= maxVelocity;
-        //velocity = newVelocity;
+        Vector3 input = Vector3.zero;
+        input += Input.GetAxisRaw("Horizontal") * transform.right;
+        input += Input.GetAxisRaw("Vertical") * transform.forward;
+        SetSpeed(input, speed);
+        isMoving = (input != Vector3.zero);
+
+        Gravity();
     }
 
     private void FixedUpdate()
     {
-        Vector3 input = Vector3.zero;
-        input += Input.GetAxisRaw("Horizontal") * transform.right;
-        input += Input.GetAxisRaw("Vertical") * transform.forward;
-        Accelerate(input, acceleration);
-
-        if (input == Vector3.zero) Friction();
+        Vector3 newVelocity = Vector3.Lerp(rb.velocity, targetVelocity, (isGrounded ? acceleration : airAcceleration) * Time.fixedDeltaTime);
+        newVelocity.y = rb.velocity.y;
+        rb.velocity = newVelocity;
     }
 
-    void Accelerate(Vector3 wishDir, float accel)
+    void SetSpeed(Vector3 wishDir, float spd)
     {
-        rb.velocity += accel * wishDir * Time.fixedDeltaTime;
+        targetVelocity = spd * wishDir;
     }
 
-    void Friction()
+    void Gravity()
     {
-        if (!isGrounded) return;
+        if(!(completelyGrounded && !isMoving))
+            rb.AddForce(Vector3.up * gravity * rb.mass * Time.deltaTime);
     }
 
     void GroundCheck()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
+        isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
+        completelyGrounded = OverlapSphere(transform.position + new Vector3(0,0.49f, 0), 0.5f, LayerMask.GetMask("Ground"));
+    }
 
-        if(cols.Length > 0)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
+    bool OverlapSphere(Vector3 position, float radius, LayerMask mask)
+    {
+        Collider[] cols = Physics.OverlapSphere(position, radius, mask);
+
+        if (cols.Length > 0) return true;
+        else return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + new Vector3(0, 0.49f, 0), 0.5f);
     }
 }
