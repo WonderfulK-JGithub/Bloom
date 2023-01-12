@@ -305,6 +305,36 @@ Transform:
   m_Father: {fileID: 636801048}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &361895909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 361895910}
+  m_Layer: 0
+  m_Name: Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &361895910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361895909}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -5.4, y: 0.3, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6901256640068683129}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &542188287
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +475,7 @@ GameObject:
   - component: {fileID: 636801049}
   - component: {fileID: 636801050}
   - component: {fileID: 636801051}
+  - component: {fileID: 636801052}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -537,12 +568,29 @@ MonoBehaviour:
   velocitySmooth: 20
   smooth: 8
   multiplier: 35
+  maxSway: 20
   weaponBob: 1
   weaponBobScale: {x: 0.00125, y: 0.0025}
   weaponBobSpeed: {x: 7.5, y: 15}
   weaponBobSmooth: 10
   gun: {fileID: 271003223}
   cam: {fileID: 783864258}
+--- !u!114 &636801052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636801046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78589cf6ff78244b9c2ba4ce5636c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 361895910}
+  bullet: {fileID: 4376629939099795333, guid: 5cd5bfb0b6c7d054795bc0d3e93a4419, type: 3}
+  bulletScaleSpeed: 20
+  bulletVelSpeed: 1
 --- !u!1 &726068419
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1770,7 @@ Transform:
   m_Children:
   - {fileID: 2555481675894248935}
   - {fileID: 8101957313562342530}
+  - {fileID: 361895910}
   m_Father: {fileID: 614551964}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}

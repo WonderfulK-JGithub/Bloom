@@ -12,6 +12,7 @@ public class GunScript : MonoBehaviour
     [Header("Sway Settings")]
     [SerializeField] private float smooth;
     [SerializeField] private float multiplier;
+    [SerializeField] float maxSway;
 
     [Header("Weapon Bob Settings")]
     [SerializeField] bool weaponBob = true;
@@ -55,10 +56,11 @@ public class GunScript : MonoBehaviour
         float mouseY = Input.GetAxisRaw("Mouse Y") * multiplier;
 
         // calculate target rotation
-        Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+        Quaternion rotationX = Quaternion.AngleAxis(Mathf.Clamp(-mouseY, -maxSway, maxSway), Vector3.right);
+        Quaternion rotationY = Quaternion.AngleAxis(Mathf.Clamp(mouseX, -maxSway, maxSway), Vector3.up);
 
         Quaternion targetRotation = rotationX * rotationY;
+        //targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, Mathf.Clamp(targetRotation.eulerAngles.y, -maxSway, maxSway), targetRotation.eulerAngles.z);
 
         gun.GetChild(0).localRotation = Quaternion.Slerp(gun.GetChild(0).localRotation, targetRotation, smooth * Time.deltaTime);
     }
