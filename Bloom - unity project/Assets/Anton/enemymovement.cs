@@ -11,6 +11,8 @@ public class enemymovement : MonoBehaviour
     Rigidbody rb;
     public bool chase;
     bool onGround = false;
+    public float detectionRange = 10;
+    public PhysicMaterial[] materials;
 
     void Start()
     {
@@ -18,12 +20,28 @@ public class enemymovement : MonoBehaviour
     }
     void Update()
     {
-        Quaternion fullRot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
-        rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
+        
+
+        chase = false;
+
+        RaycastHit hit;
+        if (Vector3.Distance(transform.position, target.position) < detectionRange)
+        {
+            if (Physics.Raycast(transform.position, (target.position - transform.position), out hit, detectionRange))
+            {
+                if (hit.transform == target)
+                {
+                    chase = true;
+                }
+            }
+        }
 
         if (chase)
         {
             rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
+
+            Quaternion fullRot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
+            rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
         }
     }
 

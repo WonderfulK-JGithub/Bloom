@@ -12,9 +12,9 @@ public class enemymeshangle : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, 10, LayerMask.GetMask("Ground")))
         {
-            transform.up = Vector3.Lerp(transform.up, hit.normal, 0.2f);
+            transform.up = Vector3.Lerp(transform.up, hit.normal, 5 * Time.deltaTime);
 
-            child.rotation = Quaternion.Euler(parent.position.x, Vector3.Lerp(transform.up, hit.normal, 0.2f).y, parent.position.z);
+            child.localRotation = Quaternion.Euler(0, parent.eulerAngles.y, 0);
         }
         
     }
