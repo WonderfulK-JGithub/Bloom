@@ -10,6 +10,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] float airAcceleration;
 
     [SerializeField] float gravity = -9.82f;
+    [SerializeField] float jumpForce;
 
     [Header("Info")]
     public static bool isGrounded = false;
@@ -34,7 +35,7 @@ public class PlayerMovementScript : MonoBehaviour
         SetSpeed(input, speed);
         isMoving = (input != Vector3.zero);
 
-        Gravity();
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
     }
 
     private void FixedUpdate()
@@ -42,6 +43,10 @@ public class PlayerMovementScript : MonoBehaviour
         Vector3 newVelocity = Vector3.Lerp(rb.velocity, targetVelocity, (isGrounded ? acceleration : airAcceleration) * Time.fixedDeltaTime);
         newVelocity.y = rb.velocity.y;
         rb.velocity = newVelocity;
+
+        Gravity();
+
+        if(!isMoving && completelyGrounded) rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
     void SetSpeed(Vector3 wishDir, float spd)
@@ -51,14 +56,23 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Gravity()
     {
-        if(!(completelyGrounded && !isMoving))
-            rb.AddForce(Vector3.up * gravity * rb.mass * Time.deltaTime);
+        if (!(completelyGrounded && !isMoving))
+            rb.velocity += new Vector3(0, gravity * Time.fixedDeltaTime, 0);
+            //rb.AddForce(Vector3.up * gravity * rb.mass * Time.fixedDeltaTime);
     }
 
     void GroundCheck()
     {
         isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
         completelyGrounded = OverlapSphere(transform.position + new Vector3(0,0.49f, 0), 0.5f, LayerMask.GetMask("Ground"));
+    }
+
+    void Jump()
+    {
+        if (!isGrounded) return;
+
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce);
     }
 
     bool OverlapSphere(Vector3 position, float radius, LayerMask mask)

@@ -1,0 +1,80 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GunScript : MonoBehaviour
+{
+    [Header("Parameters")]
+    [SerializeField] float followCameraSpeed;
+    [SerializeField] float velocityMultiplier;
+    [SerializeField] float velocitySmooth;
+
+    [Header("Sway Settings")]
+    [SerializeField] private float smooth;
+    [SerializeField] private float multiplier;
+
+    [Header("Weapon Bob Settings")]
+    [SerializeField] bool weaponBob = true;
+    [SerializeField] Vector2 weaponBobScale;
+    [SerializeField] Vector2 weaponBobSpeed;
+    [SerializeField] float weaponBobSmooth;
+    Vector3 actualWeaponBobOffset = Vector3.zero;
+
+    [Header("References")]
+    [SerializeField] Transform gun;
+    [SerializeField] Camera cam;
+    Rigidbody playerRb;
+
+    Vector3 offset;
+
+
+    private void Awake()
+    {
+        playerRb = GetComponent<Rigidbody>();
+    }
+
+    private void LateUpdate()
+    {
+        gun.localPosition = cam.transform.localPosition;
+
+        offset = Vector3.Lerp(offset, playerRb.velocity * velocityMultiplier, velocitySmooth * Time.deltaTime);
+        gun.position -= offset;
+
+        WeaponBob();
+        gun.localPosition += actualWeaponBobOffset;
+
+        gun.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f);
+    }
+
+    private void Update()
+    {
+        //gun.localRotation = Quaternion.Lerp(gun.localRotation, Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f), followCameraSpeed * Time.deltaTime);
+
+        // get mouse input
+        float mouseX = Input.GetAxisRaw("Mouse X") * multiplier;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * multiplier;
+
+        // calculate target rotation
+        Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
+        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+
+        Quaternion targetRotation = rotationX * rotationY;
+
+        gun.GetChild(0).localRotation = Quaternion.Slerp(gun.GetChild(0).localRotation, targetRotation, smooth * Time.deltaTime);
+    }
+
+    void WeaponBob()
+    {
+        if (!weaponBob) return;
+
+        Vector3 weaponBobOffset = Vector3.zero;
+        if (PlayerMovementScript.isMoving)
+        {
+            weaponBobOffset.x = Mathf.Sin(Time.time * weaponBobSpeed.x) * weaponBobScale.x;
+            weaponBobOffset.y = Mathf.Sin(Time.time * weaponBobSpeed.y) * weaponBobScale.y;
+        }
+
+        //cam.transform.localPosition = new Vector3(0, 1.75f) + weaponBobOffset;
+        actualWeaponBobOffset = Vector3.Lerp(actualWeaponBobOffset, weaponBobOffset, weaponBobSmooth * Time.deltaTime);
+    }
+}
