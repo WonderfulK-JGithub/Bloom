@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plant
-  m_Shader: {fileID: -6465566751694194690, guid: 1554eb4cddc661c488701b0366cc8a3e, type: 3}
+  m_Name: WaveSplash
+  m_Shader: {fileID: -6465566751694194690, guid: 1e6d7075c2c8b1e48bd0145af8b63728, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,8 +19,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
+    - _SplashMap:
+        m_Texture: {fileID: 2800000, guid: 178f687735c1f6649859c859e276ead1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -36,10 +36,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Brightness: 0.71
-    - _Height: 1
-    - _Saturation: 1
-    - _Value: -0.7
+    - Vector1_084993649c0a475895c925a68b2ae0b2: 0.07
+    - _NormalStrength: 0.03
+    - _Smoothness: 1
     m_Colors:
-    - _Color: {r: 0.07978976, g: 1, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
