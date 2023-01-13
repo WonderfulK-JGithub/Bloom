@@ -9,10 +9,20 @@ public class ShootingScript : MonoBehaviour
 
     [SerializeField] float bulletSpeed = 15;
 
+    [SerializeField] float bulletsPerSecond = 1;
+
+    bool canShoot = true;
+
+    [SerializeField] float bulletCost = 5;
+
+    float ammo = 100;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (!canShoot || ammo <= 0) return;
+
             GameObject newBullet = Instantiate(bullet, barrel.position, barrel.rotation);
 
             RaycastHit hit;
@@ -22,11 +32,22 @@ public class ShootingScript : MonoBehaviour
             }
             else
             {
-                newBullet.GetComponent<WaterBullet>().SetVelocity((Camera.main.transform.forward * 100 - barrel.position).normalized, bulletSpeed);
+                newBullet.GetComponent<WaterBullet>().SetVelocity((barrel.forward).normalized, bulletSpeed);
+                //newBullet.GetComponent<WaterBullet>().SetVelocity((Camera.main.transform.forward * 100 - barrel.position).normalized, bulletSpeed);
             }
 
             Physics.IgnoreCollision(newBullet.GetComponent<SphereCollider>(), GetComponentInChildren<CapsuleCollider>());
 
+            ammo -= bulletCost;
+            ammo = Mathf.Clamp(ammo, 0, 100);
+
+            canShoot = false;
+            Invoke(nameof(ActivateShoot), 1 / bulletsPerSecond);
         }
+    }
+
+    void ActivateShoot()
+    {
+        canShoot = true;
     }
 }

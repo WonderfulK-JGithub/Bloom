@@ -92,8 +92,9 @@ public class PlayerMovementScript : MonoBehaviour
         else return false;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawSphere(transform.position + new Vector3(0, 0.49f, 0), 0.5f);
+
     }
 }

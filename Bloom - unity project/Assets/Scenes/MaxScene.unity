@@ -483,6 +483,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 13400000, guid: c99ecd9b011943340bda25a3e05be2ab, type: 2}
   brake: 0
+  hp: 1
 --- !u!54 &373134051
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -772,6 +773,7 @@ MonoBehaviour:
   barrel: {fileID: 361895910}
   bullet: {fileID: 4376629939099795333, guid: 5cd5bfb0b6c7d054795bc0d3e93a4419, type: 3}
   bulletSpeed: 15
+  bulletsPerSecond: 10
 --- !u!114 &636801053
 MonoBehaviour:
   m_ObjectHideFlags: 0
