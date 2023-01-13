@@ -16,6 +16,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     public float hp = 1;
     protected float distanceToPlayer;
     protected bool lastchase = true;
+    protected bool hasTransformed = false;
 
     void Start()
     {
@@ -84,20 +85,25 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     protected virtual IEnumerator Transformation()
     {
-        detectionRange = 0;
-
-        float t = 0;
-        Vector3 scale = transform.localScale;
-        Vector3 targetScale = transform.localScale / 2;
-
-        while (t < 1)
+        if (!hasTransformed)
         {
-            transform.localScale = Vector3.Lerp(scale, targetScale, t);
-            GetComponentInChildren<MeshRenderer>().material.color = new Color(1 - t, t, 0, 1);
+            hasTransformed = true;
+            detectionRange = 0;
 
-            t += Time.deltaTime;
-            yield return 0;
+            float t = 0;
+            Vector3 scale = transform.localScale;
+            Vector3 targetScale = transform.localScale / 1.5f;
+
+            while (t < 1)
+            {
+                transform.localScale = Vector3.Lerp(scale, targetScale, t);
+                GetComponentInChildren<MeshRenderer>().material.color = new Color(1 - t, t, 0, 1);
+
+                t += Time.deltaTime;
+                yield return 0;
+            }
         }
+        
 
     }
     protected virtual Vector3 Gravity() { return Physics.gravity; }

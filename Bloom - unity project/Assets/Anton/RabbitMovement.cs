@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RabbitMovement : enemymovement
@@ -14,6 +13,7 @@ public class RabbitMovement : enemymovement
 
     protected override void Movement()
     {
+
         secsSinceLastJump += Time.deltaTime;
 
         if (secsSinceLastJump > jumpCooldown && onGround)
@@ -31,5 +31,14 @@ public class RabbitMovement : enemymovement
     void Jump()
     {
         rb.velocity += new Vector3(0, jumpBoost, 0);
+    }
+
+    protected override IEnumerator Transformation()
+    {
+        moveSpeed = 0;
+        jumpCooldown = 0.1f;
+        gravityMultiplier = 5;
+        jumpBoost = 15;
+        return base.Transformation();
     }
 }
