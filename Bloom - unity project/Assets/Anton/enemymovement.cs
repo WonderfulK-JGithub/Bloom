@@ -8,7 +8,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     public float rotationSpeed = 18;
     public float moveSpeed = 4.5f;
     Rigidbody rb;
-    private bool chase;
+    private bool chase = true;
     bool onGround = false;
     public float detectionRange = 10;
     Coroutine wander;
