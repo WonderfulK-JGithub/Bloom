@@ -149,7 +149,7 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player") && detectionRange > 0)
         {
             collision.transform.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(5, 16));
         }
