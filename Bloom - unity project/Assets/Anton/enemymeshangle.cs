@@ -6,9 +6,9 @@ public class enemymeshangle : MonoBehaviour
 {
     public Transform parent;
     public Transform child;
+
     void Update()
     {
-        
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, 10, LayerMask.GetMask("Ground")))
         {
@@ -16,6 +16,21 @@ public class enemymeshangle : MonoBehaviour
 
             child.localRotation = Quaternion.Euler(0, parent.eulerAngles.y, 0);
         }
-        
+
+        //Debug.DrawRay(child.position + child.forward, -child.up + child.forward);
+        parent.GetComponent<enemymovement>().brake = !GroundAhead();
+    }
+
+    bool GroundAhead()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(child.position, -child.up + child.forward, out hit, 2))
+        {
+            return hit.transform.gameObject.layer == 6;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

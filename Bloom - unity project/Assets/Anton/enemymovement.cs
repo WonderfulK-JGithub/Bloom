@@ -14,6 +14,7 @@ public class enemymovement : MonoBehaviour
     public float detectionRange = 10;
     public PhysicMaterial[] materials;
     Coroutine wander;
+    public bool brake = false;
 
     void Start()
     {
@@ -79,14 +80,21 @@ public class enemymovement : MonoBehaviour
                 yield return 0;
             }
 
-            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
-
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 3f));
+            float secs = UnityEngine.Random.Range(1f, 3f);
+            float time = 0;
+            while (time < secs && !brake)
+            {
+                rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
+                rb.angularVelocity = new Vector3(0, 0, 0);
+                time += Time.deltaTime;
+                yield return 0;
+            }
+            
             rb.velocity = Physics.gravity;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 6)
         {
