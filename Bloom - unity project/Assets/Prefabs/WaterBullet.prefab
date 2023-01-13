@@ -4816,7 +4816,7 @@ GameObject:
   - component: {fileID: 4376629939099795335}
   - component: {fileID: 4376629939099795334}
   - component: {fileID: 4376629939099795328}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4854,7 +4854,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &4376629939099795334
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4881,7 +4881,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleTrail: {fileID: 3494090087311429502}
+  splashParticle: {fileID: 1062824231876019855, guid: 5987a75ad2edc924aad3745b486bceb2, type: 3}
   gravity: -2.455
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &7865151868937190819
 GameObject:
   m_ObjectHideFlags: 0
