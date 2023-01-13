@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemymovement : MonoBehaviour
+public class enemymovement : MonoBehaviour, IWaterable
 {
     public Transform target;
     public float rotationSpeed;
@@ -15,6 +15,7 @@ public class enemymovement : MonoBehaviour
     public PhysicMaterial[] materials;
     Coroutine wander;
     public bool brake = false;
+    public float hp = 1;
 
     void Start()
     {
@@ -37,6 +38,12 @@ public class enemymovement : MonoBehaviour
                     chase = true;
                 }
             }
+        }
+
+        if (hp <= 0)
+        {
+            print("death");
+            Destroy(gameObject);
         }
 
         if (chase)
@@ -62,7 +69,11 @@ public class enemymovement : MonoBehaviour
             //rb.angularVelocity = new Vector3(0, 0, 0);
         }
     }
-
+    public void Water()
+    {
+        hp -= 0.1f;
+        print("HP kvar: " + (hp * 100).ToString());
+    }
     IEnumerator Wander()
     {
         Vector3 startPos = transform.position;
@@ -95,6 +106,8 @@ public class enemymovement : MonoBehaviour
             rb.velocity = Physics.gravity;
         }
     }
+
+    
 
     private void OnCollisionStay(Collision collision)
     {
