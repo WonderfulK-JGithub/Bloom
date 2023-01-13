@@ -11,11 +11,13 @@ public class PlayerMovementScript : MonoBehaviour
 
     [SerializeField] float gravity = -29.46f;
     [SerializeField] float jumpForce = 500;
+    [SerializeField] float jumpCooldown = 0.3f;
 
     [Header("Info")]
     public static bool isGrounded = false;
     public static bool completelyGrounded = false;
     public static bool isMoving = false;
+    public bool canJump = true;
 
     Vector3 targetVelocity;
     Rigidbody rb;
@@ -58,7 +60,6 @@ public class PlayerMovementScript : MonoBehaviour
     {
         if (!(completelyGrounded && !isMoving))
             rb.velocity += new Vector3(0, gravity * Time.fixedDeltaTime, 0);
-            //rb.AddForce(Vector3.up * gravity * rb.mass * Time.fixedDeltaTime);
     }
 
     void GroundCheck()
@@ -69,10 +70,18 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Jump()
     {
-        if (!isGrounded) return;
+        if (!isGrounded || !canJump) return;
 
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce);
+
+        canJump = false;
+        Invoke(nameof(CanJumpAgain), jumpCooldown);
+    }
+
+    void CanJumpAgain()
+    {
+        canJump = true;
     }
 
     bool OverlapSphere(Vector3 position, float radius, LayerMask mask)

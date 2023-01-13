@@ -7,6 +7,7 @@ public class WaterBullet : MonoBehaviour
     
     [SerializeField] GameObject particleTrail;
 
+    [SerializeField] float gravity;
 
     Rigidbody rb;
 
@@ -38,6 +39,12 @@ public class WaterBullet : MonoBehaviour
 
         Destroy(gameObject);
         Destroy(particleTrail, 1f);
+    }
+
+    private void FixedUpdate() 
+    {
+        //Gravitation - Max
+        rb.velocity += new Vector3(0, gravity * Time.fixedDeltaTime, 0);
     }
 }
 
