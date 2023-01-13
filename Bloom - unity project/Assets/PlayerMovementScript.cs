@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerMovementScript : MonoBehaviour
 {
     [Header("Movement parameters")]
-    [SerializeField] float speed;
-    [SerializeField] float acceleration;
-    [SerializeField] float airAcceleration;
+    [SerializeField] float speed = 6;
+    [SerializeField] float acceleration = 10;
+    [SerializeField] float airAcceleration = 1;
 
-    [SerializeField] float gravity = -9.82f;
-    [SerializeField] float jumpForce;
+    [SerializeField] float gravity = -29.46f;
+    [SerializeField] float jumpForce = 500;
 
     [Header("Info")]
     public static bool isGrounded = false;
