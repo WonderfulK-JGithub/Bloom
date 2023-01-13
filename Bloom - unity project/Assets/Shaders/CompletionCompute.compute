@@ -1,0 +1,19 @@
+#pragma kernel CSMain
+
+
+int gridSize;
+
+RWTexture2D<float4> Result;
+
+RWStructuredBuffer<float> Grid;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    
+    float _value = Grid[id.y * gridSize + id.x];
+
+    Result[id.xy] = float4(_value, _value, _value, _value);
+    //Result[id.xy] = float4(1.0, 1.0, 1.0, 1.0);//float4(id.x & id.y, (id.x & 15) / 15.0, (id.y & 15) / 15.0, 1.0);
+
+}
