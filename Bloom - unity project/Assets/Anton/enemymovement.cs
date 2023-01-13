@@ -1,27 +1,25 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemymovement : MonoBehaviour, IWaterable
 {
     public Transform target;
-    public float rotationSpeed;
-    public float moveSpeed;
+    public float rotationSpeed = 18;
+    public float moveSpeed = 4.5f;
     Rigidbody rb;
-    public bool chase;
+    private bool chase;
     bool onGround = false;
     public float detectionRange = 10;
-    public PhysicMaterial[] materials;
     Coroutine wander;
-    public bool brake = false;
+    [HideInInspector] public bool brake = false;
     public float hp = 1;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-    void Update()
+    public virtual void Update()
     {
         bool lastchase = chase;
 
@@ -43,7 +41,8 @@ public class enemymovement : MonoBehaviour, IWaterable
         if (hp <= 0)
         {
             print("death");
-            Destroy(gameObject);
+            GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 1, 0, 1);
+            detectionRange = 0;
         }
 
         if (chase)

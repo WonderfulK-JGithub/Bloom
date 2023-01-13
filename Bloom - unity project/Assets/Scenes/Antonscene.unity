@@ -1333,7 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6133831748566739821}
   - component: {fileID: 6797180704936767961}
-  - component: {fileID: 6797180704936767960}
+  - component: {fileID: 6797180704936767963}
   - component: {fileID: 6797180704936767962}
   m_Layer: 0
   m_Name: enemy
@@ -1342,27 +1342,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6797180704936767960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6797180704936767959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb848d4bd46d2f8498d5688974b4e54a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1780903575}
-  rotationSpeed: 17.19
-  moveSpeed: 4.48
-  chase: 1
-  detectionRange: 10
-  materials:
-  - {fileID: 0}
-  - {fileID: 13400000, guid: c99ecd9b011943340bda25a3e05be2ab, type: 2}
-  brake: 0
 --- !u!54 &6797180704936767961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1392,3 +1371,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6797180704936767963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6797180704936767959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f699e396d0532f64f8691f4d60d602a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1780903575}
+  rotationSpeed: 18
+  moveSpeed: 4.5
+  detectionRange: 10
+  brake: 0
+  hp: 1
+  jumpBoost: 20
