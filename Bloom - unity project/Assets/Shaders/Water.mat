@@ -40,7 +40,7 @@ Material:
     - _Distortion: 0.01
     - _NormalSpeed: 0.2
     - _NormalStrength: 0.91
-    - _Smooth: 1
+    - _Smooth: 0.542
     - _VertexDisplacement: 0.03
     m_Colors: []
   m_BuildTextureStacks: []
