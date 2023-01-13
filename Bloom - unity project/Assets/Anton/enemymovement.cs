@@ -146,8 +146,14 @@ public class enemymovement : MonoBehaviour, IWaterable
         }
     }
 
-    
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            collision.transform.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(5, 16));
+        }
+    }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 6)
