@@ -13,6 +13,7 @@ public class enemymovement : MonoBehaviour
     bool onGround = false;
     public float detectionRange = 10;
     public PhysicMaterial[] materials;
+    Coroutine wander;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class enemymovement : MonoBehaviour
     }
     void Update()
     {
-        
+        bool lastchase = chase;
 
         chase = false;
 
@@ -38,10 +39,50 @@ public class enemymovement : MonoBehaviour
 
         if (chase)
         {
+            if (!lastchase)
+            {
+                StopCoroutine(wander);
+            }
+
             rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
 
             Quaternion fullRot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
             rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
+        }
+        else
+        {
+            if (lastchase)
+            {
+                wander = StartCoroutine(Wander());
+            }
+            //rb.velocity = Physics.gravity;
+            //rb.angularVelocity = new Vector3(0, 0, 0);
+        }
+    }
+
+    IEnumerator Wander()
+    {
+        Vector3 startPos = transform.position;
+        while (true)
+        {
+            float t = 0;
+            float randomRotation = UnityEngine.Random.Range(0f, 360f);
+
+            if (Mathf.Abs(transform.position.x - startPos.x) > 10 || Mathf.Abs(transform.position.z - startPos.z) > 10)
+            {
+                randomRotation = Quaternion.LookRotation(startPos).y + 180;
+            }
+            while (t < 1)
+            {
+                rb.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, randomRotation, 0)), t); 
+                t += Time.deltaTime;
+                yield return 0;
+            }
+
+            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
+
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 3f));
+            rb.velocity = Physics.gravity;
         }
     }
 

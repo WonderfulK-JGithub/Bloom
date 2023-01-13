@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MenuAnimations : MonoBehaviour
 {
@@ -27,7 +28,6 @@ public class MenuAnimations : MonoBehaviour
     public TextMeshProUGUI anyKeyText;
     public GameObject buttonParent;
     private Image[] buttons;
-    private TextMeshProUGUI[] buttonTexts;
     private Vector3 centerPos;
     private void Start()
     {
@@ -35,12 +35,10 @@ public class MenuAnimations : MonoBehaviour
         centerPos = windows[0].localPosition;
 
         buttons = buttonParent.GetComponentsInChildren<Image>();
-        buttonTexts = buttonParent.GetComponentsInChildren<TextMeshProUGUI>();
 
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].color -= new Color(0, 0, 0, 1);
-            buttonTexts[i].color -= new Color(0, 0, 0, 1);
             buttons[i].GetComponent<Button>().enabled = false;
         }
 
@@ -102,11 +100,11 @@ public class MenuAnimations : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             yield return new WaitForSeconds(buttonFadeDelay);
-            StartCoroutine(FadeButton(buttons[i], buttonTexts[i]));
+            StartCoroutine(FadeButton(buttons[i]));
         }
     }
 
-    IEnumerator FadeButton(Image button, TextMeshProUGUI buttonText)
+    IEnumerator FadeButton(Image button)
     {
         Vector3 targetPos = button.rectTransform.localPosition;
         button.rectTransform.localPosition -= new Vector3(0, 500, 0);
@@ -114,7 +112,6 @@ public class MenuAnimations : MonoBehaviour
         while (button.color.a < 1)
         {
             button.color += new Color(0, 0, 0, buttonFadeSpeed * Time.deltaTime);
-            buttonText.color += new Color(0, 0, 0, buttonFadeSpeed * Time.deltaTime);
 
             button.rectTransform.localPosition = Vector3.Lerp(button.rectTransform.localPosition, targetPos, button.color.a);
             yield return 0;
@@ -167,5 +164,10 @@ public class MenuAnimations : MonoBehaviour
     public void OpenScreen(int screen)
     {
         StartCoroutine(CenterCameraToScreen(screen));
+    }
+
+    public void LoadScene(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 }
