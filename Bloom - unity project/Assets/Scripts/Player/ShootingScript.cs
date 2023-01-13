@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShootingScript : MonoBehaviour
 {
@@ -15,7 +16,15 @@ public class ShootingScript : MonoBehaviour
 
     [SerializeField] float bulletCost = 5;
 
-    float ammo = 100;
+    float _ammo = 100;
+    float ammo
+    {
+        get { return _ammo; }
+        set { if (waterSlider != null) waterSlider.value = value / 100f; _ammo = value; }
+    }
+
+    [SerializeField] Slider waterSlider;
+
 
     private void Update()
     {
@@ -41,8 +50,19 @@ public class ShootingScript : MonoBehaviour
             ammo -= bulletCost;
             ammo = Mathf.Clamp(ammo, 0, 100);
 
+            AudioManager.current.PlaySound(AudioManager.AudioNames.WaterSpray);
+
             canShoot = false;
             Invoke(nameof(ActivateShoot), 1 / bulletsPerSecond);
+        }
+
+        RaycastHit hitWater;
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water")))
+        {
+            if (Input.GetMouseButton(1))
+            {
+                ammo = 100;
+            }
         }
     }
 

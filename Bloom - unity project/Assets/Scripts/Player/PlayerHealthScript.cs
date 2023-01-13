@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
     [SerializeField] int startHealth = 100;
-    int health;
+    int _health;
+    int health
+    {
+        get { return _health; }
+        set { if(healthSlider != null) healthSlider.value = value / 100f; _health = value; }
+    }
+
+    [SerializeField] Slider healthSlider; 
 
     private void Awake()
     {
@@ -30,7 +38,9 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     {
         if (transform.position.y < -20) Die();
 
+        #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.LeftControl)) Damage(10);
+        #endif
     }
 }
 
