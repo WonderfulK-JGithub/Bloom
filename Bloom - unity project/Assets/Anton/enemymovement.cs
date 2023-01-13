@@ -7,27 +7,31 @@ public class enemymovement : MonoBehaviour, IWaterable
     public Transform target;
     public float rotationSpeed = 18;
     public float moveSpeed = 4.5f;
-    Rigidbody rb;
+    protected Rigidbody rb;
     private bool chase = true;
-    bool onGround = false;
+    protected bool onGround = false;
     public float detectionRange = 10;
     Coroutine wander;
     [HideInInspector] public bool brake = false;
     public float hp = 1;
+    protected float distanceToPlayer;
+    protected bool lastchase = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
-    public virtual void Update()
+    protected virtual void Update()
     {
-        bool lastchase = chase;
+        lastchase = chase;
 
         chase = false;
+        distanceToPlayer = Vector3.Distance(transform.position + (transform.up * transform.lossyScale.y / 2), target.position);
 
         RaycastHit hit;
         Debug.DrawRay(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
-        if (Vector3.Distance(transform.position + (transform.up * transform.lossyScale.y / 2), target.position) < detectionRange)
+        if (distanceToPlayer < detectionRange)
         {
             if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange))
             {
@@ -40,10 +44,19 @@ public class enemymovement : MonoBehaviour, IWaterable
 
         if (hp <= 0)
         {
-            print("death");
-            GetComponentInChildren<MeshRenderer>().material.color = new Color(0, 1, 0, 1);
-            detectionRange = 0;
+            StartCoroutine(Transformation());
         }
+
+        Movement();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity += Gravity() * Time.fixedDeltaTime;
+    }
+
+    protected virtual void Movement()
+    {
 
         if (chase)
         {
@@ -64,10 +77,31 @@ public class enemymovement : MonoBehaviour, IWaterable
             {
                 wander = StartCoroutine(Wander());
             }
-            //rb.velocity = Physics.gravity;
+            //rb.velocity = Gravity();
             //rb.angularVelocity = new Vector3(0, 0, 0);
         }
     }
+
+    protected virtual IEnumerator Transformation()
+    {
+        detectionRange = 0;
+
+        float t = 0;
+        Vector3 scale = transform.localScale;
+        Vector3 targetScale = transform.localScale / 2;
+
+        while (t < 1)
+        {
+            transform.localScale = Vector3.Lerp(scale, targetScale, t);
+            GetComponentInChildren<MeshRenderer>().material.color = new Color(1 - t, t, 0, 1);
+
+            t += Time.deltaTime;
+            yield return 0;
+        }
+
+    }
+    protected virtual Vector3 Gravity() { return Physics.gravity; }
+
     public void Water()
     {
         hp -= 0.1f;
@@ -96,13 +130,13 @@ public class enemymovement : MonoBehaviour, IWaterable
             float time = 0;
             while (time < secs && !brake)
             {
-                rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
+                rb.velocity = (transform.forward * moveSpeed) + Gravity() * Convert.ToInt32(!onGround);
                 rb.angularVelocity = new Vector3(0, 0, 0);
                 time += Time.deltaTime;
                 yield return 0;
             }
-            
-            rb.velocity = Physics.gravity;
+
+            rb.velocity = Gravity();
         }
     }
 
