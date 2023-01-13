@@ -469,7 +469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373134048}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb848d4bd46d2f8498d5688974b4e54a, type: 3}
   m_Name: 
@@ -478,7 +478,7 @@ MonoBehaviour:
   rotationSpeed: 17.19
   moveSpeed: 4.48
   chase: 1
-  detectionRange: 15
+  detectionRange: 5
   materials:
   - {fileID: 0}
   - {fileID: 13400000, guid: c99ecd9b011943340bda25a3e05be2ab, type: 2}
@@ -508,7 +508,7 @@ Transform:
   m_GameObject: {fileID: 373134048}
   m_LocalRotation: {x: -0, y: -0.9659258, z: -0, w: 0.25881916}
   m_LocalPosition: {x: 1.48, y: 2.83, z: 5.72}
-  m_LocalScale: {x: 3.1762, y: 3.1762, z: 3.1762}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1098255271}
   m_Father: {fileID: 0}

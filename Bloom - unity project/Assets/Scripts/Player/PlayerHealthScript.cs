@@ -8,6 +8,11 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     [SerializeField] int startHealth = 100;
     int health;
 
+    private void Awake()
+    {
+        health = startHealth;
+    }
+
     public void Damage(int damage)
     {
         health -= damage;
@@ -24,6 +29,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     void Update()
     {
         if (transform.position.y < -20) Die();
+
+        if (Input.GetKeyDown(KeyCode.LeftControl)) Damage(10);
     }
 }
 
