@@ -27,9 +27,10 @@ public class enemymovement : MonoBehaviour
         chase = false;
 
         RaycastHit hit;
-        if (Vector3.Distance(transform.position, target.position) < detectionRange)
+        Debug.DrawRay(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
+        if (Vector3.Distance(transform.position + (transform.up * transform.lossyScale.y / 2), target.position) < detectionRange)
         {
-            if (Physics.Raycast(transform.position, (target.position - transform.position), out hit, detectionRange))
+            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange))
             {
                 if (hit.transform == target)
                 {
