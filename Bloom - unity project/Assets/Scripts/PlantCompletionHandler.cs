@@ -7,56 +7,52 @@ public class PlantCompletionHandler : MonoBehaviour
 {
     public static PlantCompletionHandler current;
 
-    [SerializeField] int gridSize;
-    [SerializeField] float unitsPerGrid;
-    public RenderTexture completionTexture;
-    [SerializeField] ComputeShader completionCompute;
+    [SerializeField] float plantReach;
 
+    ComputeBuffer plantDataBuffer;
 
-    public List<Material> grounds;
-    
+    public Material groundMaterial;
 
-    float[] plantCompletionGrid;
+    Plant[] plants;
+
+    Vector3[] plantCompletionGrid;
+
+    int gridLength;
+
     void Awake()
     {
-        plantCompletionGrid = new float[gridSize * gridSize];
-        current = this;
-        //completionTexture.enableRandomWrite = true;
-
-        completionTexture = new RenderTexture(gridSize, gridSize, 24);
-        completionTexture.enableRandomWrite = true;
-        completionTexture.filterMode = FilterMode.Point;
-        completionTexture.Create();
         
+        current = this;
 
-        completionCompute.SetInt("gridSize", gridSize);
+        plants = FindObjectsOfType<Plant>();
 
-        foreach (var item in grounds)
+        gridLength = plants.Length;
+
+        for (int i = 0; i < plants.Length; i++)
         {
-            item.SetTexture("_CompletionTexture", completionTexture);
-            item.SetFloat("_UnitsPerPixel", unitsPerGrid);
-            item.SetVector("_CompletionTexel", completionTexture.texelSize);
-            item.SetFloat("_GridSize", gridSize);
-            
+            plants[i].plantID = i;
         }
+
+
+        plantCompletionGrid = new Vector3[gridLength];
+
+        plantDataBuffer = new ComputeBuffer(plantCompletionGrid.Length, sizeof(float) * 3);
+        plantDataBuffer.SetData(plantCompletionGrid);
+
+        groundMaterial.SetFloat("_plantReach", plantReach);
+        groundMaterial.SetInt("_bufferLength", gridLength);
+        groundMaterial.SetBuffer("_plantBuffer", plantDataBuffer);
     }
 
     
-    public void SetGridBox(float _value, Vector3 _position)
+    public void SetGridBox(float _value, Vector3 _position, int _index)
     {
-        Vector2Int _gridPosition = new Vector2Int(Mathf.RoundToInt(_position.x / unitsPerGrid) + gridSize / 2, Mathf.RoundToInt(_position.z / unitsPerGrid) + gridSize / 2);
+        plantCompletionGrid[_index] = new Vector3(_position.x, _position.z, _value);
+        plantDataBuffer.SetData(plantCompletionGrid);
+    }
 
-        plantCompletionGrid[_gridPosition.y * gridSize + _gridPosition.x] = 1f;
-
-        ComputeBuffer _infoBuffer = new ComputeBuffer(plantCompletionGrid.Length, sizeof(float));
-        _infoBuffer.SetData(plantCompletionGrid);
-
-        completionCompute.SetBuffer(0, "Grid", _infoBuffer);
-        completionCompute.SetTexture(0, "Result", completionTexture);
-
-        completionCompute.Dispatch(0, Mathf.CeilToInt(gridSize / 8), Mathf.CeilToInt(gridSize / 8), 1);
-
-        _infoBuffer.Dispose();
-
+    private void OnDisable()
+    {
+        plantDataBuffer.Dispose();
     }
 }

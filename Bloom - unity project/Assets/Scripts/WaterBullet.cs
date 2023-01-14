@@ -36,9 +36,9 @@ public class WaterBullet : MonoBehaviour
         Ray _ray = new Ray(lastPos, _direction);
         RaycastHit _hit;
 
-        print(Physics.Raycast(_ray, out _hit));
-        print(_hit.point.x + " " + _hit.point.y + " " + _hit.point.z);
-
+        //print(Physics.Raycast(_ray, out _hit));
+        //print(_hit.point.x + " " + _hit.point.y + " " + _hit.point.z);
+        Physics.Raycast(_ray, out _hit);
 
         Debug.DrawRay(lastPos, _direction,Color.red);
         Debug.DrawRay(_hit.point, _hit.normal);

@@ -9,6 +9,8 @@ public class Plant : MonoBehaviour,IWaterable
     [SerializeField] float fillPerShoot;
     [SerializeField] float fillSpeed;
 
+    public int plantID;
+
     float waterValue;
     public float WaterValue
     {
@@ -42,7 +44,7 @@ public class Plant : MonoBehaviour,IWaterable
     {
         WaterValue += fillPerShoot;
 
-        PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position);
+        PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position,plantID);
     }
 
     
