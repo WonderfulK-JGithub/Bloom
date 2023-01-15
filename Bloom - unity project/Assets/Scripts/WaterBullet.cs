@@ -13,6 +13,7 @@ public class WaterBullet : MonoBehaviour
     Rigidbody rb;
     SphereCollider col;
     Vector3 lastPos;
+    RaycastHit lastHit;
 
     private void Awake()
     {
@@ -29,27 +30,14 @@ public class WaterBullet : MonoBehaviour
     
     void Splash(Collider _other)
     {
-        Vector3 _hitPoint = _other.ClosestPointOnBounds(lastPos);
+       
 
-        Vector3 _direction = (_hitPoint - lastPos).normalized;
 
-        Ray _ray = new Ray(lastPos, _direction);
-        RaycastHit _hit;
+        
 
-        print(Physics.Raycast(_ray, out _hit));
-        print(_hit.point.x + " " + _hit.point.y + " " + _hit.point.z);
-        Physics.Raycast(_ray, out _hit);
-
-        Debug.DrawRay(lastPos, _direction,Color.red);
-        //Debug.DrawRay(_hit.point, _hit.normal);
-        print(_direction);
-
-        //felet är kjs fel
-        Debug.LogError("a");
-
-        Transform _trans = Instantiate(splashParticle, _hitPoint + _hit.normal * 0.05f, Quaternion.identity).transform;
-        _trans.up = _hit.normal;
-        //_trans.SetParent(_other.transform);
+        Transform _trans = Instantiate(splashParticle, lastHit.point, Quaternion.identity).transform;
+        _trans.up = lastHit.normal;
+        _trans.SetParent(_other.transform);
         Destroy(_trans.gameObject, 1.5f);
 
         particleTrail.transform.SetParent(null);
@@ -62,6 +50,10 @@ public class WaterBullet : MonoBehaviour
     {
         //Gravitation - Max
         rb.velocity += new Vector3(0, gravity * Time.fixedDeltaTime, 0);
+
+        
+
+        
 
         Collider[] _others = Physics.OverlapSphere(transform.position, col.radius * transform.localScale.x, ~ignoreLayers);
 
@@ -78,6 +70,11 @@ public class WaterBullet : MonoBehaviour
                 }
             }
             
+        }
+
+        if (Physics.Raycast(transform.position, rb.velocity.normalized, out RaycastHit _hit))
+        {
+            lastHit = _hit;
         }
 
         lastPos = transform.position;
