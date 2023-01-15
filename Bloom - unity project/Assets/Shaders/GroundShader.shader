@@ -358,7 +358,7 @@ Varyings LitPassVertex(Attributes input)
             float _avarage = (color.r + color.g + color.b) / 3.0;
 
             float _strength = (1 - _value) * _SaturationStrength;
-            float _gammaStrength = (1 - _value) * _GammaEffect;
+            float _gammaStrength = 1;//(1 - _value) * _GammaEffect;
 
             half3 _saturatedColor = color.rgb * (1.0 - _strength) + _avarage * _strength;
 
