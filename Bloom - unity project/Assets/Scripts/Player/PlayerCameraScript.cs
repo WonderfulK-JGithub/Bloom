@@ -21,6 +21,8 @@ public class PlayerCameraScript : MonoBehaviour
 
     Rigidbody rb;
 
+    public static bool canLook = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,6 +32,8 @@ public class PlayerCameraScript : MonoBehaviour
 
     void Update()
     {
+        if (!canLook) return;
+
         float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity;
         float mouseY = Input.GetAxisRaw("Mouse Y") * sensitivity;
 

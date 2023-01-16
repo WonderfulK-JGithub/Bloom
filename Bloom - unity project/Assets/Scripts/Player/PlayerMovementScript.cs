@@ -22,6 +22,8 @@ public class PlayerMovementScript : MonoBehaviour
     Vector3 targetVelocity;
     Rigidbody rb;
 
+    public static bool canMove = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,6 +31,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove) return;
+
         GroundCheck();
 
         Vector3 input = Vector3.zero;

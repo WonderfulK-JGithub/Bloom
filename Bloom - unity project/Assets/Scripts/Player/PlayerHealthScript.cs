@@ -30,6 +30,14 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void Die()
     {
+        PlayerCameraScript.canLook = false;
+        PlayerMovementScript.canMove = false;
+
+        Invoke(nameof(Restart), 2f);
+    }
+
+    void Restart()
+    {
         //Temporärt, gör nåt bättre - Max
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
