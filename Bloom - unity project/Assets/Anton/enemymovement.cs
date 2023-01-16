@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemymovement : MonoBehaviour, IWaterable
 {
-    public Transform target;
+    protected Transform target;
     public float rotationSpeed = 18;
     public float moveSpeed = 4.5f;
     protected Rigidbody rb;
@@ -20,6 +20,7 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
