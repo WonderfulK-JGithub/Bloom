@@ -5,9 +5,11 @@ using UnityEngine;
 public class Plant : MonoBehaviour,IWaterable
 {
     [SerializeField] float meshHeight;
-    [SerializeField] Material mat;
+    //[SerializeField] Material mat;
     [SerializeField] float fillPerShoot;
     [SerializeField] float fillSpeed;
+
+    Renderer rend;
 
     public int plantID;
 
@@ -29,7 +31,8 @@ public class Plant : MonoBehaviour,IWaterable
 
     private void Awake()
     {
-        mat.SetFloat("_Height", meshHeight);
+        rend = GetComponent<Renderer>();
+        rend.material.SetFloat("_Height", meshHeight);
         shaderValue = -suspect;
     }
 
@@ -37,7 +40,7 @@ public class Plant : MonoBehaviour,IWaterable
     {
         //shaderValue = Mathf.MoveTowards(shaderValue, WaterValue * suspect * 2f - suspect,fillSpeed * Time.deltaTime);
         shaderValue = Mathf.Lerp(shaderValue, WaterValue * suspect * 2f - suspect,  fillSpeed * Time.deltaTime * 60f);
-        mat.SetFloat("_Value", shaderValue);
+        rend.material.SetFloat("_Value", shaderValue);
     }
 
     public void Water()
