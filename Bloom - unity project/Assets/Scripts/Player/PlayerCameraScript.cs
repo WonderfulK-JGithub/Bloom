@@ -22,12 +22,17 @@ public class PlayerCameraScript : MonoBehaviour
     Rigidbody rb;
 
     public static bool canLook = true;
+    public Transform deathObj;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        canLook = true;
+
+        deathObj = transform;
     }
 
     void Update()
@@ -46,6 +51,20 @@ public class PlayerCameraScript : MonoBehaviour
         rb.MoveRotation(Quaternion.Euler(0,yRot,0));
 
         HeadBob();
+    }
+
+    private void LateUpdate()
+    {
+        if (!canLook)
+        {
+            cam.transform.position = deathObj.position + deathObj.up * 0.75f;
+        }
+    }
+
+    public void OnDeath()
+    {
+        cam.transform.parent = null;
+        cam.transform.GetChild(0).parent = transform;
     }
 
     void HeadBob()

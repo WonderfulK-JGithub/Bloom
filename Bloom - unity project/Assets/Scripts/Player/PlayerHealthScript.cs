@@ -14,11 +14,15 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         set { if(healthSlider != null) healthSlider.value = value / 100f; _health = value; }
     }
 
+    public static bool isDead = false;
+
     [SerializeField] Slider healthSlider; 
 
     private void Awake()
     {
         health = startHealth;
+
+        isDead = false;
     }
 
     public void Damage(int damage)
@@ -30,8 +34,21 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         PlayerCameraScript.canLook = false;
         PlayerMovementScript.canMove = false;
+        FindObjectOfType<PlayerCameraScript>().OnDeath();
+
+        GameObject deathObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        deathObj.transform.position = transform.position + new Vector3(0, 1, 0);
+        deathObj.AddComponent<Rigidbody>();
+        Physics.IgnoreCollision(deathObj.GetComponent<CapsuleCollider>(), GetComponentInChildren<CapsuleCollider>());
+        deathObj.GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        FindObjectOfType<PlayerCameraScript>().deathObj = deathObj.transform;
 
         Invoke(nameof(Restart), 2f);
     }

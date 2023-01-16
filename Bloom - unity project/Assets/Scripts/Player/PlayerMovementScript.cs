@@ -27,6 +27,8 @@ public class PlayerMovementScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        canMove = true;
     }
 
     private void Update()

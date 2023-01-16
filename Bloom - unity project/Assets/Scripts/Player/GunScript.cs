@@ -36,7 +36,7 @@ public class GunScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        gun.localPosition = cam.transform.localPosition;
+        gun.localPosition = cam.transform.localPosition + new Vector3(0,1.75f, 0) * System.Convert.ToInt32(PlayerCameraScript.canLook);
 
         offset = Vector3.Lerp(offset, playerRb.velocity * velocityMultiplier, velocitySmooth * Time.deltaTime);
         gun.position -= offset;
