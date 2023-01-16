@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 946678069525654199}
   - component: {fileID: 946678069525654198}
   - component: {fileID: 1342690425984049648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rabbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 6014321348708128384}
   - component: {fileID: 6014321348708128412}
   - component: {fileID: 6014321348708128387}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6014321348712194758}
   - component: {fileID: 6014321348712194754}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mesh parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}

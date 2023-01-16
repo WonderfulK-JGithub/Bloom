@@ -23,7 +23,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
-    protected virtual void Update()
+    void Update()
     {
         lastchase = chase;
 
@@ -34,11 +34,12 @@ public class enemymovement : MonoBehaviour, IWaterable
         Debug.DrawRay(transform.position  + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
         if (distanceToPlayer < detectionRange)
         {
-            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange))
+            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, ~(1 << 9)))
             {
+                print(hit.transform.gameObject.name);
                 if (hit.transform == target)
                 {
-                    print(hit.transform.gameObject);
+                    
                     chase = true;
                 }
             }

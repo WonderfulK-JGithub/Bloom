@@ -20,11 +20,11 @@ public class RabbitMovement : enemymovement
         secsSinceLastJump += Time.deltaTime;
         secsSinceLastDamage += Time.deltaTime;
 
-        print((transform.forward * moveSpeed * Convert.ToInt32(chase)));
+        //print((transform.forward * moveSpeed * Convert.ToInt32(chase)));
         if (secsSinceLastJump > jumpCooldown && onGround && (distanceToPlayer > attackRange))
         {
             secsSinceLastJump = 0;
-            //Jump();
+            Jump();
         }
         else if (distanceToPlayer <= attackRange && secsSinceLastDamage > damageCooldown && detectionRange > 0)
         {
