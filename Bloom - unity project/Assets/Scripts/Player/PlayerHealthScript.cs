@@ -46,7 +46,11 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         deathObj.AddComponent<Rigidbody>();
         Physics.IgnoreCollision(deathObj.GetComponent<CapsuleCollider>(), GetComponentInChildren<CapsuleCollider>());
         deathObj.GetComponent<MeshRenderer>().enabled = false;
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        deathObj.GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+
+        GetComponentInChildren<CapsuleCollider>().enabled = false;
+        gameObject.isStatic = true;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         FindObjectOfType<PlayerCameraScript>().deathObj = deathObj.transform;
 

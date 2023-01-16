@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform gun;
     [SerializeField] Camera cam;
+    [SerializeField] Camera weaponCam;
     Rigidbody playerRb;
 
     Vector3 offset;
@@ -36,7 +37,14 @@ public class GunScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        gun.localPosition = cam.transform.localPosition + new Vector3(0,1.75f, 0) * System.Convert.ToInt32(PlayerCameraScript.canLook);
+        if (PlayerCameraScript.canLook)
+        {
+            gun.localPosition = cam.transform.localPosition;
+        }
+        else
+        {
+            gun.localPosition = weaponCam.transform.localPosition;
+        }
 
         offset = Vector3.Lerp(offset, playerRb.velocity * velocityMultiplier, velocitySmooth * Time.deltaTime);
         gun.position -= offset;
@@ -49,6 +57,8 @@ public class GunScript : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerCameraScript.canLook) return;
+
         //gun.localRotation = Quaternion.Lerp(gun.localRotation, Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f), followCameraSpeed * Time.deltaTime);
 
         // get mouse input

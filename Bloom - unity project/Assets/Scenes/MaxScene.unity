@@ -1173,7 +1173,8 @@ MonoBehaviour:
   weaponBobSpeed: {x: 7.5, y: 15}
   weaponBobSmooth: 10
   gun: {fileID: 271003223}
-  cam: {fileID: 986602260}
+  cam: {fileID: 783864258}
+  weaponCam: {fileID: 986602260}
 --- !u!114 &636801052
 MonoBehaviour:
   m_ObjectHideFlags: 0
