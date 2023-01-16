@@ -31,13 +31,14 @@ public class enemymovement : MonoBehaviour, IWaterable
         distanceToPlayer = Vector3.Distance(transform.position + (transform.up * transform.lossyScale.y / 2), target.position);
 
         RaycastHit hit;
-        // Debug.DrawRay(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
+        Debug.DrawRay(transform.position  + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
         if (distanceToPlayer < detectionRange)
         {
             if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange))
             {
                 if (hit.transform == target)
                 {
+                    print(hit.transform.gameObject);
                     chase = true;
                 }
             }
