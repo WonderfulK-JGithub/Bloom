@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seagull : MonoBehaviour
+public class Seagull : MonoBehaviour,IWaterable
 {
+    [Header("General")]
+    [SerializeField] float rotationSpeed;
+    [SerializeField] int healthPoints;
+
+    [Header("Idle")]
     [SerializeField] float walkSpeed;
     [SerializeField] float idleRadius;
     [SerializeField] float timeBetweenIdleWalk;
@@ -24,16 +29,19 @@ public class Seagull : MonoBehaviour
     [Header("Dive")]
     [SerializeField] float diveSpeed;
     [SerializeField] AnimationCurve diveCurve;
+    [SerializeField] AnimationCurve diveCurveX;
     [SerializeField] float yOffset;
 
     SeagullState state;
 
     Rigidbody rb;
+    Collider col;
 
     Vector3 targetPos;
     Vector3 centerPos;
 
     Vector3 currentThing;
+    Vector3 targetForward;
 
     float timer;
     float rotationAroundPlayer;
@@ -44,15 +52,13 @@ public class Seagull : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+
         centerPos = transform.position;
     }
 
     private void Update()
     {
-        
-
-        
-
 
         switch (state)
         {
@@ -104,15 +110,18 @@ public class Seagull : MonoBehaviour
         {
             case SeagullState.Idle:
                 #region
-                rb.useGravity = true;
 
                 rb.velocity = walkSpeed * (targetPos - transform.position).normalized;
 
-                if(Vector3.Distance(transform.position,targetPos) < walkSpeed * Time.fixedDeltaTime)
+                targetForward = rb.velocity.normalized;
+
+                if (Vector3.Distance(transform.position,targetPos) < walkSpeed * Time.fixedDeltaTime)
                 {
                     rb.velocity = Vector3.zero;
                     transform.position = targetPos;
                 }
+
+
 
                 Collider[] _player = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
                 if(_player.Length > 0)
@@ -120,9 +129,11 @@ public class Seagull : MonoBehaviour
                     player = _player[0].transform;
 
                     state = SeagullState.StartCircle;
+                    rb.useGravity = false;
+                    col.isTrigger = true;
 
                     Vector2 _distanceDir = new Vector2(player.position.x - transform.position.x, player.position.z - transform.position.z).normalized;
-                    rotationAroundPlayer = Vector2.Angle(Vector2.up, _distanceDir);
+                    rotationAroundPlayer = Vector2.Angle(Vector2.up, _distanceDir) - 90f;
                     
                     if (transform.position.x < player.position.x) rotationAroundPlayer += 180;
                     print(rotationAroundPlayer);
@@ -133,7 +144,6 @@ public class Seagull : MonoBehaviour
                 break;
             case SeagullState.StartCircle:
                 #region
-                rb.useGravity = false;
 
                 _radiusOffset = playerCircleRadius * new Vector3(Mathf.Cos(rotationAroundPlayer * Mathf.Deg2Rad), 0f, Mathf.Sin(rotationAroundPlayer * Mathf.Deg2Rad)).normalized;
 
@@ -143,18 +153,19 @@ public class Seagull : MonoBehaviour
 
                 transform.position = new Vector3(player.position.x + currentThing.x, _yPos, player.position.z + currentThing.z);
 
-                
+                targetForward = (_radiusOffset - currentThing).normalized;
                 if (currentThing == _radiusOffset)
                 {
                     state = SeagullState.FlyUp;
                     timer = 0f;
+
+
                 }
 
                 break;
             #endregion
             case SeagullState.FlyUp:
                 #region
-                rb.useGravity = false;
 
                 rotationAroundPlayer += playerCircleSpeed * Time.fixedDeltaTime;
                 
@@ -167,20 +178,60 @@ public class Seagull : MonoBehaviour
                 _yPos = Mathf.MoveTowards(transform.position.y, player.position.y + heightOverPlayer, verticalSpeed * Time.fixedDeltaTime);
 
                 transform.position = new Vector3(player.position.x + currentThing.x, _yPos, player.position.z + currentThing.z);
+                
 
+                Vector2 _circularDir = Vector2.Perpendicular(new Vector2(player.position.x, player.position.z) - new Vector2(transform.position.x, transform.position.z)).normalized;
+
+                targetForward = new Vector3(_circularDir.x,0f,_circularDir.y) * -1f;
                 #endregion
                 break;
             case SeagullState.Dive:
 
                 float _targetY = player.position.y + yOffset;
 
-                float _relativeDiveSpeed = diveCurve.Evaluate(Mathf.InverseLerp(diveStartY, _targetY, transform.position.y));
+                float _percent = Mathf.InverseLerp(diveStartY, _targetY, transform.position.y);
+
+                float _relativeDiveSpeed = diveCurve.Evaluate(_percent);
+                float _relativeDiveSpeedX = diveCurveX.Evaluate(_percent);
                 _yPos = Mathf.MoveTowards(transform.position.y, _targetY, diveSpeed * _relativeDiveSpeed * Time.deltaTime);
 
                 transform.position = new Vector3(transform.position.x, _yPos, transform.position.z);
-                
+
+                Vector3 _dirToPlayer = (new Vector3(player.position.x, 0f, player.position.z) - new Vector3(transform.position.x, 0f, transform.position.z)).normalized;
+                rb.velocity = _dirToPlayer * horizontalSpeed * _relativeDiveSpeedX;
+
+                targetForward = (rb.velocity + diveSpeed * _relativeDiveSpeed * Vector3.down).normalized;
 
                 break;
+        }
+
+        float _extraSpeed = state == SeagullState.FlyUp ? 2f : 1f;
+
+        transform.forward = Vector3.MoveTowards(transform.forward,targetForward,rotationSpeed * Time.deltaTime * _extraSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            
+            if(state == SeagullState.Dive)
+            {
+                state = SeagullState.StartCircle;
+                rotationAroundPlayer -= 180f;
+                currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
+                
+            }
+        }
+    }
+
+    public void Water()
+    {
+        healthPoints--;
+
+        if(healthPoints == 0)
+        {
+
         }
     }
 }

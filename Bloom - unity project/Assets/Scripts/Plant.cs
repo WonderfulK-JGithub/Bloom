@@ -45,9 +45,11 @@ public class Plant : MonoBehaviour,IWaterable
 
     public void Water()
     {
+        if (WaterValue == 1f) return;
+
         WaterValue += fillPerShoot;
 
-        PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position,plantID);
+        if(WaterValue == 1f) PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position,plantID);
     }
 
     

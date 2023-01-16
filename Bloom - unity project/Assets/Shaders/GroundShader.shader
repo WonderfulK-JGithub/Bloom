@@ -92,6 +92,7 @@ Shader "Universal Render Pipeline/GroundShader"
 
         int _bufferLength;
         float _plantReach;
+        float _innerPlantReach;
         StructuredBuffer<float3> _plantBuffer;
 
         ENDHLSL
@@ -350,10 +351,11 @@ Varyings LitPassVertex(Attributes input)
             for (int i = 0; i < _bufferLength; i++)
             {
                 float2 _plantPos = _plantBuffer[i].xy;
-                _value += _plantBuffer[i].z * saturate(1 -distance(_plantPos, input.worldSpacePos.xz) / _plantReach);
+                _value += _plantBuffer[i].z * saturate(1 -distance(_plantPos, input.worldSpacePos.xz) / _plantReach) * _innerPlantReach;
             }
 
             _value = min(_value, 1);
+            //_value = floor(_value);
 
             float _avarage = (color.r + color.g + color.b) / 3.0;
 
