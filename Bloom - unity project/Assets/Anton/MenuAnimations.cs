@@ -16,6 +16,7 @@ public class MenuAnimations : MonoBehaviour
     public float logoMoveSpeed = 1;
     public float buttonFadeSpeed = 2;
     public float buttonFadeDelay = 0.1f;
+    public float sceneLoadTime = 1;
     bool awaitInput = false;
     public float screenAnimationSpeed = 1;
     [Space]
@@ -29,10 +30,12 @@ public class MenuAnimations : MonoBehaviour
     public GameObject buttonParent;
     private Image[] buttons;
     private Vector3 centerPos;
+    public Image black;
     private void Start()
     {
         logoTargetPos.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         centerPos = windows[0].localPosition;
+        black.gameObject.SetActive(false);
 
         buttons = buttonParent.GetComponentsInChildren<Image>();
 
@@ -119,6 +122,19 @@ public class MenuAnimations : MonoBehaviour
 
         button.GetComponent<Button>().enabled = true;
     }
+    IEnumerator LoadSceneAnim(int scene)
+    {
+        float t = 0;
+        black.gameObject.SetActive(true);
+
+        while (t < 1)
+        {
+            black.color = Color.Lerp(new Color(0, 0, 0, 0), new Color(0, 0, 0, 1), t);
+            t += Time.deltaTime * sceneLoadTime;
+            yield return 0;
+        }
+        SceneManager.LoadScene(scene);
+    }
 
     IEnumerator CenterCameraToScreen(int screen)
     {
@@ -168,6 +184,6 @@ public class MenuAnimations : MonoBehaviour
 
     public void LoadScene(int index)
     {
-        SceneManager.LoadScene(index);
+        StartCoroutine(LoadSceneAnim(index));
     }
 }

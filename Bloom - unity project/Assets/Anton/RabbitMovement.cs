@@ -10,7 +10,7 @@ public class RabbitMovement : enemymovement
     public float jumpCooldown = 2.5f;
     public float damageCooldown = 5;
     public float gravityMultiplier = 2;
-    public float attackRange = 2;
+    public float attackRange = 3;
 
     float secsSinceLastJump = 0;
     float secsSinceLastDamage = 0;
