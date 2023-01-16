@@ -20,10 +20,12 @@ public class ShootingScript : MonoBehaviour
     float ammo
     {
         get { return _ammo; }
-        set { if (waterSlider != null) waterSlider.value = value / 100f; _ammo = value; }
+        set { value = Mathf.Clamp(value, 0, 100); if (waterSlider != null) waterSlider.value = value / 100f; _ammo = value; }
     }
 
     [SerializeField] Slider waterSlider;
+
+    [SerializeField] float waterReloadSpeed;
 
 
     private void Update()
@@ -56,12 +58,18 @@ public class ShootingScript : MonoBehaviour
             Invoke(nameof(ActivateShoot), 1 / bulletsPerSecond);
         }
 
-        RaycastHit hitWater;
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water")))
+
+        if (Input.GetMouseButton(1))
         {
-            if (Input.GetMouseButton(1))
+            RaycastHit hitWater;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water")))
             {
-                ammo = 100;
+                if (Input.GetMouseButtonDown(1) && ammo != 100)
+                {
+                    AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
+                }
+
+                ammo += waterReloadSpeed * Time.deltaTime;
             }
         }
     }

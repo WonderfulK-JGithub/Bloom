@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
@@ -16,13 +18,30 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public static bool isDead = false;
 
-    [SerializeField] Slider healthSlider; 
+    [SerializeField] Slider healthSlider;
+
+    [SerializeField] float damageOverlayFadeSpeed;
+    Image damageOverlay;
+    Image damageOverlay2;
+
+    ColorAdjustments colAd;
 
     private void Awake()
     {
+        Volume volume = FindObjectOfType<Volume>();
+        ColorAdjustments tmp;
+
+        if (volume.profile.TryGet<ColorAdjustments>(out tmp))
+        {
+            colAd = tmp;
+        }
+
         health = startHealth;
 
         isDead = false;
+
+        damageOverlay = GameObject.Find("DamageOverlay").GetComponent<Image>();
+        damageOverlay2 = GameObject.Find("DamageOverlay (1)").GetComponent<Image>();
     }
 
     public void Damage(int damage)
@@ -30,7 +49,45 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         health -= damage;
 
         if (health <= 0) Die();
+
+        if(health <= 40)
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
+            StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
+            if (colAd != null)
+                StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
+        }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeTo(damageOverlay, 0));
+            StartCoroutine(FadeTo(damageOverlay2, 0));
+            if (colAd != null)
+                StartCoroutine(FadeSaturation(0));
+        }
     }
+
+    IEnumerator FadeTo(Image img, float target)
+    {
+        while (Mathf.Abs(img.color.a - target) > 0.01f)
+        {
+            Color newColor = new Color(img.color.r, img.color.g, img.color.b, Mathf.Lerp(img.color.a, target, damageOverlayFadeSpeed * Time.deltaTime));
+            img.color = newColor;
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeSaturation(float target)
+    {
+        while (Mathf.Abs(colAd.saturation.value - target) > 0.01f)
+        {
+            if (colAd == null) break;
+            colAd.saturation.value = Mathf.Lerp(colAd.saturation.value, target, damageOverlayFadeSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
 
     public void Die()
     {
