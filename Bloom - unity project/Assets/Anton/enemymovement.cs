@@ -11,7 +11,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected bool chase = true;
     protected bool onGround = false;
     public float detectionRange = 10;
-    Coroutine wander;
+    protected Coroutine wander;
     [HideInInspector] public bool brake = false;
     public float hp = 100;
     protected float distanceToPlayer;
@@ -131,7 +131,7 @@ public class enemymovement : MonoBehaviour, IWaterable
             print("HP kvar: " + Mathf.Round(hp).ToString());
         }
     }
-    IEnumerator Wander()
+    protected virtual IEnumerator Wander()
     {
         Vector3 startPos = transform.position;
         while (true)

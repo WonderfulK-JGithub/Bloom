@@ -5,16 +5,28 @@ using UnityEngine;
 public class IgelkottMovement : enemymovement
 {
     [Header("Hedgehog specific ---------")]
-    int lol;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float attackRange = 3;
+    bool atPlayer;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Movement()
     {
-        
+        atPlayer = distanceToPlayer < attackRange;
+
+        if (chase)
+        {
+            if (!lastchase)
+            {
+                StopCoroutine(wander);
+            }
+
+            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * System.Convert.ToInt32(!onGround) * System.Convert.ToInt32(!atPlayer);
+        }
+        else
+        {
+            if (lastchase)
+            {
+                wander = StartCoroutine(Wander());
+            }
+        }
     }
 }
