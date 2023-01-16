@@ -35,12 +35,14 @@ public class enemymovement : MonoBehaviour, IWaterable
         Debug.DrawRay(transform.position  + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
         if (distanceToPlayer < detectionRange)
         {
-            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, ~(1 << 9)))
+            int mask = (1 << 9);
+            mask += (1 << 4);
+            mask = ~mask;
+            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, mask))
             {
                 print(hit.transform.gameObject.name);
                 if (hit.transform == target)
                 {
-                    
                     chase = true;
                 }
             }
@@ -119,8 +121,15 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     public void Water()
     {
+        DamageEnemy(7, 14);
+    }
+    void DamageEnemy(float min, float max)
+    {
         hp -= UnityEngine.Random.Range(7f, 14f);
-        print("HP kvar: " + Mathf.Round(hp).ToString());
+        if (hp >= 0)
+        {
+            print("HP kvar: " + Mathf.Round(hp).ToString());
+        }
     }
     IEnumerator Wander()
     {
@@ -181,6 +190,14 @@ public class enemymovement : MonoBehaviour, IWaterable
         if (collision.gameObject.layer == 6)
         {
             onGround = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 4)
+        {
+            DamageEnemy(Time.deltaTime, Time.deltaTime * 2);
         }
     }
 }
