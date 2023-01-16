@@ -8,12 +8,12 @@ public class enemymovement : MonoBehaviour, IWaterable
     public float rotationSpeed = 18;
     public float moveSpeed = 4.5f;
     protected Rigidbody rb;
-    private bool chase = true;
+    protected bool chase = true;
     protected bool onGround = false;
     public float detectionRange = 10;
     Coroutine wander;
     [HideInInspector] public bool brake = false;
-    public float hp = 1;
+    public float hp = 100;
     protected float distanceToPlayer;
     protected bool lastchase = true;
     protected bool hasTransformed = false;
@@ -31,7 +31,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         distanceToPlayer = Vector3.Distance(transform.position + (transform.up * transform.lossyScale.y / 2), target.position);
 
         RaycastHit hit;
-        Debug.DrawRay(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
+        // Debug.DrawRay(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position));
         if (distanceToPlayer < detectionRange)
         {
             if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange))
@@ -49,6 +49,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         }
 
         Movement();
+        Rotation();
     }
 
     private void FixedUpdate()
@@ -67,10 +68,6 @@ public class enemymovement : MonoBehaviour, IWaterable
             }
 
             rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
-
-            rb.angularVelocity = Vector3.zero;
-            Quaternion fullRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
-            rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
         }
         else
         {
@@ -78,8 +75,17 @@ public class enemymovement : MonoBehaviour, IWaterable
             {
                 wander = StartCoroutine(Wander());
             }
-            //rb.velocity = Gravity();
-            //rb.angularVelocity = new Vector3(0, 0, 0);
+        }
+    }
+
+    protected virtual void Rotation()
+    {
+
+        if (chase)
+        {
+            rb.angularVelocity = Vector3.zero;
+            Quaternion fullRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
+            rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
         }
     }
 
@@ -110,8 +116,8 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     public void Water()
     {
-        hp -= 0.1f;
-        print("HP kvar: " + (hp * 100).ToString());
+        hp -= UnityEngine.Random.Range(7f, 14f);
+        print("HP kvar: " + Mathf.Round(hp).ToString());
     }
     IEnumerator Wander()
     {
@@ -146,12 +152,17 @@ public class enemymovement : MonoBehaviour, IWaterable
         }
     }
 
+    protected void DamagePlayer(int avgDamage)
+    {
+        target.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(avgDamage - 5, avgDamage + 6));
+    }
 
-    private void OnCollisionEnter(Collision collision)
+
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Player") && detectionRange > 0)
         {
-            collision.transform.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(5, 16));
+            DamagePlayer(10);
         }
     }
     private void OnCollisionStay(Collision collision)

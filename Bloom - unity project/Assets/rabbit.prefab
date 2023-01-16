@@ -68,10 +68,12 @@ MonoBehaviour:
   moveSpeed: 4.5
   detectionRange: 10
   brake: 0
-  hp: 1
+  hp: 100
   jumpBoost: 10
   jumpCooldown: 2.5
+  damageCooldown: 5
   gravityMultiplier: 2
+  attackRange: 2
 --- !u!135 &946678069525654198
 SphereCollider:
   m_ObjectHideFlags: 0

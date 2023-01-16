@@ -68,7 +68,7 @@ MonoBehaviour:
   moveSpeed: 4.5
   detectionRange: 10
   brake: 0
-  hp: 1
+  hp: 100
 --- !u!135 &2386932471455710731
 SphereCollider:
   m_ObjectHideFlags: 0
