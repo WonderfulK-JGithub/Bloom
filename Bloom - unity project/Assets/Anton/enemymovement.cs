@@ -38,7 +38,7 @@ public class enemymovement : MonoBehaviour, IWaterable
             int mask = (1 << 9);
             mask += (1 << 4);
             mask = ~mask;
-            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, mask))
+            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, mask) && !PlayerMovementScript.isBathing)
             {
                 if (hit.transform == target)
                 {
@@ -107,7 +107,7 @@ public class enemymovement : MonoBehaviour, IWaterable
             while (t < 1)
             {
                 transform.localScale = Vector3.Lerp(scale, targetScale, t);
-                GetComponentInChildren<MeshRenderer>().material.color = new Color(1 - t, t, 0, 1);
+                GetComponentInChildren<MeshRenderer>().material.SetColor("_Tint", new Color(1 - t, t, 0, 1));
 
                 t += Time.deltaTime;
                 yield return 0;
@@ -127,7 +127,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         hp -= UnityEngine.Random.Range(7f, 14f);
         if (hp >= 0)
         {
-            print("HP kvar: " + Mathf.Round(hp).ToString());
+            GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1 - (hp / 100f));
         }
     }
     protected virtual IEnumerator Wander()
