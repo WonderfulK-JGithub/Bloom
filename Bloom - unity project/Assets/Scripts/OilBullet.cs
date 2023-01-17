@@ -5,6 +5,7 @@ using UnityEngine;
 public class OilBullet : WaterBullet
 {
     //[SerializeField] LayerMask playerLayer;
+    [SerializeField] int damage;
 
     protected override void FixedUpdate()
     {
@@ -32,6 +33,6 @@ public class OilBullet : WaterBullet
 
     void DamagePlayer(Collider _other)
     {
-        
+        _other.GetComponentInParent<PlayerHealthScript>().Damage(damage);
     }
 }
