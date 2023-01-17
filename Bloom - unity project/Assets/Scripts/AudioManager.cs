@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public enum AudioNames { WaterSpray, WaterFill, TrashCollect };
+    public enum AudioNames { WaterSpray, WaterFill, TrashCollect, Footstep1, Footstep2, Footstep3 };
 
     public List<AudioClip> audioClips = new List<AudioClip>();
 
     public static AudioManager current;
 
-    AudioSource sfx2D;
+    [SerializeField] AudioSource sfx2D;
+
+    [SerializeField] AudioSource footstepSFX;
+
     private void Awake()
     {
-        sfx2D = GetComponent<AudioSource>();
+        //sfx2D = GetComponent<AudioSource>();
 
         current = this;
     }
@@ -33,5 +36,11 @@ public class AudioManager : MonoBehaviour
         src.PlayOneShot(audioClips[(int)audioName]);
 
         Destroy(go, 2);
+    }
+
+    public void PlayFootStep()
+    {
+        footstepSFX.Stop();
+        footstepSFX.PlayOneShot(audioClips[Random.Range(3, 6)]);
     }
 }

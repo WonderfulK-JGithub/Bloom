@@ -27,6 +27,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     public static bool isBathing = false;
 
+    bool footstep = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -48,6 +50,18 @@ public class PlayerMovementScript : MonoBehaviour
         isMoving = (input != Vector3.zero);
 
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
+
+        if(isMoving && completelyGrounded && footstep)
+        {
+            footstep = false;
+            AudioManager.current.PlayFootStep();
+            Invoke(nameof(FootStepAgain), 0.4f);
+        }
+    }
+
+    void FootStepAgain()
+    {
+        footstep = true;
     }
 
     private void FixedUpdate()
