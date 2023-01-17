@@ -5,11 +5,29 @@ using UnityEngine;
 public class IgelkottMovement : enemymovement
 {
     [Header("Hedgehog specific ---------")]
-    public float attackRange = 3;
+    public float attackRange = 8;
     public float attackRotationTime = 2;
     bool atPlayer;
     bool lastatPlayer;
     Coroutine attack;
+    GameObject tagg;
+    public float taggSpeed = 15;
+
+    protected override void Start()
+    {
+        Transform[] objects = GetComponentsInChildren<Transform>();
+        foreach (var obj in objects)
+        {
+            if (obj.GetComponent<tagg>())
+            {
+                tagg = obj.gameObject;
+                tagg.GetComponent<tagg>().parent = this;
+            }
+        }
+
+        tagg.SetActive(false);
+        base.Start();
+    }
 
     protected override void Movement()
     {
@@ -59,6 +77,8 @@ public class IgelkottMovement : enemymovement
             t += Time.deltaTime * attackRotationTime;
             yield return 0;
         }
+        GameObject newtagg = Instantiate(tagg, transform.position - transform.forward, transform.rotation);
+        newtagg.SetActive(true);
     }
     protected override void Rotation()
     {

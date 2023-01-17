@@ -18,7 +18,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected bool lastchase = true;
     protected bool hasTransformed = false;
 
-    void Start()
+    protected virtual void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
