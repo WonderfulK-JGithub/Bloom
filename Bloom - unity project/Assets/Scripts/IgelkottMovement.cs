@@ -65,7 +65,11 @@ public class IgelkottMovement : enemymovement
             if (lastchase)
             {
                 wander = StartCoroutine(Wander());
-                StopCoroutine(attack);
+                if (attack != null)
+                {
+                    StopCoroutine(attack);
+
+                }
                 transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
             }
         }
