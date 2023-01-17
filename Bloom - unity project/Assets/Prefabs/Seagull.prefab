@@ -126,10 +126,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 4
-  healthPoints: 0
+  rotationSpeed2: 180
+  startHealthPoints: 3
+  damage: 3
   walkSpeed: 1
   idleRadius: 2
   timeBetweenIdleWalk: 5
+  heighestYDiff: 0.3
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -223,3 +226,4 @@ MonoBehaviour:
   timeBetweenOilPoop: 4
   oilDropPrefab: {fileID: 4376629939099795333, guid: 6d2d4fe27c5291c448a7b920eae6ae2a, type: 3}
   dropStartSpeed: 1
+  flappForce: 4

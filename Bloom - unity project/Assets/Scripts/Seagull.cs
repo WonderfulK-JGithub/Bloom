@@ -6,12 +6,15 @@ public class Seagull : MonoBehaviour,IWaterable
 {
     [Header("General")]
     [SerializeField] float rotationSpeed;
-    [SerializeField] int healthPoints;
+    [SerializeField] float rotationSpeed2;
+    [SerializeField] int startHealthPoints;
+    [SerializeField] int damage;
 
     [Header("Idle")]
     [SerializeField] float walkSpeed;
     [SerializeField] float idleRadius;
     [SerializeField] float timeBetweenIdleWalk;
+    [SerializeField] float heighestYDiff;
     [SerializeField] LayerMask groundLayer;
 
     [Header("Detect Player")]
@@ -37,16 +40,22 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] GameObject oilDropPrefab;
     [SerializeField] float dropStartSpeed;
 
+    [Header("Happy")]
+    [SerializeField] float flappForce;
+
     SeagullState state;
 
     Rigidbody rb;
     Collider col;
+    Renderer rend;
 
     Vector3 targetPos;
     Vector3 centerPos;
 
     Vector3 currentThing;
     Vector3 targetForward;
+
+    int healthPoints;
 
     float timer;
     float rotationAroundPlayer;
@@ -59,8 +68,11 @@ public class Seagull : MonoBehaviour,IWaterable
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        rend = GetComponent<Renderer>();
 
         centerPos = transform.position;
+
+        healthPoints = startHealthPoints;
     }
 
     private void Update()
@@ -81,7 +93,7 @@ public class Seagull : MonoBehaviour,IWaterable
 
                         if (Physics.Raycast(_newTarget + Vector3.up, Vector3.down, out RaycastHit _hit, groundLayer))
                         {
-                            if(_hit.point.y == transform.position.y - 0.5f)
+                            if(Mathf.Abs(_hit.point.y - transform.position.y - 0.5f) > heighestYDiff)
                             {
                                 targetPos = _newTarget;
                                 timer = 0f;
@@ -112,7 +124,14 @@ public class Seagull : MonoBehaviour,IWaterable
                 }
 
                 break;
-            
+            case SeagullState.Happy:
+
+                if (transform.position.y < centerPos.y)
+                {
+                    rb.velocity = new Vector3(0f, flappForce, 0f);
+                }
+
+                break;
         }
     }
 
@@ -126,9 +145,20 @@ public class Seagull : MonoBehaviour,IWaterable
             case SeagullState.Idle:
                 #region
 
-                rb.velocity = walkSpeed * (targetPos - transform.position).normalized;
+                Vector3 _vel = walkSpeed * (targetPos - transform.position).normalized;
 
-                targetForward = rb.velocity.normalized;
+                rb.velocity = new Vector3(_vel.x, rb.velocity.y, _vel.z);
+
+                Vector3 _dir = rb.velocity.normalized;
+
+                if(rb.velocity != Vector3.zero)
+                {
+                    float _angle = Vector2.Angle(new Vector2(_dir.x, _dir.z), Vector2.up);
+                    _angle *= Mathf.Sign(_dir.x);
+
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, _angle, 0f), rotationSpeed2 * Time.fixedDeltaTime);
+
+                }
 
                 if (Vector3.Distance(transform.position,targetPos) < walkSpeed * Time.fixedDeltaTime)
                 {
@@ -141,19 +171,7 @@ public class Seagull : MonoBehaviour,IWaterable
                 Collider[] _player = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
                 if(_player.Length > 0)
                 {
-                    player = _player[0].transform;
-
-                    state = SeagullState.StartCircle;
-                    rb.useGravity = false;
-                    col.isTrigger = true;
-
-                    Vector2 _distanceDir = new Vector2(player.position.x - transform.position.x, player.position.z - transform.position.z).normalized;
-                    rotationAroundPlayer = Vector2.Angle(Vector2.up, _distanceDir) - 90f;
-                    
-                    if (transform.position.x < player.position.x) rotationAroundPlayer += 180;
-                    print(rotationAroundPlayer);
-
-                    currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
+                    StartTargeting(_player[0].transform);
                 }
                 #endregion
                 break;
@@ -201,7 +219,7 @@ public class Seagull : MonoBehaviour,IWaterable
                 #endregion
                 break;
             case SeagullState.Dive:
-
+                #region
                 float _targetY = player.position.y + yOffset;
 
                 float _percent = Mathf.InverseLerp(diveStartY, _targetY, transform.position.y);
@@ -216,20 +234,38 @@ public class Seagull : MonoBehaviour,IWaterable
                 rb.velocity = _dirToPlayer * horizontalSpeed * _relativeDiveSpeedX;
 
                 targetForward = (rb.velocity + diveSpeed * _relativeDiveSpeed * Vector3.down).normalized;
-
+                #endregion
                 break;
+            
         }
 
         float _extraSpeed = state == SeagullState.FlyUp ? 2f : 1f;
 
-        transform.forward = Vector3.MoveTowards(transform.forward,targetForward,rotationSpeed * Time.deltaTime * _extraSpeed);
+        if(state != SeagullState.Idle && state != SeagullState.Happy) transform.forward = Vector3.MoveTowards(transform.forward,targetForward,rotationSpeed * Time.deltaTime * _extraSpeed);
+    }
+
+    void StartTargeting(Transform _player)
+    {
+        player = _player;
+
+        state = SeagullState.StartCircle;
+        rb.useGravity = false;
+        col.isTrigger = true;
+
+        Vector2 _distanceDir = new Vector2(player.position.x - transform.position.x, player.position.z - transform.position.z).normalized;
+        rotationAroundPlayer = Vector2.Angle(Vector2.up, _distanceDir) - 90f;
+
+        if (transform.position.x < player.position.x) rotationAroundPlayer += 180;
+        print(rotationAroundPlayer);
+
+        currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && state != SeagullState.Happy)
         {
-            
             if(state == SeagullState.Dive)
             {
                 state = SeagullState.StartCircle;
@@ -237,6 +273,8 @@ public class Seagull : MonoBehaviour,IWaterable
                 currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
                 
             }
+            other.GetComponentInParent<PlayerHealthScript>().Damage(damage);
+            print(other.GetComponentInParent<PlayerHealthScript>().name);
         }
     }
 
@@ -246,9 +284,25 @@ public class Seagull : MonoBehaviour,IWaterable
 
         if(healthPoints == 0)
         {
-
+            rend.material.SetFloat("_OilLevel", 1f);
+            Happy();
+        }
+        else
+        {
+            if (state == SeagullState.Idle) StartTargeting(FindObjectOfType<PlayerHealthScript>().transform);
+            rend.material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
         }
     }
+
+    void Happy()
+    {
+        state = SeagullState.Happy;
+        centerPos = transform.position + Vector3.up * 0.5f;
+        rb.useGravity = true;
+        rb.velocity = Vector3.zero;
+    }
+
+
 
     public void DropOil()
     {
@@ -264,4 +318,5 @@ public enum SeagullState
     StartCircle,
     FlyUp,
     Dive,
+    Happy,
 }
