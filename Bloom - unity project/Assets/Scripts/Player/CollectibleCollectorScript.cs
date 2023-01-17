@@ -9,8 +9,9 @@ public class CollectibleCollectorScript : MonoBehaviour
     [SerializeField] float recycleRange;
     [SerializeField] LayerMask recycleLayer;
     [SerializeField] Transform cameraTransform;
+    [SerializeField] GameObject recycleText;
 
-    
+
     int collectibles = 0;
 
     TextMeshProUGUI collectibleText;
@@ -22,15 +23,26 @@ public class CollectibleCollectorScript : MonoBehaviour
 
     private void Update()
     {
-        if(Physics.Raycast(cameraTransform.position, cameraTransform.forward,out RaycastHit _hit, recycleRange, recycleLayer))
+        if(collectibles > 0 && Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit _hit, recycleRange, recycleLayer))
         {
             if (Input.GetButtonDown("Interact"))
             {
                 RecycleMachine _recycle = _hit.collider.GetComponent<RecycleMachine>();
 
                 _recycle.Recycle();
+
+                collectibles = 0;
+                collectibleText.text = collectibles.ToString();
             }
+            recycleText.SetActive(true);
         }
+        else
+        {
+            recycleText.SetActive(false);
+        }
+        
+
+        
     }
 
     public void Collect(CollectibleScript collectible)
