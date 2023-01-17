@@ -89,7 +89,12 @@ public class PlayerMovementScript : MonoBehaviour
     void GroundCheck()
     {
         isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
-        isBathing = Physics.Raycast(transform.position + transform.up, Vector3.down, 10, LayerMask.GetMask("Water"));
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position + transform.up, Vector3.down, out hit, 10, LayerMask.GetMask("Ground", "Water")))
+        {
+            if (hit.collider.gameObject.layer == 8) isBathing = true;
+            else isBathing = false;
+        }
         //isBathing = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Water"));
         completelyGrounded = OverlapSphere(transform.position + new Vector3(0,0.49f, 0), 0.5f, LayerMask.GetMask("Ground"));
 
