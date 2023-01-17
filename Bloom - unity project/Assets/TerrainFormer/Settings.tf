@@ -21,7 +21,7 @@
                 "selectedBrushTab": "All",
                 "selectedBrushId": "_DefaultFalloffBrushName",
                 "brushSize": 10.0,
-                "brushSpeed": 3.0,
+                "brushSpeed": 1.0,
                 "brushRoundness": 1.0,
                 "brushAngle": 0.0,
                 "brushFalloff": {
@@ -332,7 +332,7 @@
     "generateRampCurveInXAxis": true,
     "generateHeight": 5.0,
     "flattenMode": 0,
-    "setHeight": 1.0,
+    "setHeight": 0.0,
     "boxFilterSize": 7,
     "smoothingIterations": 1,
     "mouldToolRaycastOffset": 0.0,
