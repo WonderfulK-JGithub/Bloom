@@ -155,7 +155,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3225609344219691887}
-  m_LocalRotation: {x: -0, y: 0.000002220273, z: -0, w: 1}
+  m_LocalRotation: {x: -0.0000007807229, y: 0.0000019967556, z: -0.00000010891985, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.039999995, y: 0.25, z: 0.039999995}
   m_Children: []
@@ -326,6 +326,7 @@ MonoBehaviour:
   attackRange: 8
   attackRotationTime: 2
   taggSpeed: 15
+  attacksDelay: 0.2
 --- !u!135 &8257285376881015786
 SphereCollider:
   m_ObjectHideFlags: 0

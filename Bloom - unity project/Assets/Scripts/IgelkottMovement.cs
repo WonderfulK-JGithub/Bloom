@@ -13,6 +13,7 @@ public class IgelkottMovement : enemymovement
     GameObject tagg;
     public float taggSpeed = 15;
     public float attacksDelay = 0.2f;
+    Quaternion fullRot;
 
     protected override void Start()
     {
@@ -45,7 +46,7 @@ public class IgelkottMovement : enemymovement
             {
                 rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * System.Convert.ToInt32(!onGround);
 
-                if (lastatPlayer)
+                if (lastatPlayer && detectionRange > 0)
                 {
                     StopCoroutine(attack);
                 }
@@ -63,34 +64,52 @@ public class IgelkottMovement : enemymovement
             if (lastchase)
             {
                 wander = StartCoroutine(Wander());
+                StopCoroutine(attack);
             }
         }
     }
     IEnumerator Attack()
     {
-        rb.angularVelocity = Vector3.zero;
-        Quaternion startrot = transform.rotation;
-        Quaternion targetrot = transform.rotation * Quaternion.Euler(0, 180, 0);
-        float t = 0;
-        while (t < 1)
+        while (true)
         {
-
             rb.angularVelocity = Vector3.zero;
-            rb.rotation = Quaternion.Lerp(startrot, targetrot, t);
-            t += Time.deltaTime * attackRotationTime;
+            Quaternion startrot = transform.rotation;
+            Quaternion targetrot = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y + 180 ,rb.rotation.z)); 
+            float t = 0;
+            while (t < 1)
+            {
+
+                rb.angularVelocity = Vector3.zero;
+                rb.rotation = Quaternion.Lerp(startrot, targetrot, t);
+                t += Time.deltaTime * attackRotationTime;
+                yield return 0;
+            }
+
+            GameObject newtagg = Instantiate(tagg, transform.position - transform.forward, transform.rotation * Quaternion.Euler(new Vector3(0, 0, 0)));
+            newtagg.SetActive(true);
             yield return 0;
+            GameObject newtagg2 = Instantiate(tagg, transform.position - transform.forward + new Vector3(transform.lossyScale.x, 0, 0), transform.rotation * Quaternion.Euler(new Vector3(0, 45, 0)));
+            newtagg2.SetActive(true);
+            yield return 0;
+            GameObject newtagg3 = Instantiate(tagg, transform.position - transform.forward + new Vector3(-transform.lossyScale.x, 0, 0), transform.rotation * Quaternion.Euler(new Vector3(0, -45, 0)));
+            newtagg3.SetActive(true);
+
+            yield return new WaitForSeconds(attacksDelay);
+
+            
         }
-        GameObject newtagg = Instantiate(tagg, transform.position - transform.forward, transform.rotation);
-        newtagg.SetActive(true);
+
     }
     protected override void Rotation()
     {
         if (chase)
         {
+            fullRot = Quaternion.LookRotation((target.position - transform.position).normalized);
+
             if (!atPlayer)
             {
                 rb.angularVelocity = Vector3.zero;
-                Quaternion fullRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime * rotationSpeed);
+                Quaternion fullRotLerp = Quaternion.Lerp(transform.rotation, fullRot, Time.deltaTime * rotationSpeed);
                 rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
             }
         }

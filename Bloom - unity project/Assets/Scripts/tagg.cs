@@ -20,7 +20,8 @@ public class tagg : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Player"))
+        print(other);
+        if (other.transform.gameObject.layer == 8)
         {
             parent.DamagePlayer(15);
         }
