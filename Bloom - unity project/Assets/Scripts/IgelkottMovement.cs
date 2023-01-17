@@ -49,6 +49,7 @@ public class IgelkottMovement : enemymovement
                 if (lastatPlayer && detectionRange > 0)
                 {
                     StopCoroutine(attack);
+                    transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
                 }
             }
             else
@@ -65,6 +66,7 @@ public class IgelkottMovement : enemymovement
             {
                 wander = StartCoroutine(Wander());
                 StopCoroutine(attack);
+                transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
             }
         }
     }

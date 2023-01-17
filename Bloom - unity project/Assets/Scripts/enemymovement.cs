@@ -129,6 +129,10 @@ public class enemymovement : MonoBehaviour, IWaterable
         {
             GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1 - (hp / 100f));
         }
+        else
+        {
+            GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1);
+        }
     }
     protected virtual IEnumerator Wander()
     {
