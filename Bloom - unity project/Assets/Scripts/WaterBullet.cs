@@ -7,13 +7,12 @@ public class WaterBullet : MonoBehaviour
     
     [SerializeField] GameObject particleTrail;
     [SerializeField] GameObject splashParticle;
-    [SerializeField] float gravity;
-    [SerializeField] LayerMask ignoreLayers;
+    public float gravity;
+    public LayerMask ignoreLayers;
 
-    Rigidbody rb;
-    SphereCollider col;
-    Vector3 lastPos;
-    RaycastHit lastHit;
+    protected Rigidbody rb;
+    protected SphereCollider col;
+    protected RaycastHit lastHit;
 
     private void Awake()
     {
@@ -28,13 +27,8 @@ public class WaterBullet : MonoBehaviour
     }
 
     
-    void Splash(Collider _other)
+    protected void Splash(Collider _other)
     {
-       
-
-
-        
-
         Transform _trans = Instantiate(splashParticle, lastHit.point, Quaternion.identity).transform;
         _trans.up = lastHit.normal;
         _trans.SetParent(_other.transform);
@@ -46,13 +40,10 @@ public class WaterBullet : MonoBehaviour
         Destroy(particleTrail, 1f);
     }
 
-    private void FixedUpdate() 
+    protected virtual void FixedUpdate() 
     {
         //Gravitation - Max
         rb.velocity += new Vector3(0, gravity * Time.fixedDeltaTime, 0);
-
-        
-
         
 
         Collider[] _others = Physics.OverlapSphere(transform.position, col.radius * transform.localScale.x, ~ignoreLayers);
@@ -77,7 +68,7 @@ public class WaterBullet : MonoBehaviour
             lastHit = _hit;
         }
 
-        lastPos = transform.position;
+        
     }
 }
 

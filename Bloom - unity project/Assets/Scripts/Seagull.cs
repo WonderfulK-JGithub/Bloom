@@ -32,6 +32,11 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] AnimationCurve diveCurveX;
     [SerializeField] float yOffset;
 
+    [Header("DropOil")]
+    [SerializeField] float timeBetweenOilPoop;
+    [SerializeField] GameObject oilDropPrefab;
+    [SerializeField] float dropStartSpeed;
+
     SeagullState state;
 
     Rigidbody rb;
@@ -46,6 +51,7 @@ public class Seagull : MonoBehaviour,IWaterable
     float timer;
     float rotationAroundPlayer;
     float diveStartY;
+    float oilTimer;
 
     Transform player;
 
@@ -97,7 +103,16 @@ public class Seagull : MonoBehaviour,IWaterable
                     diveStartY = transform.position.y;
                 }
 
+                oilTimer += Time.deltaTime;
+
+                if(oilTimer >= timeBetweenOilPoop)
+                {
+                    DropOil();
+                    oilTimer = 0f;
+                }
+
                 break;
+            
         }
     }
 
@@ -233,6 +248,13 @@ public class Seagull : MonoBehaviour,IWaterable
         {
 
         }
+    }
+
+    public void DropOil()
+    {
+        OilBullet _oil = Instantiate(oilDropPrefab, transform.position, Quaternion.identity).GetComponent<OilBullet>();
+
+        _oil.SetVelocity(Vector3.down, dropStartSpeed);
     }
 }
 
