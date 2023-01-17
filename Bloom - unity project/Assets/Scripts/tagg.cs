@@ -20,6 +20,11 @@ public class tagg : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.CompareTag("Player"))
+        {
+            parent.DamagePlayer(15);
+        }
+
         Destroy(gameObject);
     }
 }

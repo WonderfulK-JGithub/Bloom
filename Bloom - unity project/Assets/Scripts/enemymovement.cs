@@ -163,7 +163,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         }
     }
 
-    protected void DamagePlayer(int avgDamage)
+    public void DamagePlayer(int avgDamage)
     {
         if (target.GetComponent<PlayerHealthScript>())
         {
