@@ -12,6 +12,7 @@ public class IgelkottMovement : enemymovement
     Coroutine attack;
     GameObject tagg;
     public float taggSpeed = 15;
+    public float attacksDelay = 0.2f;
 
     protected override void Start()
     {
@@ -73,6 +74,8 @@ public class IgelkottMovement : enemymovement
         float t = 0;
         while (t < 1)
         {
+
+            rb.angularVelocity = Vector3.zero;
             rb.rotation = Quaternion.Lerp(startrot, targetrot, t);
             t += Time.deltaTime * attackRotationTime;
             yield return 0;
