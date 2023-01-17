@@ -194,9 +194,11 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     private void OnTriggerStay(Collider other)
     {
+        /*
         if (other.gameObject.layer == 4)
         {
             DamageEnemy(Time.deltaTime, Time.deltaTime * 2);
         }
+        */
     }
 }

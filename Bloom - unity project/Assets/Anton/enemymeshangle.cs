@@ -24,9 +24,16 @@ public class enemymeshangle : MonoBehaviour
     bool GroundAhead()
     {
         RaycastHit hit;
-        if (Physics.Raycast(child.position, -child.up + child.forward, out hit, 2))
+        if (Physics.Raycast(child.position + (child.up * child.lossyScale.y / 2), -child.up + child.forward, out hit, 2))
         {
-            return hit.transform.gameObject.layer == 6;
+            if (hit.transform.gameObject.layer == 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
