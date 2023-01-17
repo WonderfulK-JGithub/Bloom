@@ -85,7 +85,7 @@ public class GunScript : MonoBehaviour
 
     void WeaponBob()
     {
-        if (!weaponBob) return;
+        if (!weaponBob || PlayerHealthScript.isDead) return;
 
         Vector3 weaponBobOffset = Vector3.zero;
         if (PlayerMovementScript.isMoving)
