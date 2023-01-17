@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public enum AudioNames { WaterSpray, WaterFill };
+    public enum AudioNames { WaterSpray, WaterFill, TrashCollect };
 
     public List<AudioClip> audioClips = new List<AudioClip>();
 

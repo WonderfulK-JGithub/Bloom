@@ -50,6 +50,7 @@ Material:
     - _OilMetallic: 0
     - _OilNormapStrength: 0.01
     - _OilNormapStrength_1: 0.073
+    - _OilSampleSize: 10
     - _OilSmoothness: 1
     - _Smoothness: 0.5
     m_Colors:

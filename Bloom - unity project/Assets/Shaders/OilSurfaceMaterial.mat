@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OilNormalMap:
         m_Texture: {fileID: 2800000, guid: 28cb8c882ec6c1e44aebe22fb1c40a40, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -46,6 +50,7 @@ Material:
     - _OilMetallic: 0
     - _OilNormapStrength: 0.01
     - _OilNormapStrength_1: 0.073
+    - _OilSampleSize: 3
     - _OilSmoothness: 1
     - _Smoothness: 0.5
     m_Colors:
