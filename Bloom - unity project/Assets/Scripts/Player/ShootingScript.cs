@@ -27,12 +27,21 @@ public class ShootingScript : MonoBehaviour
 
     [SerializeField] float waterReloadSpeed;
 
+    GunScript visual;
+
+    private void Awake()
+    {
+        visual = GetComponent<GunScript>();
+    }
+
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (!canShoot || ammo <= 0) return;
+
+            visual.Fire();
 
             GameObject newBullet = Instantiate(bullet, barrel.position, barrel.rotation);
 

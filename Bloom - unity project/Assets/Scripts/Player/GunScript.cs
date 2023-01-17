@@ -21,6 +21,11 @@ public class GunScript : MonoBehaviour
     [SerializeField] float weaponBobSmooth;
     Vector3 actualWeaponBobOffset = Vector3.zero;
 
+    [Header("Recoil Settings")]
+    [SerializeField] float recoilScale;
+    float recoilOffset;
+    [SerializeField]float recoilSpeed;
+
     [Header("References")]
     [SerializeField] Transform gun;
     [SerializeField] Camera cam;
@@ -53,6 +58,9 @@ public class GunScript : MonoBehaviour
         gun.localPosition += actualWeaponBobOffset;
 
         gun.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f);
+
+        gun.position += gun.forward * -recoilOffset;
+        recoilOffset = Mathf.Lerp(recoilOffset, 0, recoilSpeed * Time.deltaTime);
     }
 
     private void Update()
@@ -88,5 +96,10 @@ public class GunScript : MonoBehaviour
 
         //cam.transform.localPosition = new Vector3(0, 1.75f) + weaponBobOffset;
         actualWeaponBobOffset = Vector3.Lerp(actualWeaponBobOffset, weaponBobOffset, weaponBobSmooth * Time.deltaTime);
+    }
+
+    public void Fire()
+    {
+        recoilOffset = recoilScale;
     }
 }

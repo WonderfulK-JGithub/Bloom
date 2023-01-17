@@ -11,4 +11,9 @@ public class CollectibleScript : MonoBehaviour
         GameObject go = Instantiate(trash[Random.Range(0, trash.Count)], transform);
         go.transform.localScale = Vector3.one * 0.3f;
     }
+
+    public void Collect()
+    {
+        Destroy(this.gameObject);
+    }
 }

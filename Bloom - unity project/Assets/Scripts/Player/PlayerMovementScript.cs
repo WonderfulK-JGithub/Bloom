@@ -21,6 +21,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     Vector3 targetVelocity;
     Rigidbody rb;
+    CollectibleCollectorScript cc;
 
     public static bool canMove = true;
 
@@ -29,6 +30,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CollectibleCollectorScript>();
 
         canMove = true;
     }
@@ -73,8 +75,18 @@ public class PlayerMovementScript : MonoBehaviour
     void GroundCheck()
     {
         isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
-        isBathing = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Water"));
+        isBathing = Physics.Raycast(transform.position + transform.up, Vector3.down, 10, LayerMask.GetMask("Water"));
+        //isBathing = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Water"));
         completelyGrounded = OverlapSphere(transform.position + new Vector3(0,0.49f, 0), 0.5f, LayerMask.GetMask("Ground"));
+
+        Collider[] collectibles = new Collider[1];
+        if(OverlapSphere(transform.position, 1f, LayerMask.GetMask("Collectible"), out collectibles))
+        {
+            for (int i = 0; i < collectibles.Length; i++)
+            {
+                cc.Collect(collectibles[i].GetComponent<CollectibleScript>());
+            }         
+        }
     }
 
     void Jump()
@@ -96,6 +108,14 @@ public class PlayerMovementScript : MonoBehaviour
     bool OverlapSphere(Vector3 position, float radius, LayerMask mask)
     {
         Collider[] cols = Physics.OverlapSphere(position, radius, mask);
+
+        if (cols.Length > 0) return true;
+        else return false;
+    }
+
+    bool OverlapSphere(Vector3 position, float radius, LayerMask mask, out Collider[] cols)
+    {
+        cols = Physics.OverlapSphere(position, radius, mask);
 
         if (cols.Length > 0) return true;
         else return false;
