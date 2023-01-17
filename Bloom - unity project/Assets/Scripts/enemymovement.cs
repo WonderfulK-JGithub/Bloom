@@ -122,9 +122,9 @@ public class enemymovement : MonoBehaviour, IWaterable
     {
         DamageEnemy(7, 14);
     }
-    void DamageEnemy(float min, float max)
+    public void DamageEnemy(float min, float max)
     {
-        hp -= UnityEngine.Random.Range(7f, 14f);
+        hp -= UnityEngine.Random.Range(min, max);
         if (hp >= 0)
         {
             GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1 - (hp / 100f));
@@ -165,7 +165,10 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     protected void DamagePlayer(int avgDamage)
     {
-        target.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(avgDamage - 5, avgDamage + 6));
+        if (target.GetComponent<PlayerHealthScript>())
+        {
+            target.GetComponent<PlayerHealthScript>().Damage(UnityEngine.Random.Range(avgDamage - 5, avgDamage + 6));
+        }
     }
 
 
