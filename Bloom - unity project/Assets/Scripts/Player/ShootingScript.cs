@@ -39,7 +39,7 @@ public class ShootingScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!canShoot || ammo <= 0) return;
+            if (!canShoot || ammo <= 0 || PlayerHealthScript.isDead) return;
 
             visual.Fire();
 
@@ -71,14 +71,17 @@ public class ShootingScript : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             RaycastHit hitWater;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water")))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water", "Ground")))
             {
-                if (Input.GetMouseButtonDown(1) && ammo != 100)
+                if(hitWater.collider.gameObject.layer == 4)
                 {
-                    AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
-                }
+                    if (Input.GetMouseButtonDown(1) && ammo != 100)
+                    {
+                        AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
+                    }
 
-                ammo += waterReloadSpeed * Time.deltaTime;
+                    ammo += waterReloadSpeed * Time.deltaTime;
+                }
             }
         }
     }
