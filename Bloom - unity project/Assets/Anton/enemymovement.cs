@@ -40,7 +40,6 @@ public class enemymovement : MonoBehaviour, IWaterable
             mask = ~mask;
             if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, mask))
             {
-                print(hit.transform.gameObject.name);
                 if (hit.transform == target)
                 {
                     chase = true;

@@ -24,6 +24,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     public static bool canMove = true;
 
+    public static bool isBathing = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -71,6 +73,7 @@ public class PlayerMovementScript : MonoBehaviour
     void GroundCheck()
     {
         isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
+        isBathing = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Water"));
         completelyGrounded = OverlapSphere(transform.position + new Vector3(0,0.49f, 0), 0.5f, LayerMask.GetMask("Ground"));
     }
 
