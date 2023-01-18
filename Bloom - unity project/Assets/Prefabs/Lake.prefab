@@ -98,8 +98,10 @@ MonoBehaviour:
   transitionTime: 2
   oilColor: {r: 0, g: 0, b: 0, a: 0}
   oilSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+  oilEmissionPower: 0.1
   waterColor: {r: 0, g: 0.76862746, b: 1, a: 0}
   waterSpecularColor: {r: 0.31764707, g: 0.36862746, b: 0.3882353, a: 0}
+  waterEmissionPower: 0.35
 --- !u!64 &1359204802633240547
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -108,7 +110,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2159039194356096982}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1

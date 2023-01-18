@@ -4816,7 +4816,7 @@ GameObject:
   - component: {fileID: 4376629939099795335}
   - component: {fileID: 4376629939099795334}
   - component: {fileID: -1590346611977970799}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: OilBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4883,10 +4883,11 @@ MonoBehaviour:
   particleTrail: {fileID: 3494090087311429502}
   splashParticle: {fileID: 1062824231876019855, guid: 5987a75ad2edc924aad3745b486bceb2, type: 3}
   splashTime: 5
+  splashSound: 6
   gravity: -2.455
   ignoreLayers:
     serializedVersion: 2
-    m_Bits: 528
+    m_Bits: 8720
   damage: 5
 --- !u!1 &7865151868937190819
 GameObject:

@@ -9,6 +9,7 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] float rotationSpeed2;
     [SerializeField] int startHealthPoints;
     [SerializeField] int damage;
+    [SerializeField] Animator anim;
 
     [Header("Idle")]
     [SerializeField] float walkSpeed;
@@ -113,6 +114,7 @@ public class Seagull : MonoBehaviour,IWaterable
                 {
                     state = SeagullState.Dive;
                     diveStartY = transform.position.y;
+                    anim.Play("Bird_Dive");
                 }
 
                 oilTimer += Time.deltaTime;
@@ -260,6 +262,7 @@ public class Seagull : MonoBehaviour,IWaterable
 
         currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
 
+        anim.Play("Bird_Fly");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -271,7 +274,7 @@ public class Seagull : MonoBehaviour,IWaterable
                 state = SeagullState.StartCircle;
                 rotationAroundPlayer -= 180f;
                 currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
-                
+                anim.Play("Bird_Fly");
             }
             other.GetComponentInParent<PlayerHealthScript>().Damage(damage);
             print(other.GetComponentInParent<PlayerHealthScript>().name);

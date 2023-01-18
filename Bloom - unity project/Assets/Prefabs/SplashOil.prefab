@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7914374634495969474}
+  - component: {fileID: 7661004658806548706}
   m_Layer: 0
   m_Name: SplashOil
-  m_TagString: Untagged
+  m_TagString: Oil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7661004658806548706
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062824231876019855}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 0.24124277, z: 0.75}
+  m_Center: {x: 0, y: 0.13707566, z: 0}
 --- !u!1 &8003602163423433140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4378,11 +4392,11 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0.9974365
           value: 1
-          inSlope: -0.08996113
-          outSlope: -0.08996113
+          inSlope: 6.593839
+          outSlope: 6.593839
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.48605394
+          inWeight: 0.44313544
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

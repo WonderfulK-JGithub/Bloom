@@ -18,7 +18,7 @@ public class OilBullet : WaterBullet
         if (_others.Length > 0)
         {
             Splash(_others[0]);
-            print(_others[0].name);
+            
             if (_others[0].CompareTag("Player"))
             {
                 DamagePlayer(_others[0]);

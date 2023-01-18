@@ -8,10 +8,11 @@ public class Lake : MonoBehaviour
 
     [SerializeField] Color oilColor;
     [SerializeField] Color oilSpecularColor;
+    [SerializeField] float oilEmissionPower;
 
     [SerializeField] Color waterColor;
     [SerializeField] Color waterSpecularColor;
-
+    [SerializeField] float waterEmissionPower;
 
     float timer;
     bool transition;
@@ -39,6 +40,7 @@ public class Lake : MonoBehaviour
 
             rend.material.SetColor("_Tint", Color.Lerp(oilColor, waterColor, _percent));
             rend.material.SetColor("_SpecularColor", Color.Lerp(oilColor, waterColor, _percent));
+            rend.material.SetFloat("_EmissionPower", Mathf.Lerp(oilEmissionPower, waterEmissionPower, _percent));
         }
     }
 

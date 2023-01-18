@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 4145376622828577132}
   - component: {fileID: 4145376622828577131}
   - component: {fileID: 4145376622828577134}
-  - component: {fileID: 4109972509090653229}
+  - component: {fileID: 1851215429964780926}
   m_Layer: 0
-  m_Name: Plant
+  m_Name: Plant 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4145376622828577129}
-  m_Mesh: {fileID: -5796316380246196403, guid: 2dd6e21bcff20c84d9651c3420bc5c79, type: 3}
+  m_Mesh: {fileID: -5270450532747308558, guid: 2dd6e21bcff20c84d9651c3420bc5c79, type: 3}
 --- !u!23 &4145376622828577131
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -177,13 +177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383a41046c7b14342b0bcaf296b65b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshHeight: 6.18
+  meshHeight: 1.39
   fillPerShoot: 0.4
   fillSpeed: 0.125
   lakes: []
-  rend: {fileID: 4599124240612800036}
   plantID: 0
---- !u!64 &4109972509090653229
+--- !u!64 &1851215429964780926
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

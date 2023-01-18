@@ -8,6 +8,7 @@ public class WaterBullet : MonoBehaviour
     [SerializeField] GameObject particleTrail;
     [SerializeField] GameObject splashParticle;
     [SerializeField] float splashTime = 1.5f;
+    [SerializeField] AudioManager.AudioNames splashSound;
 
     public float gravity;
     public LayerMask ignoreLayers;
@@ -40,6 +41,8 @@ public class WaterBullet : MonoBehaviour
 
         Destroy(gameObject);
         Destroy(particleTrail, 1f);
+
+        AudioManager.current.PlaySound(splashSound);
     }
 
     protected virtual void FixedUpdate() 
