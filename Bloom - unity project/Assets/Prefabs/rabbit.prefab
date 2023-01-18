@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 18
   moveSpeed: 4.5
-  detectionRange: 47.02
+  detectionRange: 25
   brake: 0
   hp: 30
   jumpBoost: 10
