@@ -9,6 +9,8 @@ public class Plant : MonoBehaviour,IWaterable
     [SerializeField] float fillPerShoot;
     [SerializeField] float fillSpeed;
 
+    [SerializeField] List<Lake> lakes;
+
     Renderer rend;
 
     public int plantID;
@@ -49,7 +51,14 @@ public class Plant : MonoBehaviour,IWaterable
 
         WaterValue += fillPerShoot;
 
-        if(WaterValue == 1f) PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position,plantID);
+        if (WaterValue == 1f)
+        {
+            PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position, plantID);
+            foreach (var lake in lakes)
+            {
+                lake.Transition();
+            }
+        }
     }
 
     

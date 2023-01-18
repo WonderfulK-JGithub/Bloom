@@ -45,6 +45,8 @@ public class Lake : MonoBehaviour
     [ContextMenu("bruh")]
     public void Transition()
     {
+        gameObject.tag = "Untagged";
+
         transition = true;
 
         timer = transitionTime;

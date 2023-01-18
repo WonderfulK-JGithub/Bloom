@@ -193,6 +193,7 @@ MonoBehaviour:
   meshHeight: 1
   fillPerShoot: 0.4
   fillSpeed: 0.125
+  lakes: []
   plantID: 0
 --- !u!1 &8482725801778851416
 GameObject:
