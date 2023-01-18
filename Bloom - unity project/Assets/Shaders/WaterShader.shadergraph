@@ -29,6 +29,9 @@
         },
         {
             "m_Id": "51b991f183ba4399909a67f4c81c98af"
+        },
+        {
+            "m_Id": "0d846fcc74334ce5bbe9202128a0b097"
         }
     ],
     "m_Keywords": [],
@@ -239,6 +242,9 @@
         },
         {
             "m_Id": "fefd1f7fb1374318895748ca4c609f0f"
+        },
+        {
+            "m_Id": "8c8e44fe7dfd4b71bbca52cde94a2215"
         }
     ],
     "m_GroupDatas": [],
@@ -716,6 +722,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "62198d7b2f8e4040ab29f85499095104"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "8c8e44fe7dfd4b71bbca52cde94a2215"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "a0c7f86162a440d5bc8d045edf21cbea"
                 },
                 "m_SlotId": 0
             }
@@ -1607,6 +1627,30 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 3,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
+    "m_ObjectId": "0d846fcc74334ce5bbe9202128a0b097",
+    "m_Guid": {
+        "m_GuidSerialized": "1b606aa3-d414-4872-ba86-2868c801d266"
+    },
+    "m_Name": "SpecularColor",
+    "m_DefaultReferenceName": "Color_0d846fcc74334ce5bbe9202128a0b097",
+    "m_OverrideReferenceName": "_SpecularColor",
+    "m_GeneratePropertyBlock": true,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "r": 0.501960813999176,
+        "g": 0.501960813999176,
+        "b": 0.501960813999176,
+        "a": 0.0
+    },
+    "m_ColorMode": 0
 }
 
 {
@@ -5024,6 +5068,41 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "8c8e44fe7dfd4b71bbca52cde94a2215",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 1079.3333740234375,
+            "y": 629.3333129882813,
+            "width": 154.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "a4ee3eace1a74135bdfb67e35a02329f"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "0d846fcc74334ce5bbe9202128a0b097"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "8cf18bed8bd8489fada7733431cad5fe",
     "m_Id": 0,
@@ -5676,6 +5755,31 @@
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "a4ee3eace1a74135bdfb67e35a02329f",
+    "m_Id": 0,
+    "m_DisplayName": "SpecularColor",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
     "m_Labels": []
 }
 
