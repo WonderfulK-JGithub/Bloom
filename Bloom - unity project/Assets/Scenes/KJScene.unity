@@ -743,14 +743,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7134582154515098757, guid: 0862c938352d6fb49874b5fd2df50e48, type: 3}
-      propertyPath: audioClips.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7134582154515098757, guid: 0862c938352d6fb49874b5fd2df50e48, type: 3}
-      propertyPath: audioClips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3e8bad88dd6f4fd4c85f1886c42d0007, type: 3}
     - target: {fileID: 7134582154515098759, guid: 0862c938352d6fb49874b5fd2df50e48, type: 3}
       propertyPath: m_RootOrder
       value: 10
