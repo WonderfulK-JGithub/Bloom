@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class tagg : MonoBehaviour
 {
-    [HideInInspector] public IgelkottMovement parent;
+    public IgelkottMovement parent;
     // Start is called before the first frame update
     void Start()
     {
         transform.localRotation *= Quaternion.Euler(-90, 0, 0);
         GetComponent<Rigidbody>().isKinematic = false;
-    }
 
+        Destroy(gameObject, parent.taggLifetime);
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -25,7 +27,10 @@ public class tagg : MonoBehaviour
         {
             parent.DamagePlayer(15);
         }
+        else if (!other.CompareTag("tagg"))
+        {
+            Destroy(gameObject);
+        }
 
-        Destroy(gameObject);
     }
 }

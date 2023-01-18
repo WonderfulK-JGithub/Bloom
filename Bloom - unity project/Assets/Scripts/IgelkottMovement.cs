@@ -10,26 +10,17 @@ public class IgelkottMovement : enemymovement
     bool atPlayer;
     bool lastatPlayer;
     Coroutine attack;
-    GameObject tagg;
+    public GameObject tagg;
     public float taggSpeed = 15;
     public float attacksDelay = 0.2f;
     Quaternion fullRot;
     Animator animator;
     bool attacking = false;
+    public float taggLifetime = 3;
     protected override void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        Transform[] objects = GetComponentsInChildren<Transform>();
-        foreach (var obj in objects)
-        {
-            if (obj.GetComponent<tagg>())
-            {
-                tagg = obj.gameObject;
-                tagg.GetComponent<tagg>().parent = this;
-            }
-        }
-
-        tagg.SetActive(false);
+        
         base.Start();
     }
 
@@ -100,14 +91,12 @@ public class IgelkottMovement : enemymovement
                 yield return 0;
             }
 
-            GameObject newtagg = Instantiate(tagg, transform.position - transform.forward, transform.rotation * Quaternion.Euler(new Vector3(0, 0, 0)));
-            newtagg.SetActive(true);
-            yield return 0;
-            GameObject newtagg2 = Instantiate(tagg, transform.position - transform.forward + new Vector3(transform.lossyScale.x, 0, 0), transform.rotation * Quaternion.Euler(new Vector3(0, 45, 0)));
-            newtagg2.SetActive(true);
-            yield return 0;
-            GameObject newtagg3 = Instantiate(tagg, transform.position - transform.forward + new Vector3(-transform.lossyScale.x, 0, 0), transform.rotation * Quaternion.Euler(new Vector3(0, -45, 0)));
-            newtagg3.SetActive(true);
+            for (int i = -1; i < 2; i ++)
+            {
+                GameObject newtagg = Instantiate(tagg, transform.position /* - transform.forward + new Vector3(transform.lossyScale.x * i, 0, 0) */, transform.rotation * Quaternion.Euler(new Vector3(0, i * 45, 0)));
+                newtagg.SetActive(true);
+                newtagg.GetComponent<tagg>().parent = this;
+            }
 
             yield return new WaitForSeconds(attacksDelay);
 
@@ -125,7 +114,7 @@ public class IgelkottMovement : enemymovement
             {
                 rb.angularVelocity = Vector3.zero;
                 Quaternion fullRotLerp = Quaternion.Lerp(transform.rotation, fullRot, Time.deltaTime * rotationSpeed);
-                rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y, rb.rotation.z));
+                rb.rotation = Quaternion.Euler(new Vector3(rb.rotation.x, fullRotLerp.eulerAngles.y, rb.rotation.z));
             }
         }
     }
