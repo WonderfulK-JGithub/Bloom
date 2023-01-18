@@ -14,9 +14,11 @@ public class IgelkottMovement : enemymovement
     public float taggSpeed = 15;
     public float attacksDelay = 0.2f;
     Quaternion fullRot;
-
+    Animator animator;
+    bool attacking = false;
     protected override void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         Transform[] objects = GetComponentsInChildren<Transform>();
         foreach (var obj in objects)
         {
@@ -35,6 +37,10 @@ public class IgelkottMovement : enemymovement
     {
         lastatPlayer = atPlayer;
         atPlayer = distanceToPlayer < attackRange;
+        if (!attacking)
+        {
+            animator.SetBool("walk", true);
+        }
 
         if (chase)
         {
@@ -68,6 +74,7 @@ public class IgelkottMovement : enemymovement
                 if (attack != null)
                 {
                     StopCoroutine(attack);
+                    attacking = false;
 
                 }
                 transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
@@ -76,6 +83,8 @@ public class IgelkottMovement : enemymovement
     }
     IEnumerator Attack()
     {
+        attacking = true;
+        animator.SetBool("walk", false);
         while (true)
         {
             rb.angularVelocity = Vector3.zero;
