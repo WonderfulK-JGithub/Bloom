@@ -1077,6 +1077,7 @@ MonoBehaviour:
   detectionRange: 16
   brake: 0
   hp: 30
+  color: {fileID: 7893873192725696718}
   attackRange: 8
   attackRotationTime: 2
   taggSpeed: 15

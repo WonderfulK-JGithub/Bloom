@@ -17,6 +17,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected float distanceToPlayer;
     protected bool lastchase = true;
     protected bool hasTransformed = false;
+    public SkinnedMeshRenderer color;
 
     protected virtual void Start()
     {
@@ -107,7 +108,6 @@ public class enemymovement : MonoBehaviour, IWaterable
             while (t < 1)
             {
                 transform.localScale = Vector3.Lerp(scale, targetScale, t);
-                GetComponentInChildren<MeshRenderer>().material.SetColor("_Tint", new Color(1 - t, t, 0, 1));
 
                 t += Time.deltaTime;
                 yield return 0;
@@ -127,11 +127,11 @@ public class enemymovement : MonoBehaviour, IWaterable
         hp -= UnityEngine.Random.Range(min, max);
         if (hp >= 0)
         {
-            GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1 - (hp / 100f));
+            color.material.SetFloat("_OilLevel", 1 - (hp / 100f));
         }
         else
         {
-            GetComponentInChildren<MeshRenderer>().material.SetFloat("_OilLevel", 1);
+            color.material.SetFloat("_OilLevel", 1);
         }
     }
     protected virtual IEnumerator Wander()

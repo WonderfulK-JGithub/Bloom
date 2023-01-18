@@ -254,11 +254,12 @@ MonoBehaviour:
   detectionRange: 25
   brake: 0
   hp: 30
+  color: {fileID: 7891178039891325165}
   jumpBoost: 10
   jumpCooldown: 2.5
   damageCooldown: 5
   gravityMultiplier: 2
-  attackRange: 2
+  attackRange: 4
 --- !u!135 &946678069525654198
 SphereCollider:
   m_ObjectHideFlags: 0
