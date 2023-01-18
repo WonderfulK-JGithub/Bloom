@@ -17,11 +17,17 @@ public class OilBullet : WaterBullet
 
         if (_others.Length > 0)
         {
-            Splash(_others[0]);
+            
             
             if (_others[0].CompareTag("Player"))
             {
                 DamagePlayer(_others[0]);
+                Destroy(gameObject);
+                AudioManager.current.PlaySound(AudioManager.AudioNames.WaterSplash);
+            }
+            else
+            {
+                Splash(_others[0]);
             }
         }
 
