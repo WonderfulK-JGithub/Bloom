@@ -3526,7 +3526,7 @@ MonoBehaviour:
   weaponBobScale: {x: 0.015625, y: 0.03125}
   weaponBobSpeed: {x: 7.5, y: 15}
   weaponBobSmooth: 10
-  recoilScale: 0.3
+  recoilScale: 0.15
   recoilSpeed: 8
   gun: {fileID: 8554426569882129917}
   cam: {fileID: 8554426570039831144}
@@ -3583,7 +3583,7 @@ MonoBehaviour:
   damageOverlayFadeSpeed: 4
   damageTickTime: 1
   oilTickDamage: 5
-  regenSpeed: 3000
+  regenSpeed: 10
 --- !u!114 &8554426570220972980
 MonoBehaviour:
   m_ObjectHideFlags: 0

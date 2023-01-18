@@ -64,13 +64,13 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
         if (health <= 0) Die();
 
-        cam.ShakeScreen();
-
         if(health <= 40)
         {
-            StopCoroutine(fadeCoroutines[0]);
-            StopCoroutine(fadeCoroutines[1]);
-            StopCoroutine(fadeCoroutines[2]);
+            for (int i = 0; i < 3; i++)
+            {
+                if (fadeCoroutines[i] != null)
+                    StopCoroutine(fadeCoroutines[i]);
+            }
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
             if (colAd != null)
@@ -78,21 +78,29 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         }
         else
         {
-            StopCoroutine(fadeCoroutines[0]);
-            StopCoroutine(fadeCoroutines[1]);
-            StopCoroutine(fadeCoroutines[2]);
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (fadeCoroutines[i] != null)
+                    StopCoroutine(fadeCoroutines[i]);
+            }
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, 0));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, 0));
             if (colAd != null)
                 fadeCoroutines[2] = StartCoroutine(FadeSaturation(0));
         }
 
-        StopCoroutine(nameof(tilRegen));
-        StopCoroutine(nameof(regen));
-        if (health < 50)
-        {        
-            StartCoroutine(nameof(tilRegen));
-        }
+        if(damage > 0)
+        {
+            cam.ShakeScreen();
+
+            StopCoroutine(nameof(tilRegen));
+            StopCoroutine(nameof(regen));
+            if (health < 50)
+            {
+                StartCoroutine(nameof(tilRegen));
+            }
+        }   
     }
 
     IEnumerator FadeTo(Image img, float target)
