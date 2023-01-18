@@ -39,7 +39,7 @@ Material:
     - Vector1_561466ce7a134cb89ddfda6a34ab7958: 0.35
     - Vector1_6b9c6e2b86ad4f2fa8ed81695095db44: 0
     - _Distortion: 0.01
-    - _NormalSpeed: 0.2
+    - _NormalSpeed: 0.04
     - _NormalStrength: 0.91
     - _Smooth: 0.4
     - _VertexDisplacement: 0.9

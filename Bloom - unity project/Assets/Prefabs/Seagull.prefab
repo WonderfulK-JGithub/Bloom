@@ -128,7 +128,7 @@ MonoBehaviour:
   rotationSpeed: 4
   rotationSpeed2: 180
   startHealthPoints: 3
-  damage: 3
+  damage: 10
   walkSpeed: 1
   idleRadius: 2
   timeBetweenIdleWalk: 5
@@ -141,7 +141,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   horizontalSpeed: 8
-  verticalSpeed: 1
+  verticalSpeed: 1.5
   heightOverPlayer: 6
   playerCircleRadius: 4.5
   playerCircleSpeed: 60
@@ -222,8 +222,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  yOffset: 0.3
-  timeBetweenOilPoop: 4
+  yOffset: 0.8
+  timeBetweenOilPoop: 3
   oilDropPrefab: {fileID: 4376629939099795333, guid: 6d2d4fe27c5291c448a7b920eae6ae2a, type: 3}
   dropStartSpeed: 1
   flappForce: 4

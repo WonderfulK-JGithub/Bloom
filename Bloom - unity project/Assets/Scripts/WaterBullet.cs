@@ -7,6 +7,8 @@ public class WaterBullet : MonoBehaviour
     
     [SerializeField] GameObject particleTrail;
     [SerializeField] GameObject splashParticle;
+    [SerializeField] float splashTime = 1.5f;
+
     public float gravity;
     public LayerMask ignoreLayers;
 
@@ -32,7 +34,7 @@ public class WaterBullet : MonoBehaviour
         Transform _trans = Instantiate(splashParticle, lastHit.point, Quaternion.identity).transform;
         _trans.up = lastHit.normal;
         _trans.SetParent(_other.transform);
-        Destroy(_trans.gameObject, 1.5f);
+        Destroy(_trans.gameObject, splashTime);
 
         particleTrail.transform.SetParent(null);
 
