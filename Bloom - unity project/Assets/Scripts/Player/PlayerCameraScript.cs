@@ -14,6 +14,10 @@ public class PlayerCameraScript : MonoBehaviour
     [SerializeField] float headBobReturnSpeed;
     Vector3 headBobOffset = Vector3.zero;
 
+    [Header("Screenshake")]
+    [SerializeField] float screenShakeTime;
+    [SerializeField] float screenShakeMagnitude;
+
     [Header("References")]
     [SerializeField] Camera cam;
 
@@ -23,6 +27,10 @@ public class PlayerCameraScript : MonoBehaviour
 
     public static bool canLook = true;
     public Transform deathObj;
+
+    float shakeTimer;
+    float shakePower;
+    float powerReduction;
 
     private void Start()
     {
@@ -51,6 +59,8 @@ public class PlayerCameraScript : MonoBehaviour
         rb.MoveRotation(Quaternion.Euler(0,yRot,0));
 
         HeadBob();
+
+        ScreenShake();
     }
 
     private void LateUpdate()
@@ -84,5 +94,30 @@ public class PlayerCameraScript : MonoBehaviour
 
         cam.transform.localPosition = new Vector3(0, 1.75f) + headBobOffset;
         //cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, new Vector3(0, 1.75f) + headBobOffset, headBobReturnSpeed * Time.deltaTime);
+    }
+
+    void ScreenShake()
+    {
+        if (shakeTimer > 0f)//screneshake (samma metod som i Juicyness)
+        {
+            shakeTimer -= Time.fixedDeltaTime;
+
+            Vector3 shakePos = new Vector3();
+            shakePos.x = Random.Range(-shakePower, shakePower);
+            shakePos.y = Random.Range(-shakePower, shakePower);
+
+            //Vector3 truePos = shakePos.x * weap.right + shakePos.y * transform.up;//screenshaken tar hänsyn till kameravinkeln
+
+            cam.transform.localPosition += shakePos;
+
+            shakePower -= powerReduction * Time.fixedDeltaTime;
+        }
+    }
+
+    public void ShakeScreen()
+    {
+        shakeTimer = screenShakeTime;
+        shakePower = screenShakeMagnitude;
+        powerReduction = shakePower / shakeTimer;
     }
 }

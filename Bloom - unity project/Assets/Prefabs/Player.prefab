@@ -3481,6 +3481,8 @@ MonoBehaviour:
   headBobScale: {x: 0.05, y: 0.05}
   headBobSpeed: {x: 7.5, y: 15}
   headBobReturnSpeed: 5
+  screenShakeTime: 0.5
+  screenShakeMagnitude: 10
   cam: {fileID: 8554426570039831144}
   deathObj: {fileID: 0}
 --- !u!114 &8554426570220972976
@@ -3579,6 +3581,9 @@ MonoBehaviour:
   startHealth: 100
   healthSlider: {fileID: 8554426570210206235}
   damageOverlayFadeSpeed: 4
+  damageTickTime: 1
+  oilTickDamage: 5
+  regenSpeed: 3000
 --- !u!114 &8554426570220972980
 MonoBehaviour:
   m_ObjectHideFlags: 0

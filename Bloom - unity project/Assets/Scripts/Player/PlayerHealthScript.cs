@@ -9,8 +9,8 @@ using UnityEngine.Rendering.Universal;
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
     [SerializeField] int startHealth = 100;
-    int _health;
-    int health
+    float _health;
+    float health
     {
         get { return _health; }
         set { if(healthSlider != null) healthSlider.value = value / 100f; _health = value; }
@@ -25,6 +25,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     [SerializeField] float damageTickTime;
     [SerializeField] int oilTickDamage;
 
+    [SerializeField] float regenSpeed = 1;
+
     Image damageOverlay;
     Image damageOverlay2;
 
@@ -32,8 +34,14 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     float tickTimer;
 
+    Coroutine[] fadeCoroutines = new Coroutine[3];
+
+    PlayerCameraScript cam;
+
     private void Awake()
     {
+        cam = FindObjectOfType<PlayerCameraScript>();
+
         Volume volume = FindObjectOfType<Volume>();
         ColorAdjustments tmp;
 
@@ -50,27 +58,40 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         damageOverlay2 = GameObject.Find("DamageOverlay (1)").GetComponent<Image>();
     }
 
-    public void Damage(int damage)
+    public void Damage(float damage)
     {
         health -= damage;
 
         if (health <= 0) Die();
 
+        cam.ShakeScreen();
+
         if(health <= 40)
         {
-            StopAllCoroutines();
-            StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
-            StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
+            StopCoroutine(fadeCoroutines[0]);
+            StopCoroutine(fadeCoroutines[1]);
+            StopCoroutine(fadeCoroutines[2]);
+            fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
+            fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
             if (colAd != null)
-                StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
+                fadeCoroutines[2] = StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
         }
         else
         {
-            StopAllCoroutines();
-            StartCoroutine(FadeTo(damageOverlay, 0));
-            StartCoroutine(FadeTo(damageOverlay2, 0));
+            StopCoroutine(fadeCoroutines[0]);
+            StopCoroutine(fadeCoroutines[1]);
+            StopCoroutine(fadeCoroutines[2]);
+            fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, 0));
+            fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, 0));
             if (colAd != null)
-                StartCoroutine(FadeSaturation(0));
+                fadeCoroutines[2] = StartCoroutine(FadeSaturation(0));
+        }
+
+        StopCoroutine(nameof(tilRegen));
+        StopCoroutine(nameof(regen));
+        if (health < 50)
+        {        
+            StartCoroutine(nameof(tilRegen));
         }
     }
 
@@ -148,11 +169,26 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             }
         }
     }
+
+    IEnumerator tilRegen()
+    {
+        yield return new WaitForSeconds(8);
+        StartCoroutine(nameof(regen));
+    }
+
+    IEnumerator regen()
+    {
+        while(health < 50)
+        {
+            Damage(-regenSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }
 
 public interface IDamageable
 {
-    public void Damage(int damage);
+    public void Damage(float damage);
     public void Die();
 }
 

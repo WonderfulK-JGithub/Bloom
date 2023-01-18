@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trash:
-  - {fileID: 919132149155446097, guid: 87913949bdc9d364a8d4e1c9e8dae7b4, type: 3}
-  - {fileID: 919132149155446097, guid: 977bb35d3a39c4a4995b6908fb8bd978, type: 3}
+  - {fileID: 638704996868630653, guid: 29092535c02aed1498c9c94474827d99, type: 3}
+  - {fileID: 7639262329718322996, guid: a8668eb2acd93ad42b54cd938c4914ba, type: 3}
   rotationSpeed: 90
 --- !u!135 &3674591399305879020
 SphereCollider:
