@@ -29,9 +29,14 @@ public class ShootingScript : MonoBehaviour
 
     GunScript visual;
 
+    Animator anim;
+
+
     private void Awake()
     {
         visual = GetComponent<GunScript>();
+        anim = GetComponentInChildren<Animator>();
+
     }
 
 
@@ -67,6 +72,7 @@ public class ShootingScript : MonoBehaviour
             Invoke(nameof(ActivateShoot), 1 / bulletsPerSecond);
         }
 
+        anim.SetBool("isReloading", false);
 
         if (Input.GetMouseButton(1))
         {
@@ -80,6 +86,7 @@ public class ShootingScript : MonoBehaviour
                         AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
                     }
 
+                    anim.SetBool("isReloading", true);
                     ammo += waterReloadSpeed * Time.deltaTime;
                 }
             }

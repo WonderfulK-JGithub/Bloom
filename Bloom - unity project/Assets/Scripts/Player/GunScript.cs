@@ -34,7 +34,6 @@ public class GunScript : MonoBehaviour
 
     Vector3 offset;
 
-
     private void Awake()
     {
         playerRb = GetComponent<Rigidbody>();

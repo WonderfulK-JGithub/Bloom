@@ -332,7 +332,7 @@
     "generateRampCurveInXAxis": true,
     "generateHeight": 5.0,
     "flattenMode": 0,
-    "setHeight": 0.0,
+    "setHeight": 1.0,
     "boxFilterSize": 7,
     "smoothingIterations": 1,
     "mouldToolRaycastOffset": 0.0,
