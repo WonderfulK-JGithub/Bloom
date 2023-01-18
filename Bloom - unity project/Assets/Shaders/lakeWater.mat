@@ -44,6 +44,6 @@ Material:
     - _Smooth: 0.4
     - _VertexDisplacement: 0.9
     m_Colors:
-    - _SpecularColor: {r: 0.30817604, g: 0.7803341, b: 1, a: 0}
-    - _Tint: {r: 0, g: 0.82951665, b: 1, a: 0}
+    - _SpecularColor: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 0}
+    - _Tint: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0}
   m_BuildTextureStacks: []

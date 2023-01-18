@@ -21,10 +21,16 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     [SerializeField] Slider healthSlider;
 
     [SerializeField] float damageOverlayFadeSpeed;
+
+    [SerializeField] float damageTickTime;
+    [SerializeField] int oilTickDamage;
+
     Image damageOverlay;
     Image damageOverlay2;
 
     ColorAdjustments colAd;
+
+    float tickTimer;
 
     private void Awake()
     {
@@ -127,6 +133,20 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.LeftControl)) Damage(10);
         #endif
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Oil"))
+        {
+            tickTimer -= Time.deltaTime;
+            if(tickTimer <= 0f)
+            {
+                Damage(oilTickDamage);
+                tickTimer = damageTickTime;
+                print("damage");
+            }
+        }
     }
 }
 

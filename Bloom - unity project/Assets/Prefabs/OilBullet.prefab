@@ -4816,7 +4816,7 @@ GameObject:
   - component: {fileID: 4376629939099795335}
   - component: {fileID: 4376629939099795334}
   - component: {fileID: -1590346611977970799}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: OilBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4886,7 +4886,7 @@ MonoBehaviour:
   gravity: -2.455
   ignoreLayers:
     serializedVersion: 2
-    m_Bits: 2576
+    m_Bits: 528
   damage: 5
 --- !u!1 &7865151868937190819
 GameObject:
