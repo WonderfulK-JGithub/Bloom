@@ -27,7 +27,7 @@ public class tagg : MonoBehaviour
         {
             parent.DamagePlayer(15);
         }
-        else if (!other.CompareTag("tagg"))
+        else if (!other.CompareTag("tagg") && other.gameObject.layer != 9)
         {
             Destroy(gameObject);
         }

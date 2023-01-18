@@ -93,7 +93,7 @@ public class IgelkottMovement : enemymovement
 
             for (int i = -1; i < 2; i ++)
             {
-                GameObject newtagg = Instantiate(tagg, transform.position /* - transform.forward + new Vector3(transform.lossyScale.x * i, 0, 0) */, transform.rotation * Quaternion.Euler(new Vector3(0, i * 45, 0)));
+                GameObject newtagg = Instantiate(tagg, transform.position  - transform.forward + (-transform.right * transform.lossyScale.x * i), transform.rotation * Quaternion.Euler(new Vector3(0, i * 45, 0)));
                 newtagg.SetActive(true);
                 newtagg.GetComponent<tagg>().parent = this;
             }
