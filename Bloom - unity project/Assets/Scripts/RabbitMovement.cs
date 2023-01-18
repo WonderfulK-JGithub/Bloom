@@ -14,14 +14,20 @@ public class RabbitMovement : enemymovement
 
     float secsSinceLastJump = 0;
     float secsSinceLastDamage = 0;
+    Animator animator;
 
+    protected override void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        base.Start();
+    }
     protected override void Movement()
     {
         secsSinceLastJump += Time.deltaTime;
         secsSinceLastDamage += Time.deltaTime;
 
         //print((transform.forward * moveSpeed * Convert.ToInt32(chase)));
-        if (secsSinceLastJump > jumpCooldown && onGround && (distanceToPlayer > attackRange || detectionRange == 0))
+        if (secsSinceLastJump > jumpCooldown && onGround && ((distanceToPlayer > attackRange && chase) || detectionRange == 0))
         {
             secsSinceLastJump = 0;
             Jump();
@@ -30,6 +36,23 @@ public class RabbitMovement : enemymovement
         {
             secsSinceLastDamage = 0;
             DamagePlayer(30);
+        }
+
+
+
+        if (lastchase && !chase && detectionRange > 0)
+        {
+            animator.SetBool("wander", true);
+            wander = StartCoroutine(Wander());
+        }
+        else if (!lastchase && chase)
+        {
+            animator.SetBool("wander", false);
+            if (wander != null)
+            {
+                StopCoroutine(wander);
+                rb.velocity = Gravity();
+            }
         }
 
     }
