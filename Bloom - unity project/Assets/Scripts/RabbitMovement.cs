@@ -35,6 +35,7 @@ public class RabbitMovement : enemymovement
         else if (distanceToPlayer <= attackRange && secsSinceLastDamage > damageCooldown && detectionRange > 0)
         {
             secsSinceLastDamage = 0;
+            animator.SetTrigger("attack");
             DamagePlayer(30);
         }
 
@@ -64,6 +65,7 @@ public class RabbitMovement : enemymovement
 
     void Jump()
     {
+        animator.SetBool("hoppar", true);
         rb.velocity += new Vector3((transform.forward * moveSpeed * Convert.ToInt32(chase)).x, jumpBoost, (transform.forward * moveSpeed * Convert.ToInt32(chase)).z);
     }
 
@@ -76,5 +78,5 @@ public class RabbitMovement : enemymovement
         return base.Transformation();
     }
 
-    protected override void OnCollisionEnter(Collision collision) { }
+    protected override void OnCollisionEnter(Collision collision) { animator.SetBool("hoppar", false); }
 }

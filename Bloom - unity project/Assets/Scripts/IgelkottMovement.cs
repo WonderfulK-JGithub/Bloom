@@ -17,8 +17,12 @@ public class IgelkottMovement : enemymovement
     Animator animator;
     bool attacking = false;
     public float taggLifetime = 3;
+    public Transform kropp;
+    Vector3 kroppPos;
     protected override void Start()
     {
+
+        kroppPos = kropp.localPosition;
         animator = GetComponentInChildren<Animator>();
         
         base.Start();
@@ -38,6 +42,7 @@ public class IgelkottMovement : enemymovement
             if (!lastchase)
             {
                 StopCoroutine(wander);
+                kropp.localPosition = kroppPos;
             }
             if (!atPlayer)
             {
@@ -46,6 +51,7 @@ public class IgelkottMovement : enemymovement
                 if (lastatPlayer && detectionRange > 0)
                 {
                     StopCoroutine(attack);
+                    kropp.localPosition = kroppPos;
                     transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
                 }
             }
@@ -65,6 +71,7 @@ public class IgelkottMovement : enemymovement
                 if (attack != null)
                 {
                     StopCoroutine(attack);
+                    kropp.localPosition = kroppPos;
                     attacking = false;
 
                 }
@@ -78,13 +85,16 @@ public class IgelkottMovement : enemymovement
         animator.SetBool("walk", false);
         while (true)
         {
+            animator.SetTrigger("attack");
             rb.angularVelocity = Vector3.zero;
             Quaternion startrot = transform.rotation;
             Quaternion targetrot = Quaternion.Euler(new Vector3(rb.rotation.x, fullRot.eulerAngles.y + 180 ,rb.rotation.z)); 
             float t = 0;
+            Vector3 originpos = kropp.localPosition;
+
             while (t < 1)
             {
-
+                kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
                 rb.angularVelocity = Vector3.zero;
                 rb.rotation = Quaternion.Lerp(startrot, targetrot, t);
                 t += Time.deltaTime * attackRotationTime;
@@ -98,9 +108,14 @@ public class IgelkottMovement : enemymovement
                 newtagg.GetComponent<tagg>().parent = this;
             }
 
-            yield return new WaitForSeconds(attacksDelay);
+            while (t > 0)
+            {
+                kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
+                t -= Time.deltaTime * attackRotationTime;
+                yield return 0;
+            }
 
-            
+            yield return new WaitForSeconds(attacksDelay);
         }
 
     }
