@@ -21,10 +21,13 @@ public class PlantCompletionHandler : MonoBehaviour
     [SerializeField] float appearTime;
     [SerializeField] Gradient completionGradient;
     [SerializeField] Image barImage;
+    [SerializeField] GameObject winScreen;
 
     ComputeBuffer plantDataBuffer;
 
     public List<Material> groundMaterials;
+
+    Animator anim;
 
     Plant[] plants;
 
@@ -38,7 +41,8 @@ public class PlantCompletionHandler : MonoBehaviour
     float appearTimer;
     void Awake()
     {
-        
+        anim = GetComponent<Animator>();
+
         current = this;
 
         plants = FindObjectsOfType<Plant>();
@@ -105,6 +109,11 @@ public class PlantCompletionHandler : MonoBehaviour
         else
         {
             completion.SetActive(false);
+
+            if(completeCount == gridLength)
+            {
+                anim.Play("100");
+            }
         }
     }
 
@@ -125,5 +134,9 @@ public class PlantCompletionHandler : MonoBehaviour
         plantDataBuffer.Dispose();
     }
 
+    void amorgos()
+    {
+        winScreen.SetActive(true);
+    }
     
 }
