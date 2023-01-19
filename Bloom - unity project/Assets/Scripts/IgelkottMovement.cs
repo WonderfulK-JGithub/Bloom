@@ -95,7 +95,7 @@ public class IgelkottMovement : enemymovement
 
             while (t < 1)
             {
-                kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
+                //kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
                 rb.angularVelocity = Vector3.zero;
                 rb.rotation = Quaternion.Lerp(startrot, targetrot, t);
                 t += Time.deltaTime * attackRotationTime;
@@ -111,7 +111,7 @@ public class IgelkottMovement : enemymovement
 
             while (t > 0)
             {
-                kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
+                //kropp.localPosition = originpos + new Vector3(0, t * 0.5f, 0);
                 t -= Time.deltaTime * attackRotationTime;
                 yield return 0;
             }
