@@ -33,6 +33,9 @@ public class MenuAnimations : MonoBehaviour
     public Image black;
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         logoTargetPos.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         centerPos = windows[0].localPosition;
         black.gameObject.SetActive(false);
