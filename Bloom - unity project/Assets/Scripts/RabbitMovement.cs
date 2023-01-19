@@ -65,7 +65,6 @@ public class RabbitMovement : enemymovement
 
     void Jump()
     {
-        animator.SetBool("hoppar", true);
         rb.velocity += new Vector3((transform.forward * moveSpeed * Convert.ToInt32(chase)).x, jumpBoost, (transform.forward * moveSpeed * Convert.ToInt32(chase)).z);
     }
 
@@ -78,5 +77,7 @@ public class RabbitMovement : enemymovement
         return base.Transformation();
     }
 
-    protected override void OnCollisionEnter(Collision collision) { animator.SetBool("hoppar", false); }
+    protected override void OnCollisionEnter(Collision collision) {  }
+    protected override void OnCollisionStay(Collision other) { base.OnCollisionStay(other); animator.SetBool("hoppar", false); }
+    private void OnCollisionExit(Collision collision) { animator.SetBool("hoppar", true); }
 }

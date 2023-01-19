@@ -199,7 +199,7 @@ public class enemymovement : MonoBehaviour, IWaterable
             DamagePlayer(10);
         }
     }
-    private void OnCollisionStay(Collision collision)
+    protected virtual void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 6)
         {
@@ -213,15 +213,5 @@ public class enemymovement : MonoBehaviour, IWaterable
         {
             onGround = false;
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        /*
-        if (other.gameObject.layer == 4)
-        {
-            DamageEnemy(Time.deltaTime, Time.deltaTime * 2);
-        }
-        */
     }
 }
