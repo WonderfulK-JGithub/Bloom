@@ -3546,10 +3546,11 @@ MonoBehaviour:
   barrel: {fileID: 8554426569954290764}
   bullet: {fileID: 4376629939099795333, guid: 5cd5bfb0b6c7d054795bc0d3e93a4419, type: 3}
   bulletSpeed: 15
-  bulletsPerSecond: 10
+  bulletsPerSecond: 2
   bulletCost: 5
   waterSlider: {fileID: 8554426570004933150}
   waterReloadSpeed: 120
+  tilNextShotLoading: {fileID: 4997285192060280595}
 --- !u!54 &8554426570220972989
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3753,6 +3754,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: uppgrade Text
       objectReference: {fileID: 0}
+    - target: {fileID: 2429273220622925756, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 17.1754
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429273220622925756, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 17.1754
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429273220622925756, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429273220622925756, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 94467ff9883a0e740b17412d24ccff6a, type: 3}
+    - target: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.37749028
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.13919537
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6929428428953143458, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
       propertyPath: m_Name
       value: BasicCanvas
@@ -3906,6 +3943,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2115374681627104071, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
   m_PrefabInstance: {fileID: 1629506835111934394}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4997285192060280595 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6036168970249725609, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
+  m_PrefabInstance: {fileID: 1629506835111934394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8554426568453402908 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6929428428953143462, guid: c3b80a6df6146514c8e0f6eac293a61e, type: 3}
