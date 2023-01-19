@@ -207,7 +207,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    protected virtual void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == 6)
         {

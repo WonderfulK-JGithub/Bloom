@@ -78,6 +78,6 @@ public class RabbitMovement : enemymovement
     }
 
     protected override void OnCollisionEnter(Collision collision) {  }
-    protected override void OnCollisionStay(Collision other) { base.OnCollisionStay(other); animator.SetBool("hoppar", false); }
-    private void OnCollisionExit(Collision collision) { animator.SetBool("hoppar", true); }
+    protected override void OnCollisionStay(Collision collision) { base.OnCollisionStay(collision); animator.SetBool("hoppar", false); }
+    protected override void OnCollisionExit(Collision collision) { base.OnCollisionExit(collision); animator.SetBool("hoppar", true); }
 }
