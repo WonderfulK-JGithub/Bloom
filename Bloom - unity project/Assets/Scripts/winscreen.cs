@@ -9,7 +9,7 @@ public class winscreen : MonoBehaviour
     public Image black;
     void Start()
     {
-        Invoke("ChangeSceneAnimation", 1);
+        Invoke("ChangeSceneAnimation", 2);
     }
 
     void ChangeSceneAnimation()
