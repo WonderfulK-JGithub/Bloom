@@ -101,7 +101,7 @@ public class PlayerCameraScript : MonoBehaviour
     {
         if (shakeTimer > 0f)//screneshake (samma metod som i Juicyness)
         {
-            shakeTimer -= Time.fixedDeltaTime;
+            shakeTimer -= Time.deltaTime;
 
             Vector3 shakePos = new Vector3();
             shakePos.x = Random.Range(-shakePower, shakePower);
@@ -111,7 +111,7 @@ public class PlayerCameraScript : MonoBehaviour
 
             cam.transform.localPosition += shakePos;
 
-            shakePower -= powerReduction * Time.fixedDeltaTime;
+            shakePower -= powerReduction * Time.deltaTime;
         }
     }
 

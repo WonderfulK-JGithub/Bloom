@@ -3482,7 +3482,7 @@ MonoBehaviour:
   headBobSpeed: {x: 7.5, y: 15}
   headBobReturnSpeed: 5
   screenShakeTime: 0.5
-  screenShakeMagnitude: 0.5
+  screenShakeMagnitude: 0.2
   cam: {fileID: 8554426570039831144}
   deathObj: {fileID: 0}
 --- !u!114 &8554426570220972976

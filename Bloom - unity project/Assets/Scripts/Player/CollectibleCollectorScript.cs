@@ -13,6 +13,7 @@ public class CollectibleCollectorScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI xOfxCansText;
     [SerializeField] GameObject upgradeText;
     [SerializeField] int neededForUpgrade;
+    [SerializeField] GameObject biggestBird;
 
 
     int collectibles = 0;
@@ -74,6 +75,7 @@ public class CollectibleCollectorScript : MonoBehaviour
         {
             upgradeText.SetActive(true);
             Invoke(nameof(Mogus), 2f);
+            biggestBird.SetActive(true);
         }
     }
 

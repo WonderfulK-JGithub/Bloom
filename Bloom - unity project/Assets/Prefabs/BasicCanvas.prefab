@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 8226432863641042104}
   - component: {fileID: 3555594092539994111}
   m_Layer: 5
-  m_Name: Recycle Text (1)
+  m_Name: uppgradeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Epic uppgrade
+  m_text: 'Biggest bird
+
+    Unlocked...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}
   m_sharedMaterial: {fileID: 3104190029366912529, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}

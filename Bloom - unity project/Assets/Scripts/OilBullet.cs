@@ -23,7 +23,7 @@ public class OilBullet : WaterBullet
             {
                 DamagePlayer(_others[0]);
                 Destroy(gameObject);
-                AudioManager.current.PlaySound(AudioManager.AudioNames.WaterSplash);
+                AudioManager.current.PlaySound(AudioManager.AudioNames.OilSplash);
             }
             else
             {

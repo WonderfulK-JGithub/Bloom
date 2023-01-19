@@ -4883,7 +4883,7 @@ MonoBehaviour:
   particleTrail: {fileID: 3494090087311429502}
   splashParticle: {fileID: 1062824231876019855, guid: 5987a75ad2edc924aad3745b486bceb2, type: 3}
   splashTime: 5
-  splashSound: 6
+  splashSound: 9
   gravity: -2.455
   ignoreLayers:
     serializedVersion: 2
