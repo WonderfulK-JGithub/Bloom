@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UI;
-using TMPro;
 
 public class PlantCompletionHandler : MonoBehaviour
 {
@@ -12,13 +10,6 @@ public class PlantCompletionHandler : MonoBehaviour
     [SerializeField] float plantReach;
     [SerializeField] float innerPlantReach;
     [SerializeField] float saturateSpeed;
-
-    [Header("Completion")]
-    [SerializeField] GameObject completion;
-    [SerializeField] Slider completionBar;
-    [SerializeField] float fillSpeed;
-    [SerializeField] TextMeshProUGUI percentText;
-    [SerializeField] float appearTime;
 
     ComputeBuffer plantDataBuffer;
 
@@ -30,11 +21,7 @@ public class PlantCompletionHandler : MonoBehaviour
 
     int gridLength;
 
-    int completeCount;
-
     List<int> plantsToSaturate = new List<int>();
-
-    float appearTimer;
 
     void Awake()
     {
@@ -88,40 +75,14 @@ public class PlantCompletionHandler : MonoBehaviour
         {
             plantDataBuffer.SetData(plantCompletionGrid);
         }
-
-
-        
-
-        if(appearTimer >= 0f)
-        {
-            appearTimer -= Time.deltaTime;
-
-            completion.SetActive(true);
-
-            float _targetPercent = completeCount / (float)gridLength;
-
-            completionBar.value = Mathf.MoveTowards(completionBar.value, _targetPercent, fillSpeed * Time.deltaTime);
-            percentText.text = Mathf.Floor(_targetPercent * 100).ToString() + "%";
-        }
-        else
-        {
-            completion.SetActive(false);
-        }
-        
     }
 
-    public void SetGridBox(Vector3 _position, int _index)
+    public void SetGridBox(float _value, Vector3 _position, int _index)
     {
         plantCompletionGrid[_index] = new Vector3(_position.x, _position.z, 0f);
         plantDataBuffer.SetData(plantCompletionGrid);
 
         plantsToSaturate.Add(_index);
-
-        completeCount++;
-
-        appearTimer = appearTime;
-
-        
     }
 
     private void OnDisable()
