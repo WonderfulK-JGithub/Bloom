@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlantCompletionHandler : MonoBehaviour
 {
@@ -21,7 +22,6 @@ public class PlantCompletionHandler : MonoBehaviour
     [SerializeField] float appearTime;
     [SerializeField] Gradient completionGradient;
     [SerializeField] Image barImage;
-    [SerializeField] GameObject winScreen;
 
     ComputeBuffer plantDataBuffer;
 
@@ -113,6 +113,8 @@ public class PlantCompletionHandler : MonoBehaviour
             if(completeCount == gridLength)
             {
                 anim.Play("100");
+                enabled = false;
+                completion.SetActive(true);
             }
         }
     }
@@ -136,7 +138,7 @@ public class PlantCompletionHandler : MonoBehaviour
 
     void amorgos()
     {
-        winScreen.SetActive(true);
+        SceneManager.LoadScene(0);
     }
     
 }
