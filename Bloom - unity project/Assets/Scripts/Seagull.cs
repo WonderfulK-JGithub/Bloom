@@ -10,6 +10,8 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] int startHealthPoints;
     [SerializeField] int damage;
     [SerializeField] Animator anim;
+    [SerializeField] Gradient hitFlashGradient;
+    [SerializeField] float hitFlashDuration;
 
     [Header("Idle")]
     [SerializeField] float walkSpeed;
@@ -64,6 +66,7 @@ public class Seagull : MonoBehaviour,IWaterable
     float rotationAroundPlayer;
     float diveStartY;
     float oilTimer;
+    float hitFlashTimer;
 
     Transform player;
 
@@ -135,6 +138,17 @@ public class Seagull : MonoBehaviour,IWaterable
                 }
 
                 break;
+        }
+
+        if(hitFlashTimer > 0f)
+        {
+            hitFlashTimer -= Time.deltaTime;
+
+            Color _color = hitFlashGradient.Evaluate(1f - hitFlashTimer / hitFlashDuration);
+            foreach (var material in rend.materials)
+            {
+                material.SetColor("_OtherTint", _color);
+            }
         }
     }
 
@@ -285,6 +299,8 @@ public class Seagull : MonoBehaviour,IWaterable
     public void Water()
     {
         healthPoints--;
+
+        hitFlashTimer = hitFlashDuration;
 
         if(healthPoints == 0)
         {
