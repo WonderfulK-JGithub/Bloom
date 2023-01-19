@@ -970,3 +970,6 @@ MonoBehaviour:
   oilDropPrefab: {fileID: 4376629939099795333, guid: 6d2d4fe27c5291c448a7b920eae6ae2a, type: 3}
   dropStartSpeed: 1
   flappForce: 4
+  flappingSpeed: 3
+  flappingDistanceY: 1.5
+  rend: {fileID: 8417361359054683424}

@@ -43,12 +43,14 @@ public class Seagull : MonoBehaviour,IWaterable
 
     [Header("Happy")]
     [SerializeField] float flappForce;
+    [SerializeField] float flappingSpeed;
+    [SerializeField] float flappingDistanceY;
 
     SeagullState state;
 
     Rigidbody rb;
     Collider col;
-    Renderer rend;
+    [SerializeField] SkinnedMeshRenderer rend;
 
     Vector3 targetPos;
     Vector3 centerPos;
@@ -69,7 +71,7 @@ public class Seagull : MonoBehaviour,IWaterable
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        rend = GetComponent<Renderer>();
+        //rend = GetComponent<Renderer>();
 
         centerPos = transform.position;
 
@@ -78,7 +80,6 @@ public class Seagull : MonoBehaviour,IWaterable
 
     private void Update()
     {
-
         switch (state)
         {
             case SeagullState.Idle:
@@ -287,22 +288,41 @@ public class Seagull : MonoBehaviour,IWaterable
 
         if(healthPoints == 0)
         {
-            rend.material.SetFloat("_OilLevel", 1f);
             Happy();
+            foreach (var _material in rend.materials)
+            {
+                _material.SetFloat("_OilLevel", 1f);
+            }
         }
         else
         {
             if (state == SeagullState.Idle) StartTargeting(FindObjectOfType<PlayerHealthScript>().transform);
-            rend.material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
+            //rend.material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
+            foreach (var _material in rend.materials)
+            {
+                _material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
+            }
         }
     }
 
     void Happy()
     {
         state = SeagullState.Happy;
-        centerPos = transform.position + Vector3.up * 0.5f;
+        
         rb.useGravity = true;
         rb.velocity = Vector3.zero;
+        anim.speed = flappingSpeed;
+
+        if(Physics.Raycast(transform.position, Vector3.down,out RaycastHit _hit, groundLayer))
+        {
+            centerPos = _hit.point + Vector3.up * flappingDistanceY;
+        }
+        else
+        {
+            centerPos = transform.position;
+        }
+
+        
     }
 
 

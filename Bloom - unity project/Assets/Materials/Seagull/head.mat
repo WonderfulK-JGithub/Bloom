@@ -114,12 +114,12 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OilLevel: 0.062
+    - _OilLevel: 0
     - _OilMetallic: 0
     - _OilNormapStrength: 0.1
     - _OilNormapStrength_1: 1
     - _OilSampleSize: 1
-    - _OilSmoothness: 0.5
+    - _OilSmoothness: 0.82
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
