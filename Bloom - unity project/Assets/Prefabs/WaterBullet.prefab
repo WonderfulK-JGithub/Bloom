@@ -4887,7 +4887,7 @@ MonoBehaviour:
   gravity: -2.455
   ignoreLayers:
     serializedVersion: 2
-    m_Bits: 9232
+    m_Bits: 9488
 --- !u!1 &7865151868937190819
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,6 +112,8 @@ public class PlayerMovementScript : MonoBehaviour
         {
             for (int i = 0; i < helathPickups.Length; i++)
             {
+                AudioManager.current.PlaySound(AudioManager.AudioNames.HeartSound);
+
                 //är lat
                 FindObjectOfType<PlayerHealthScript>().Damage(-100);
                 Destroy(helathPickups[0].gameObject);

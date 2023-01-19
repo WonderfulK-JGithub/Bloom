@@ -95,6 +95,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         {
             cam.ShakeScreen();
 
+            AudioManager.current.PlaySound(AudioManager.AudioNames.PlayerDamage);
+
             StopCoroutine(nameof(tilRegen));
             StopCoroutine(nameof(regen));
             if (health < 50)

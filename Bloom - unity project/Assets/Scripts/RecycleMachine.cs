@@ -9,7 +9,6 @@ public class RecycleMachine : MonoBehaviour
     public void Recycle()
     {
         anim.Play("Recycling");
-    }
-
-    
+        AudioManager.current.PlaySound(AudioManager.AudioNames.TrashCollect);
+    }   
 }

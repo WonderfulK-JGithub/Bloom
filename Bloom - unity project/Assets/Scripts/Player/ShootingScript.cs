@@ -29,6 +29,8 @@ public class ShootingScript : MonoBehaviour
 
     [SerializeField] Image tilNextShotLoading;
 
+    [SerializeField] GameObject reloadIcon;
+
     GunScript visual;
 
     Animator anim;
@@ -75,13 +77,16 @@ public class ShootingScript : MonoBehaviour
         }
 
         anim.SetBool("isReloading", false);
+        reloadIcon.SetActive(false);
 
-        if (Input.GetMouseButton(1))
+        RaycastHit hitWater;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 3, LayerMask.GetMask("Water", "Ground")))
         {
-            RaycastHit hitWater;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitWater, 2, LayerMask.GetMask("Water", "Ground")))
+            if (hitWater.collider.gameObject.layer == 4)
             {
-                if(hitWater.collider.gameObject.layer == 4)
+                reloadIcon.SetActive(true);
+
+                if (Input.GetMouseButton(1))
                 {
                     if (Input.GetMouseButtonDown(1) && ammo != 100)
                     {
@@ -90,9 +95,9 @@ public class ShootingScript : MonoBehaviour
 
                     anim.SetBool("isReloading", true);
                     ammo += waterReloadSpeed * Time.deltaTime;
-                }
-            }
-        }
+                }            
+            }          
+        }      
     }
 
     IEnumerator tilCanShoot()
