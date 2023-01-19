@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Oil
+  - tagg
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Oil
   - RecycleMachine
   - AvoidBullet
-  - 
+  - HealthPickup
   - 
   - 
   - 

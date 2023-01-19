@@ -106,6 +106,17 @@ public class PlayerMovementScript : MonoBehaviour
                 cc.Collect(collectibles[i].GetComponent<CollectibleScript>());
             }         
         }
+
+        Collider[] helathPickups = new Collider[1];
+        if (OverlapSphere(transform.position, 1f, LayerMask.GetMask("HealthPickup"), out helathPickups))
+        {
+            for (int i = 0; i < helathPickups.Length; i++)
+            {
+                //är lat
+                FindObjectOfType<PlayerHealthScript>().Damage(-100);
+                Destroy(helathPickups[0].gameObject);
+            }
+        }
     }
 
     void Jump()

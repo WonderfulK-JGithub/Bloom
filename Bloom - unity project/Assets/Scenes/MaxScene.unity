@@ -403,6 +403,7 @@ MonoBehaviour:
   meshHeight: 1
   fillPerShoot: 0.4
   fillSpeed: 0.125
+  lakes: []
   plantID: 0
 --- !u!65 &680518096
 BoxCollider:
@@ -1729,7 +1730,7 @@ MonoBehaviour:
   plantReach: 6
   innerPlantReach: 6
   saturateSpeed: 1
-  groundMaterial: {fileID: 2100000, guid: 49ba261bcb131514e9ef4f2637d08996, type: 2}
+  groundMaterials: []
 --- !u!4 &2120081084
 Transform:
   m_ObjectHideFlags: 0
@@ -1880,18 +1881,6 @@ PrefabInstance:
     - target: {fileID: 8554426569276128299, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554426570210206234, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 99.47925
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554426570210206234, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 25.416748
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554426570220972977, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
-      propertyPath: recoilScale
-      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8554426570220972978, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
       propertyPath: m_RootOrder

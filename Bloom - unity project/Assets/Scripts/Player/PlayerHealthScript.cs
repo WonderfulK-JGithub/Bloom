@@ -61,6 +61,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         health -= damage;
+        health = Mathf.Clamp(health, 0, 100);
 
         if (health <= 0) Die();
 

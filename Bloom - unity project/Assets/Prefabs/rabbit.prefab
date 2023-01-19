@@ -259,7 +259,7 @@ MonoBehaviour:
   jumpCooldown: 2.5
   damageCooldown: 5
   gravityMultiplier: 2
-  attackRange: 4
+  attackRange: 2.5
 --- !u!135 &946678069525654198
 SphereCollider:
   m_ObjectHideFlags: 0
