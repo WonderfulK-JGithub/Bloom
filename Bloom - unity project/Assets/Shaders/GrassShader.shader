@@ -1,4 +1,4 @@
-Shader "Universal Render Pipeline/GroundShader"
+Shader "Universal Render Pipeline/GrassShader"
 {
     Properties
     {
@@ -19,6 +19,8 @@ Shader "Universal Render Pipeline/GroundShader"
         _Oaoa("Oaoa",Float) = 0.0
         _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
         _MetallicGlossMap("Metallic", 2D) = "white" {}
+        _GrassAmplitude("GrassAmplitude",Float) = 0.5
+
 
         _SpecColor("Specular", Color) = (0.2, 0.2, 0.2)
         _SpecGlossMap("Specular", 2D) = "white" {}
@@ -73,6 +75,8 @@ Shader "Universal Render Pipeline/GroundShader"
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
     }
 
+    
+
     SubShader
     {
         // Universal Pipeline tag is required. If Universal render pipeline is not set in the graphics settings
@@ -80,6 +84,8 @@ Shader "Universal Render Pipeline/GroundShader"
         // material work with both Universal Render Pipeline and Builtin Unity Pipeline
         Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel"="4.5"}
         LOD 300
+
+        
 
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -93,6 +99,8 @@ Shader "Universal Render Pipeline/GroundShader"
         int _bufferLength;
         float _plantReach;
         float _innerPlantReach;
+        float _GrassAmplitude;
+
         StructuredBuffer<float3> _plantBuffer;
 
         ENDHLSL
@@ -269,7 +277,21 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
             UNITY_TRANSFER_INSTANCE_ID(input, output);
             UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
+            output.worldSpacePos = mul(unity_ObjectToWorld, input.positionOS);
+
+            float _value;
+
+            for (int i = 0; i < _bufferLength; i++)
+            {
+                float2 _plantPos = _plantBuffer[i].xy;
+                _value += _plantBuffer[i].z * saturate(1 - distance(_plantPos, output.worldSpacePos.xz) / _plantReach) * _innerPlantReach;
+            }
+
+            _value = min(_value, 1);
+
+            float3 _offset = float3(cos(_Time.y) * cos(_Time.y) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
+
+            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz + _offset);
 
             // normalWS and tangentWS already normalize.
             // this is required to avoid skewing the direction during interpolation
@@ -281,7 +303,7 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
             half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
 
 
-            output.worldSpacePos = mul(unity_ObjectToWorld, input.positionOS);
+            
 
 
             output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
@@ -365,6 +387,8 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
             half3 _saturatedColor = color.rgb * (1.0 - _strength) + _avarage * _strength;
 
             return half4(pow(_saturatedColor.rgb, (1 / _gammaStrength)),color.a);
+
+            float4 amog = _Time;
         }
 
 #endif

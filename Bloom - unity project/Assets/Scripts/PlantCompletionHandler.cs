@@ -13,7 +13,7 @@ public class PlantCompletionHandler : MonoBehaviour
 
     ComputeBuffer plantDataBuffer;
 
-    public Material groundMaterial;
+    public List<Material> groundMaterials;
 
     Plant[] plants;
 
@@ -43,10 +43,13 @@ public class PlantCompletionHandler : MonoBehaviour
         plantDataBuffer = new ComputeBuffer(plantCompletionGrid.Length, sizeof(float) * 3);
         plantDataBuffer.SetData(plantCompletionGrid);
 
-        groundMaterial.SetFloat("_plantReach", plantReach);
-        groundMaterial.SetFloat("_innerPlantReach", innerPlantReach);
-        groundMaterial.SetInt("_bufferLength", gridLength);
-        groundMaterial.SetBuffer("_plantBuffer", plantDataBuffer);
+        foreach (var groundMaterial in groundMaterials)
+        {
+            groundMaterial.SetFloat("_plantReach", plantReach);
+            groundMaterial.SetFloat("_innerPlantReach", innerPlantReach);
+            groundMaterial.SetInt("_bufferLength", gridLength);
+            groundMaterial.SetBuffer("_plantBuffer", plantDataBuffer);
+        }
     }
 
     private void Update()

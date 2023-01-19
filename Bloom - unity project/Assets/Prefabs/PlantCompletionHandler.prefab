@@ -46,4 +46,6 @@ MonoBehaviour:
   plantReach: 6
   innerPlantReach: 6
   saturateSpeed: 1
-  groundMaterial: {fileID: 2100000, guid: 49ba261bcb131514e9ef4f2637d08996, type: 2}
+  groundMaterials:
+  - {fileID: 2100000, guid: 49ba261bcb131514e9ef4f2637d08996, type: 2}
+  - {fileID: 2100000, guid: 6819e73f24e808f4185b130ab22128b5, type: 2}
