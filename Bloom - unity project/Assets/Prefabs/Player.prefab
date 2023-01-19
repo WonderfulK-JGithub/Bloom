@@ -3606,7 +3606,7 @@ MonoBehaviour:
   recycleText: {fileID: 7991043627243243502}
   xOfxCansText: {fileID: 6023598679214620261}
   upgradeText: {fileID: 848499470862117629}
-  neededForUpgrade: 10
+  neededForUpgrade: 15
 --- !u!1 &8554426570236076218
 GameObject:
   m_ObjectHideFlags: 0
