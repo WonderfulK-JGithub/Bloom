@@ -253,6 +253,9 @@ MonoBehaviour:
   moveSpeed: 4.5
   detectionRange: 25
   brake: 0
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 528
   hp: 30
   color: {fileID: 7891178039891325165}
   jumpBoost: 10

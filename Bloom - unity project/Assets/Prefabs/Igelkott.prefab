@@ -948,6 +948,9 @@ MonoBehaviour:
   moveSpeed: 1
   detectionRange: 16
   brake: 0
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 528
   hp: 30
   color: {fileID: 7893873192725696718}
   attackRange: 8

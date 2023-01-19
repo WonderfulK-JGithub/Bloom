@@ -13,6 +13,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     public float detectionRange = 10;
     protected Coroutine wander;
     [HideInInspector] public bool brake = false;
+    [SerializeField] LayerMask ignoreLayers;
     public float hp = 100;
     protected float distanceToPlayer;
     protected bool lastchase = true;
@@ -40,7 +41,9 @@ public class enemymovement : MonoBehaviour, IWaterable
             int mask = (1 << 9);
             mask += (1 << 4);
             mask = ~mask;
-            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, mask) && !PlayerMovementScript.isBathing)
+
+            //??? wtf <<<
+            if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, ~ignoreLayers) && !PlayerMovementScript.isBathing)
             {
                 if (hit.transform == target)
                 {
