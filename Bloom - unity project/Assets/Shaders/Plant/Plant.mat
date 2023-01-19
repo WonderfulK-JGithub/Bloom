@@ -37,9 +37,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Brightness: 0.71
-    - _Height: 1.39
+    - _Height: 2.65793
     - _Saturation: 1
-    - _Value: 0.7
+    - _StartY: -0.45
+    - _Value: 0
     m_Colors:
     - _Color: {r: 0.25809893, g: 0.7075472, b: 0.33921066, a: 0}
   m_BuildTextureStacks: []

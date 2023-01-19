@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ace7090fa41924e905582768aa872b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantReach: 6
-  innerPlantReach: 6
+  plantReach: 15
+  innerPlantReach: 10
   saturateSpeed: 1
   completion: {fileID: 2490106488110244049}
   completionBar: {fileID: 374975084309115007}

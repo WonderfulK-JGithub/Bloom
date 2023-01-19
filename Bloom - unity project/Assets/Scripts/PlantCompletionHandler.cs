@@ -131,7 +131,7 @@ public class PlantCompletionHandler : MonoBehaviour
         appearTimer = appearTime;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         plantDataBuffer.Dispose();
     }

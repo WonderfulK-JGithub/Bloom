@@ -41,7 +41,7 @@ Material:
     - _Distortion: 0.01
     - _NormalSpeed: 0.04
     - _NormalStrength: 0.91
-    - _Smooth: 0.4
+    - _Smooth: 0.803
     - _VertexDisplacement: 0.9
     m_Colors:
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}

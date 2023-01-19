@@ -20,7 +20,7 @@ Shader "Universal Render Pipeline/GrassShader"
         _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
         _MetallicGlossMap("Metallic", 2D) = "white" {}
         _GrassAmplitude("GrassAmplitude",Float) = 0.5
-
+        _SusValue("SusValue",Float) = 1.0
 
         _SpecColor("Specular", Color) = (0.2, 0.2, 0.2)
         _SpecGlossMap("Specular", 2D) = "white" {}
@@ -96,10 +96,13 @@ Shader "Universal Render Pipeline/GrassShader"
         float _SaturationStrength;
         float _GammaEffect;
 
+        float _SusValue;
+
         int _bufferLength;
         float _plantReach;
         float _innerPlantReach;
         float _GrassAmplitude;
+        Texture2D _NoiseTexture;
 
         StructuredBuffer<float3> _plantBuffer;
 
@@ -289,9 +292,11 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 
             _value = min(_value, 1);
 
-            float3 _offset = float3(cos(_Time.y) * cos(_Time.y) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
+            float _timeOffset = output.worldSpacePos.x + output.worldSpacePos.z / 3;
+            float3 _offset = float3(cos(_Time.y + _timeOffset) * cos(_Time.y + _timeOffset) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
+            //float3 _offset = float3(tex2D(_NoiseTexture, float2(_Time.y, 0.0)).r,0.0,0.0);
 
-            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz + _offset);
+            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz + _offset * _SusValue);
 
             // normalWS and tangentWS already normalize.
             // this is required to avoid skewing the direction during interpolation

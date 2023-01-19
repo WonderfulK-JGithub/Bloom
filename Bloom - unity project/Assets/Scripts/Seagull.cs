@@ -328,6 +328,7 @@ public class Seagull : MonoBehaviour,IWaterable
         rb.useGravity = true;
         rb.velocity = Vector3.zero;
         anim.speed = flappingSpeed;
+        anim.Play("Bird_Fly");
 
         if(Physics.Raycast(transform.position, Vector3.down,out RaycastHit _hit, groundLayer))
         {
