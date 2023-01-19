@@ -10,9 +10,13 @@ public class CollectibleCollectorScript : MonoBehaviour
     [SerializeField] LayerMask recycleLayer;
     [SerializeField] Transform cameraTransform;
     [SerializeField] GameObject recycleText;
+    [SerializeField] TextMeshProUGUI xOfxCansText;
+    [SerializeField] GameObject upgradeText;
+    [SerializeField] int neededForUpgrade;
 
 
     int collectibles = 0;
+    int recycled;
 
     TextMeshProUGUI collectibleText;
 
@@ -30,6 +34,8 @@ public class CollectibleCollectorScript : MonoBehaviour
                 RecycleMachine _recycle = _hit.collider.GetComponent<RecycleMachine>();
 
                 _recycle.Recycle();
+
+                recycled += collectibles;
 
                 collectibles = 0;
                 collectibleText.text = collectibles.ToString();
@@ -54,5 +60,26 @@ public class CollectibleCollectorScript : MonoBehaviour
             collectibleText.text = collectibles.ToString();
 
         AudioManager.current.PlaySound(AudioManager.AudioNames.TrashCollect);
+    }
+
+    public void RecycleComplete()
+    {
+        if(recycled < neededForUpgrade)
+        {
+            xOfxCansText.text = recycled.ToString() + "/" + neededForUpgrade.ToString();
+            xOfxCansText.gameObject.SetActive(true);
+            Invoke(nameof(Mogus), 2f);
+        }
+        else
+        {
+            upgradeText.SetActive(true);
+            Invoke(nameof(Mogus), 2f);
+        }
+    }
+
+    void Mogus()
+    {
+        xOfxCansText.gameObject.SetActive(false);
+        upgradeText.SetActive(false);
     }
 }

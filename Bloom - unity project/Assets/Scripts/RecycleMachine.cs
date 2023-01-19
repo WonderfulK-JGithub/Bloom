@@ -10,4 +10,6 @@ public class RecycleMachine : MonoBehaviour
     {
         anim.Play("Recycling");
     }
+
+    
 }
