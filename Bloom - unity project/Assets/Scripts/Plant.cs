@@ -53,7 +53,7 @@ public class Plant : MonoBehaviour,IWaterable
 
         if (WaterValue == 1f)
         {
-            PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position, plantID);
+            PlantCompletionHandler.current.SetGridBox(transform.position, plantID);
             foreach (var lake in lakes)
             {
                 lake.Transition();
