@@ -27,6 +27,8 @@ public class ShootingScript : MonoBehaviour
 
     [SerializeField] float waterReloadSpeed;
 
+    [SerializeField] Image tilNextShotLoading;
+
     GunScript visual;
 
     Animator anim;
@@ -69,7 +71,7 @@ public class ShootingScript : MonoBehaviour
             AudioManager.current.PlaySound(AudioManager.AudioNames.WaterSpray);
 
             canShoot = false;
-            Invoke(nameof(ActivateShoot), 1 / bulletsPerSecond);
+            StartCoroutine(tilCanShoot());
         }
 
         anim.SetBool("isReloading", false);
@@ -93,8 +95,20 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
-    void ActivateShoot()
+    IEnumerator tilCanShoot()
     {
+        float time = 0;
+
+        while (time < 1 / bulletsPerSecond)
+        {
+            time += Time.deltaTime;
+            tilNextShotLoading.fillAmount = time / (1 / bulletsPerSecond);
+            yield return null;
+        }
+        tilNextShotLoading.fillAmount = 1;
+        yield return new WaitForSeconds(0.1f);
+        tilNextShotLoading.fillAmount = 0;
+
         canShoot = true;
     }
 }

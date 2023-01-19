@@ -134,6 +134,21 @@ public class enemymovement : MonoBehaviour, IWaterable
         {
             color.material.SetFloat("_OilLevel", 1);
         }
+        StartCoroutine(DamageTint());
+    }
+
+    IEnumerator DamageTint()
+    {
+        color.material.SetColor("_Tint", new Color(0.5f, 0.75f, 1, 1));
+
+        float t = 0;
+
+        while (t < 1)
+        {
+            color.material.SetColor("_Tint", new Color(0.5f + (t / 2), 0.75f + (t / 4), 1, 1));
+            t += Time.deltaTime * 3;
+            yield return null;
+        }
     }
     protected virtual IEnumerator Wander()
     {
