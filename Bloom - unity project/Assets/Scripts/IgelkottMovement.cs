@@ -50,7 +50,8 @@ public class IgelkottMovement : enemymovement
 
                 if (lastatPlayer && detectionRange > 0)
                 {
-                    StopCoroutine(attack);
+                    if (attack != null) { StopCoroutine(attack); }
+                    
                     kropp.localPosition = kroppPos;
                     transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));
                 }
