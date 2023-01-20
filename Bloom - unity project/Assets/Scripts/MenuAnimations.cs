@@ -206,4 +206,9 @@ public class MenuAnimations : MonoBehaviour
         mixer.SetFloat("sfxvol", Mathf.Log10(volume) * 20);
         sfxText.text = Mathf.Round(volume * 100).ToString() + "%";
     }
+
+    public void ToggleCS(bool toggle)
+    {
+        PlayerPrefs.SetInt("CameraShakeBool", System.Convert.ToInt32(toggle));
+    }
 }
