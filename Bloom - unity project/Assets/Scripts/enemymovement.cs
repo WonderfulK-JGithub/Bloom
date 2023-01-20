@@ -23,7 +23,7 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected virtual void Start()
     {
         Time.timeScale = 1;
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = FindObjectOfType<PlayerHealthScript>().transform;
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
