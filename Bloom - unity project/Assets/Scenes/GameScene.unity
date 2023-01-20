@@ -582,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.5
+      value: 9.34
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 87.5
+      value: 91.06
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -620,6 +620,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
+      propertyPath: lakes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
+      propertyPath: lakes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1212470748}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
 --- !u!4 &38395534 stripped
@@ -10348,17 +10356,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1638644071197951340, guid: b9495c99f0f2fdb46a44f6ed9a78348b, type: 3}
   m_PrefabInstance: {fileID: 384241666}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &384241668 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2159039194356096983, guid: b9495c99f0f2fdb46a44f6ed9a78348b, type: 3}
-  m_PrefabInstance: {fileID: 384241666}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df835237be73064396dbec0a12ffb47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &388650472
 GameObject:
   m_ObjectHideFlags: 0
@@ -20114,7 +20111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3674591399305879021, guid: 9c9eb339d59bd3d4d9f25577ea563b3c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -68.45
+      value: -65.69
       objectReference: {fileID: 0}
     - target: {fileID: 3674591399305879021, guid: 9c9eb339d59bd3d4d9f25577ea563b3c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20122,7 +20119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3674591399305879021, guid: 9c9eb339d59bd3d4d9f25577ea563b3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 51.67
+      value: 54.7
       objectReference: {fileID: 0}
     - target: {fileID: 3674591399305879021, guid: 9c9eb339d59bd3d4d9f25577ea563b3c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20507,7 +20504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8606386581072176938, guid: a1b66e2a59320df4e8fb30c7c668f6fc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8606386581072176933, guid: a1b66e2a59320df4e8fb30c7c668f6fc, type: 3}
@@ -20586,16 +20583,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.data[0]
       value: 
-      objectReference: {fileID: 732731412}
+      objectReference: {fileID: 1212470748}
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.data[1]
       value: 
-      objectReference: {fileID: 1212470748}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
 --- !u!4 &800906838 stripped
@@ -28090,7 +28087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -49
+      value: -51.49
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -28098,7 +28095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 47.5
+      value: 52.78
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -29844,7 +29841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -63.5
+      value: -58.97
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29852,7 +29849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.75
+      value: 32.25
       objectReference: {fileID: 0}
     - target: {fileID: 4145376622828577133, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42288,7 +42285,7 @@ PrefabInstance:
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.data[0]
       value: 
-      objectReference: {fileID: 384241668}
+      objectReference: {fileID: 1754256027}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
 --- !u!4 &1948490542 stripped
@@ -45745,7 +45742,7 @@ PrefabInstance:
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.data[0]
       value: 
-      objectReference: {fileID: 1754256027}
+      objectReference: {fileID: 732731412}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
 --- !u!4 &2088713722 stripped
