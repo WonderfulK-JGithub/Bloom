@@ -32,6 +32,13 @@ public class PlayerCameraScript : MonoBehaviour
     float shakePower;
     float powerReduction;
 
+    public static bool cameraShake = true;
+
+    private void Awake()
+    {
+        cameraShake = System.Convert.ToBoolean(PlayerPrefs.GetInt("CameraShakeBool", 1));
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
