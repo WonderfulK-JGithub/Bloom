@@ -87,7 +87,7 @@ public class PlayerCameraScript : MonoBehaviour
 
     void HeadBob()
     {
-        if (!headBob) return;
+        if (!headBob || !cameraShake) return;
 
         if (PlayerMovementScript.isMoving)
         {
@@ -106,6 +106,8 @@ public class PlayerCameraScript : MonoBehaviour
 
     void ScreenShake()
     {
+        if (!cameraShake) return;
+
         if (shakeTimer > 0f)//screneshake (samma metod som i Juicyness)
         {
             shakeTimer -= Time.deltaTime;
