@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 4145376622828577134, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
       propertyPath: lakes.Array.data[0]
       value: 
-      objectReference: {fileID: 1212470748}
+      objectReference: {fileID: 384241668}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c9ed905e8f49747b5ba679b4b72f1b, type: 3}
 --- !u!4 &38395534 stripped
@@ -10356,6 +10356,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1638644071197951340, guid: b9495c99f0f2fdb46a44f6ed9a78348b, type: 3}
   m_PrefabInstance: {fileID: 384241666}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &384241668 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2159039194356096983, guid: b9495c99f0f2fdb46a44f6ed9a78348b, type: 3}
+  m_PrefabInstance: {fileID: 384241666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df835237be73064396dbec0a12ffb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &388650472
 GameObject:
   m_ObjectHideFlags: 0
