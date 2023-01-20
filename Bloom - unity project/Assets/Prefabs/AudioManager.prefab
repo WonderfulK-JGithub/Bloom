@@ -56,6 +56,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1587d2bfa87e0b940bf68c32cef1d861, type: 3}
   - {fileID: 8300000, guid: fbdb5aae67c40d4449c4101bf93cde8e, type: 3}
   - {fileID: 8300000, guid: 01908a8676e950c44bd6f1418c17feb5, type: 3}
+  - {fileID: 8300000, guid: f5de450b2a4972d46b835174987a6dcb, type: 3}
+  - {fileID: 8300000, guid: 10626b67a19ee9c46b1e4c9b17497a9f, type: 3}
+  - {fileID: 8300000, guid: 16677e114d3711944ad1e6c530f37496, type: 3}
   sfx2D: {fileID: 7134582154515098758}
   footstepSFX: {fileID: 7186754391865058814}
 --- !u!82 &7134582154515098758
