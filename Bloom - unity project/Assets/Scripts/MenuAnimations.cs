@@ -197,13 +197,13 @@ public class MenuAnimations : MonoBehaviour
 
     public void ChangeMusicVolume(float volume)
     {
-        mixer.SetFloat("musicvol", Mathf.Log10(volume) * 20);
+        mixer.SetFloat("musicvol", Mathf.Log10(volume) * 40);
         musicText.text = Mathf.Round(volume * 100).ToString() + "%";
     }
 
     public void ChangeSFXVolume(float volume)
     {
-        mixer.SetFloat("sfxvol", Mathf.Log10(volume) * 20);
+        mixer.SetFloat("sfxvol", Mathf.Log10(volume) * 40);
         sfxText.text = Mathf.Round(volume * 100).ToString() + "%";
     }
 
