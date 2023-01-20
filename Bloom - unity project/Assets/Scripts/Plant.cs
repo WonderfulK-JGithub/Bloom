@@ -11,8 +11,9 @@ public class Plant : MonoBehaviour,IWaterable
     [SerializeField] float fillSpeed;
 
     [SerializeField] List<Lake> lakes;
+    [SerializeField] GameObject waterIcon;
 
-    Renderer rend;
+    [SerializeField] Renderer rend;
 
     public int plantID;
 
@@ -34,9 +35,16 @@ public class Plant : MonoBehaviour,IWaterable
 
     private void Awake()
     {
-        rend = GetComponent<Renderer>();
-        rend.material.SetFloat("_Height", meshHeight);
-        rend.material.SetFloat("_StartY", meshStartY + transform.position.y);
+        //rend = GetComponent<Renderer>();
+
+        foreach (var _material in rend.materials)
+        {
+            _material.SetFloat("_Height", meshHeight);
+            _material.SetFloat("_StartY", meshStartY + transform.position.y);
+        }
+
+        //rend.material.SetFloat("_Height", meshHeight);
+        //rend.material.SetFloat("_StartY", meshStartY + transform.position.y);
         shaderValue = 0f;
     }
 
@@ -44,7 +52,12 @@ public class Plant : MonoBehaviour,IWaterable
     {
         //shaderValue = Mathf.MoveTowards(shaderValue, WaterValue * suspect * 2f - suspect,fillSpeed * Time.deltaTime);
         shaderValue = Mathf.Lerp(shaderValue, WaterValue,  fillSpeed * Time.deltaTime * 60f);
-        rend.material.SetFloat("_Value", shaderValue);
+        //rend.material.SetFloat("_Value", shaderValue);
+
+        foreach (var _material in rend.materials)
+        {
+            _material.SetFloat("_Value", shaderValue);
+        }
     }
 
     public void Water()
@@ -55,7 +68,9 @@ public class Plant : MonoBehaviour,IWaterable
 
         if (WaterValue == 1f)
         {
+            AudioManager.current.PlaySound(AudioManager.AudioNames.FlowerGreen, transform.position);
             PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position, plantID);
+            waterIcon.SetActive(false);
             foreach (var lake in lakes)
             {
                 lake.Transition();
