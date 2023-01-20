@@ -45,7 +45,7 @@ public class enemymovement : MonoBehaviour, IWaterable
             //??? wtf <<<
             if (Physics.Raycast(transform.position + (transform.up * transform.lossyScale.y / 2), (target.position - transform.position), out hit, detectionRange, ~ignoreLayers) && !PlayerMovementScript.isBathing)
             {
-                if (hit.transform == target)
+                if (hit.transform.gameObject.layer == 8)
                 {
                     chase = true;
                 }
