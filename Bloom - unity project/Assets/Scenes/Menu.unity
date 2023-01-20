@@ -389,7 +389,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: 50%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}
   m_sharedMaterial: {fileID: 3104190029366912529, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}
@@ -851,13 +851,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 140223680}
   m_HandleRect: {fileID: 752222134}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 2
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1170484718}
+        m_TargetAssemblyTypeName: MenuAnimations, Assembly-CSharp
+        m_MethodName: ChangeMusicVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &383342708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: 50%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}
   m_sharedMaterial: {fileID: 3104190029366912529, guid: 6944254e03fe27040af97bd3dc3759d6, type: 2}
@@ -2082,6 +2094,9 @@ MonoBehaviour:
   anyKeyText: {fileID: 2098578619}
   buttonParent: {fileID: 2063264018}
   black: {fileID: 898886649}
+  mixer: {fileID: 24100000, guid: 57fc972eb49677144b700f99a04afade, type: 2}
+  musicText: {fileID: 91346710}
+  sfxText: {fileID: 790857264}
 --- !u!1 &1323174099
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,13 +3213,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1566404434}
   m_HandleRect: {fileID: 114874144}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 2
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1170484718}
+        m_TargetAssemblyTypeName: MenuAnimations, Assembly-CSharp
+        m_MethodName: ChangeSFXVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2063264018
 GameObject:
   m_ObjectHideFlags: 0

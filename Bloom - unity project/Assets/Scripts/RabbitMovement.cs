@@ -66,6 +66,7 @@ public class RabbitMovement : enemymovement
     void Jump()
     {
         rb.velocity += new Vector3((transform.forward * moveSpeed * Convert.ToInt32(chase)).x, jumpBoost, (transform.forward * moveSpeed * Convert.ToInt32(chase)).z);
+        AudioManager.current.PlaySound(AudioManager.AudioNames.KaninHopp, transform.position);
     }
 
     protected override IEnumerator Transformation()

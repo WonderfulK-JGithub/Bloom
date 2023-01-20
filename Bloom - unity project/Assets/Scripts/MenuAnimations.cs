@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MenuAnimations : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class MenuAnimations : MonoBehaviour
     private Image[] buttons;
     private Vector3 centerPos;
     public Image black;
+
+    public AudioMixer mixer;
+    public TextMeshProUGUI musicText;
+    public TextMeshProUGUI sfxText;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -188,5 +193,17 @@ public class MenuAnimations : MonoBehaviour
     public void LoadScene(int index)
     {
         StartCoroutine(LoadSceneAnim(index));
+    }
+
+    public void ChangeMusicVolume(float volume)
+    {
+        mixer.SetFloat("musicvol", Mathf.Log10(volume) * 20);
+        musicText.text = Mathf.Round(volume * 100).ToString() + "%";
+    }
+
+    public void ChangeSFXVolume(float volume)
+    {
+        mixer.SetFloat("sfxvol", Mathf.Log10(volume) * 20);
+        sfxText.text = Mathf.Round(volume * 100).ToString() + "%";
     }
 }
