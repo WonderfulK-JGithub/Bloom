@@ -7,7 +7,7 @@ public class ESC : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && Input.GetKey(KeyCode.LeftControl))
         {
             SceneManager.LoadScene(0);
         }

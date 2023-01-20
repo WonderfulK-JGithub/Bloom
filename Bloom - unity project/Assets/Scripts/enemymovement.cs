@@ -142,16 +142,20 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     IEnumerator DamageTint()
     {
-        color.material.SetColor("_Tint", new Color(0.5f, 0.75f, 1, 1));
+        Color originalcolor = color.material.GetColor("_Tint");
+        Color newColor = new Color(0.5f, 0.75f, 1, 1);
+        color.material.SetColor("_Tint", newColor);
 
         float t = 0;
 
         while (t < 1)
         {
-            color.material.SetColor("_Tint", new Color(0.5f + (t / 2), 0.75f + (t / 4), 1, 1));
+            color.material.SetColor("_Tint", Color.Lerp(newColor, originalcolor, t));
             t += Time.deltaTime * 3;
             yield return null;
         }
+
+        color.material.SetColor("_Tint", originalcolor);
     }
     protected virtual IEnumerator Wander()
     {

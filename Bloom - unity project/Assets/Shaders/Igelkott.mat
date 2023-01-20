@@ -54,6 +54,7 @@ Material:
     - _OilSmoothness: 1
     - _Smoothness: 0.5
     m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _OtherTint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.4056604, g: 0.3104308, b: 0.20436098, a: 0}
     - _UpVector: {r: 0, g: -1, b: 0.8, a: 0}
   m_BuildTextureStacks: []
