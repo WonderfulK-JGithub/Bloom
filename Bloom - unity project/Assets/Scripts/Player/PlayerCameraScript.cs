@@ -20,36 +20,40 @@ public class PlayerCameraScript : MonoBehaviour
     [SerializeField] float screenShakeTime;
     [SerializeField] float screenShakeMagnitude;
 
+    [Header("Saturation")]
+    [SerializeField] float saturationSpeed;
+    [SerializeField] float greenSaturation;
+    [SerializeField] float notGreenSaturation;
+
     [Header("References")]
     [SerializeField] Camera cam;
-
-    float xRot, yRot;
-
     Rigidbody rb;
-
-    public static bool canLook = true;
     public Transform deathObj;
 
+    //General
+    public static bool canLook = true;
+    float xRot, yRot;
+
+    //Camera shake
     float shakeTimer;
     float shakePower;
     float powerReduction;
-
     public static bool cameraShake = true;
 
+    //Saturation
     ColorAdjustments colAd;
     float targetSaturation = 0;
-    float saturationOffset = 0;
-    [Header("Saturation")]
-    [SerializeField] float saturationSpeed;
 
-    List<Plant> plants = new List<Plant>();
+    [HideInInspector] public List<Plant> wateredPlants = new List<Plant>();
+    float plantReach = 15; //Man skulle kunna göra att den här kollar efter plantcompletionhandlerns range
 
     private void Awake()
     {
-        plants.AddRange(FindObjectsOfType<Plant>());
+        //wateredPlants.AddRange(FindObjectsOfType<Plant>());
 
         cameraShake = System.Convert.ToBoolean(PlayerPrefs.GetInt("CameraShakeBool", 1));
 
+        //Saturation
         Volume volume = FindObjectOfType<Volume>();
         ColorAdjustments tmp;
 
@@ -73,18 +77,10 @@ public class PlayerCameraScript : MonoBehaviour
 
     void Update()
     {
-        bool b = false;
-        foreach (Plant pla in plants)
-        {
-            if (Vector3.Distance(transform.position, pla.transform.position) < 10)
-            {
-                b = true;
-                break;
-            }
-        }
+        //Saturation
+        HandleSaturation();
 
-        if (b) targetSaturation = 50;
-
+        //Look
         if (!canLook) return;
 
         float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity;
@@ -101,9 +97,6 @@ public class PlayerCameraScript : MonoBehaviour
         HeadBob();
 
         ScreenShake();
-
-        if (colAd == null) return;
-        colAd.saturation.value = Mathf.Lerp(colAd.saturation.value, targetSaturation + saturationOffset, saturationSpeed * Time.deltaTime);
     }
 
     private void LateUpdate()
@@ -166,8 +159,23 @@ public class PlayerCameraScript : MonoBehaviour
         powerReduction = shakePower / shakeTimer;
     }
 
-    public void SetSaturationOFfset(float sat)
+    void HandleSaturation()
     {
-        saturationOffset = sat;
+        //Saturation
+        bool b = false;
+        foreach (Plant plant in wateredPlants)
+        {
+            if (Vector3.Distance(transform.position, plant.transform.position) < plantReach)
+            {
+                b = true;
+                break;
+            }
+        }
+        targetSaturation = b ? greenSaturation : notGreenSaturation;
+
+        if (colAd != null)
+        {
+            colAd.saturation.value = Mathf.Lerp(colAd.saturation.value, ((targetSaturation + 100f) * PlayerHealthScript.saturationMultiplier) - 100f, saturationSpeed * Time.deltaTime);
+        }
     }
 }

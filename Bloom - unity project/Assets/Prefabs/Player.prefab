@@ -3483,8 +3483,12 @@ MonoBehaviour:
   headBobReturnSpeed: 5
   screenShakeTime: 0.5
   screenShakeMagnitude: 0.2
+  saturationSpeed: 3
+  greenSaturation: 15
+  notGreenSaturation: -10
   cam: {fileID: 8554426570039831144}
   deathObj: {fileID: 0}
+  wateredPlants: []
 --- !u!114 &8554426570220972976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3607,6 +3611,7 @@ MonoBehaviour:
   xOfxCansText: {fileID: 6023598679214620261}
   upgradeText: {fileID: 848499470862117629}
   neededForUpgrade: 15
+  biggestBird: {fileID: 0}
 --- !u!1 &8554426570236076218
 GameObject:
   m_ObjectHideFlags: 0

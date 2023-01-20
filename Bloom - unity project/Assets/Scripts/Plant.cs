@@ -75,6 +75,9 @@ public class Plant : MonoBehaviour,IWaterable
             {
                 lake.Transition();
             }
+
+            //För saturation - Max
+            FindObjectOfType<PlayerCameraScript>().wateredPlants.Add(this);
         }
     }
 

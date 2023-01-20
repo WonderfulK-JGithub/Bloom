@@ -40,8 +40,12 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     float targetSaturation = 0;
 
+    public static float saturationMultiplier = 1;
+
     private void Awake()
     {
+        saturationMultiplier = 1;
+
         cam = FindObjectOfType<PlayerCameraScript>();
 
         Volume volume = FindObjectOfType<Volume>();
@@ -67,7 +71,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
         if (health <= 0) Die();
 
-        if(health <= 40)
+        saturationMultiplier = 1;
+        if (health <= 40)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -76,8 +81,11 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             }
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
-            if (colAd != null)
-                fadeCoroutines[2] = StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
+
+            //if (colAd != null)
+            //    fadeCoroutines[2] = StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
+
+            saturationMultiplier = 1f - ((40f - health) / 40f);
         }
         else
         {
@@ -89,8 +97,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             }
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, 0));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, 0));
-            if (colAd != null)
-                fadeCoroutines[2] = StartCoroutine(FadeSaturation(0));
+            //if (colAd != null)
+            //    fadeCoroutines[2] = StartCoroutine(FadeSaturation(0));
         }
 
         if(damage > 0)
@@ -118,15 +126,15 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         }
     }
 
-    IEnumerator FadeSaturation(float target)
-    {
-        while (Mathf.Abs(colAd.saturation.value - target) > 0.01f)
-        {
-            if (colAd == null) break;
-            targetSaturation = Mathf.Lerp(targetSaturation, target, damageOverlayFadeSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
+    //IEnumerator FadeSaturation(float target)
+    //{
+    //    while (Mathf.Abs(colAd.saturation.value - target) > 0.01f)
+    //    {
+    //        if (colAd == null) break;
+    //        targetSaturation = Mathf.Lerp(targetSaturation, target, damageOverlayFadeSpeed * Time.deltaTime);
+    //        yield return null;
+    //    }
+    //}
 
 
     public void Die()
@@ -162,8 +170,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     void Update()
     {
-        cam.SetSaturationOFfset(targetSaturation);
-
         if (transform.position.y < -20) Die();
 
         #if UNITY_EDITOR
