@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerCameraScript : MonoBehaviour
 {
@@ -34,9 +36,27 @@ public class PlayerCameraScript : MonoBehaviour
 
     public static bool cameraShake = true;
 
+    ColorAdjustments colAd;
+    float targetSaturation = 0;
+    float saturationOffset = 0;
+    [Header("Saturation")]
+    [SerializeField] float saturationSpeed;
+
+    List<Plant> plants = new List<Plant>();
+
     private void Awake()
     {
+        plants.AddRange(FindObjectsOfType<Plant>());
+
         cameraShake = System.Convert.ToBoolean(PlayerPrefs.GetInt("CameraShakeBool", 1));
+
+        Volume volume = FindObjectOfType<Volume>();
+        ColorAdjustments tmp;
+
+        if (volume.profile.TryGet<ColorAdjustments>(out tmp))
+        {
+            colAd = tmp;
+        }
     }
 
     private void Start()
@@ -53,6 +73,18 @@ public class PlayerCameraScript : MonoBehaviour
 
     void Update()
     {
+        bool b = false;
+        foreach (Plant pla in plants)
+        {
+            if (Vector3.Distance(transform.position, pla.transform.position) < 10)
+            {
+                b = true;
+                break;
+            }
+        }
+
+        if (b) targetSaturation = 50;
+
         if (!canLook) return;
 
         float mouseX = Input.GetAxisRaw("Mouse X") * sensitivity;
@@ -69,6 +101,9 @@ public class PlayerCameraScript : MonoBehaviour
         HeadBob();
 
         ScreenShake();
+
+        if (colAd == null) return;
+        colAd.saturation.value = Mathf.Lerp(colAd.saturation.value, targetSaturation + saturationOffset, saturationSpeed * Time.deltaTime);
     }
 
     private void LateUpdate()
@@ -129,5 +164,10 @@ public class PlayerCameraScript : MonoBehaviour
         shakeTimer = screenShakeTime;
         shakePower = screenShakeMagnitude;
         powerReduction = shakePower / shakeTimer;
+    }
+
+    public void SetSaturationOFfset(float sat)
+    {
+        saturationOffset = sat;
     }
 }

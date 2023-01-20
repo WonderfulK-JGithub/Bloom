@@ -38,6 +38,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     PlayerCameraScript cam;
 
+    float targetSaturation = 0;
+
     private void Awake()
     {
         cam = FindObjectOfType<PlayerCameraScript>();
@@ -121,7 +123,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         while (Mathf.Abs(colAd.saturation.value - target) > 0.01f)
         {
             if (colAd == null) break;
-            colAd.saturation.value = Mathf.Lerp(colAd.saturation.value, target, damageOverlayFadeSpeed * Time.deltaTime);
+            targetSaturation = Mathf.Lerp(targetSaturation, target, damageOverlayFadeSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -160,6 +162,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     void Update()
     {
+        cam.SetSaturationOFfset(targetSaturation);
+
         if (transform.position.y < -20) Die();
 
         #if UNITY_EDITOR
