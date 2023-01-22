@@ -21,6 +21,8 @@ Shader "Universal Render Pipeline/GrassShader"
         _MetallicGlossMap("Metallic", 2D) = "white" {}
         _GrassAmplitude("GrassAmplitude",Float) = 0.5
         _SusValue("SusValue",Float) = 1.0
+        _NoiseTexture("Albedo", 2D) = "white" {}
+        _GrassSpeed("GrassAmplitude",Float) = 0.1
 
         _SpecColor("Specular", Color) = (0.2, 0.2, 0.2)
         _SpecGlossMap("Specular", 2D) = "white" {}
@@ -102,8 +104,13 @@ Shader "Universal Render Pipeline/GrassShader"
         float _plantReach;
         float _innerPlantReach;
         float _GrassAmplitude;
-        Texture2D _NoiseTexture;
+        float _GrassSpeed;
 
+        //TEXTURE2D(_NoiseTexture);
+        //SAMPLER(sampler_NoiseTexture);
+        sampler2D _NoiseTexture;
+        //SamplerState sampler_NoiseTexture;
+        
         StructuredBuffer<float3> _plantBuffer;
 
         ENDHLSL
@@ -291,12 +298,15 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
             }
 
             _value = min(_value, 1);
+            
 
-            float _timeOffset = output.worldSpacePos.x + output.worldSpacePos.z / 3;
+            float _timeOffset = output.worldSpacePos.x + output.worldSpacePos.z * 0;
+
             float3 _offset = float3(cos(_Time.y + _timeOffset) * cos(_Time.y + _timeOffset) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
-            //float3 _offset = float3(tex2D(_NoiseTexture, float2(_Time.y, 0.0)).r,0.0,0.0);
+            //_offset = float3(SAMPLE_TEXTURE2D(_NoiseTexture,sampler_NoiseTexture, float2(_Time.y, 0.0)).r,0.0,0.0);
+            //_offset = float3(oa * input.texcoord.y, 0.0, 0.0);
 
-            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz + _offset * _SusValue);
+            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz); //+ _offset * _SusValue);
 
             // normalWS and tangentWS already normalize.
             // this is required to avoid skewing the direction during interpolation
