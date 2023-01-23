@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 501745387356438019}
   - component: {fileID: 2159039194356096983}
   - component: {fileID: 1359204802633240547}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Lake
-  m_TagString: Oil
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97cf07f318f432044a65df9ac28cf7c3, type: 2}
+  - {fileID: 2100000, guid: f46a6b5f034d8ba4b8776076228ada1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,9 +99,11 @@ MonoBehaviour:
   oilColor: {r: 0, g: 0, b: 0, a: 0}
   oilSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   oilEmissionPower: 0.1
-  waterColor: {r: 0, g: 0.76862746, b: 1, a: 0}
-  waterSpecularColor: {r: 0.31764707, g: 0.36862746, b: 0.3882353, a: 0}
+  oilSeaThroughPower: 0
+  waterColor: {r: 0, g: 0.8901961, b: 1, a: 0}
+  waterSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   waterEmissionPower: 0.35
+  waterSeaThroughPower: 1
 --- !u!64 &1359204802633240547
 MeshCollider:
   m_ObjectHideFlags: 0

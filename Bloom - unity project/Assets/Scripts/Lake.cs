@@ -9,10 +9,12 @@ public class Lake : MonoBehaviour
     [SerializeField] Color oilColor;
     [SerializeField] Color oilSpecularColor;
     [SerializeField] float oilEmissionPower;
+    [SerializeField] float oilSeaThroughPower;
 
     [SerializeField] Color waterColor;
     [SerializeField] Color waterSpecularColor;
     [SerializeField] float waterEmissionPower;
+    [SerializeField] float waterSeaThroughPower;
 
     float timer;
     bool transition;
@@ -38,9 +40,10 @@ public class Lake : MonoBehaviour
 
             float _percent = 1f - timer / transitionTime;
 
-            rend.material.SetColor("_Tint", Color.Lerp(oilColor, waterColor, _percent));
-            rend.material.SetColor("_SpecularColor", Color.Lerp(oilColor, waterColor, _percent));
-            rend.material.SetFloat("_EmissionPower", Mathf.Lerp(oilEmissionPower, waterEmissionPower, _percent));
+            //rend.material.SetColor("_Tint", Color.Lerp(oilColor, waterColor, _percent));
+            //rend.material.SetColor("_SpecularColor", Color.Lerp(oilColor, waterColor, _percent));
+            //rend.material.SetFloat("_EmissionPower", Mathf.Lerp(oilEmissionPower, waterEmissionPower, _percent));
+            rend.material.SetFloat("_SeaThroughPower", Mathf.Lerp(oilSeaThroughPower, waterSeaThroughPower, _percent));
         }
     }
 

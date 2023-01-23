@@ -23,6 +23,7 @@ public class Seagull : MonoBehaviour,IWaterable
     [Header("Detect Player")]
     [SerializeField] float detectionRadius;
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] GameObject detectAlertion;
 
     [Header("Flying")]
     [SerializeField] float horizontalSpeed;
@@ -192,6 +193,13 @@ public class Seagull : MonoBehaviour,IWaterable
                 }
                 #endregion
                 break;
+            case SeagullState.Jump:
+
+                currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
+
+                rb.velocity = horizontalSpeed / 5f * transform.forward + verticalSpeed / 2f * transform.up;
+
+                break;
             case SeagullState.StartCircle:
                 #region
 
@@ -265,18 +273,27 @@ public class Seagull : MonoBehaviour,IWaterable
     {
         player = _player;
 
-        state = SeagullState.StartCircle;
+        detectAlertion.SetActive(true);
+
+        state = SeagullState.Jump;
         rb.useGravity = false;
+        rb.velocity = Vector3.zero;
         col.isTrigger = true;
 
         Vector2 _distanceDir = new Vector2(player.position.x - transform.position.x, player.position.z - transform.position.z).normalized;
         rotationAroundPlayer = Vector2.Angle(Vector2.up, _distanceDir) - 90f;
 
         if (transform.position.x < player.position.x) rotationAroundPlayer += 180;
-        print(rotationAroundPlayer);
+        
 
         currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
 
+        anim.Play("Bird_Jump");
+    }
+
+    public void StartFlying()
+    {
+        state = SeagullState.StartCircle;
         anim.Play("Bird_Fly");
     }
 
@@ -307,7 +324,7 @@ public class Seagull : MonoBehaviour,IWaterable
             Happy();
             foreach (var _material in rend.materials)
             {
-                _material.SetFloat("_OilLevel", 1f);
+                _material.SetFloat("_OilLevel", 0f);
             }
         }
         else
@@ -316,7 +333,8 @@ public class Seagull : MonoBehaviour,IWaterable
             //rend.material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
             foreach (var _material in rend.materials)
             {
-                _material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
+                print(healthPoints / (float)startHealthPoints);
+                _material.SetFloat("_OilLevel",healthPoints / (float)startHealthPoints);
             }
         }
     }
@@ -355,6 +373,7 @@ public class Seagull : MonoBehaviour,IWaterable
 public enum SeagullState
 {
     Idle,
+    Jump,
     StartCircle,
     FlyUp,
     Dive,

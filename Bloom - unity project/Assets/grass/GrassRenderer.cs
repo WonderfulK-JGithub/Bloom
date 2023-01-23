@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class GrassRenderer : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] Mesh grassMesh;
+
+
+    GraphicsBuffer vertexBuffer;
+    GraphicsBuffer triangleBuffer;
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         

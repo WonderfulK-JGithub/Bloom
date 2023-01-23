@@ -206,6 +206,9 @@ struct Attributes
     float2 texcoord     : TEXCOORD0;
     float2 lightmapUV   : TEXCOORD1;
     UNITY_VERTEX_INPUT_INSTANCE_ID
+
+    uint vertexID : SV_VertexID;
+    uint instanceID : SV_InstanceID;
 };
 
 struct Varyings
@@ -274,6 +277,15 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
         inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
 }
 
+float invLerp(float from, float to, float value) {
+    return (value - from) / (to - from);
+}
+
+float remap(float origFrom, float origTo, float targetFrom, float targetTo, float value) {
+    float rel = invLerp(origFrom, origTo, value);
+    return lerp(targetFrom, targetTo, rel);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
 ///////////////////////////////////////////////////////////////////////////////
@@ -299,14 +311,16 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 
             _value = min(_value, 1);
             
-
+            
             float _timeOffset = output.worldSpacePos.x + output.worldSpacePos.z * 0;
 
-            float3 _offset = float3(cos(_Time.y + _timeOffset) * cos(_Time.y + _timeOffset) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
+            float _offset = float3(cos(_Time.y + _timeOffset) * input.texcoord.y * _GrassAmplitude * _value, 0.0, 0.0);//float3(clamp(_SinTime.y, 0.1, 1) * input.texcoord.y, 0.0, 0.0);
             //_offset = float3(SAMPLE_TEXTURE2D(_NoiseTexture,sampler_NoiseTexture, float2(_Time.y, 0.0)).r,0.0,0.0);
             //_offset = float3(oa * input.texcoord.y, 0.0, 0.0);
 
-            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz); //+ _offset * _SusValue);
+            _offset = remap(-1.0, 1.0, -0.4, 1.0, _offset);
+
+            VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz + float3(_offset,0.0,0.0) * _SusValue);
 
             // normalWS and tangentWS already normalize.
             // this is required to avoid skewing the direction during interpolation
