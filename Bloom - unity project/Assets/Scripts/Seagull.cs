@@ -12,6 +12,7 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] Animator anim;
     [SerializeField] Gradient hitFlashGradient;
     [SerializeField] float hitFlashDuration;
+    [SerializeField] ParticleSystem looseOilPS;
 
     [Header("Idle")]
     [SerializeField] float walkSpeed;
@@ -80,10 +81,16 @@ public class Seagull : MonoBehaviour,IWaterable
         centerPos = transform.position;
 
         healthPoints = startHealthPoints;
+
+        
+
+        
     }
 
     private void Update()
     {
+        
+
         switch (state)
         {
             case SeagullState.Idle:
@@ -319,7 +326,9 @@ public class Seagull : MonoBehaviour,IWaterable
 
         hitFlashTimer = hitFlashDuration;
 
-        if(healthPoints == 0)
+        looseOilPS.Play();
+
+        if (healthPoints == 0)
         {
             Happy();
             foreach (var _material in rend.materials)
