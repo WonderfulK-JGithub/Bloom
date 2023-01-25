@@ -19,6 +19,8 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected bool lastchase = true;
     protected bool hasTransformed = false;
     public SkinnedMeshRenderer color;
+    public ParticleSystem ps;
+    public GameObject utropstecken;
 
     protected virtual void Start()
     {
@@ -73,10 +75,11 @@ public class enemymovement : MonoBehaviour, IWaterable
         {
             if (!lastchase)
             {
+                utropstecken.SetActive(true);
                 StopCoroutine(wander);
             }
 
-            rb.velocity = (transform.forward * moveSpeed) + Physics.gravity * Convert.ToInt32(!onGround);
+            rb.velocity = (transform.forward * moveSpeed) + Gravity() * Convert.ToInt32(!onGround);
         }
         else
         {
@@ -124,11 +127,15 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     public void Water()
     {
-        DamageEnemy(7, 14);
+        if (detectionRange > 0)
+        {
+            ps.Play();
+        }
+        DamageEnemy(10);
     }
-    public void DamageEnemy(float min, float max)
+    public void DamageEnemy(float damage)
     {
-        hp -= UnityEngine.Random.Range(min, max);
+        hp -= damage;
         if (hp >= 0)
         {
             color.material.SetFloat("_OilLevel", 1 - (hp / 100f));

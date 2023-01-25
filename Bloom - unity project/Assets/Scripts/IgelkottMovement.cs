@@ -68,6 +68,7 @@ public class IgelkottMovement : enemymovement
         {
             if (lastchase)
             {
+                utropstecken.SetActive(true);
                 wander = StartCoroutine(Wander());
                 if (attack != null)
                 {
