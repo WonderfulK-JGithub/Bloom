@@ -120,11 +120,14 @@ public class MenuAnimations : MonoBehaviour
         Vector3 targetPos = button.rectTransform.localPosition;
         button.rectTransform.localPosition -= new Vector3(0, 500, 0);
 
-        while (button.color.a < 1)
-        {
-            button.color += new Color(0, 0, 0, buttonFadeSpeed * Time.deltaTime);
+        float t = 0;
 
-            button.rectTransform.localPosition = Vector3.Lerp(button.rectTransform.localPosition, targetPos, button.color.a);
+        while (t < 1)
+        {
+            button.color = new Color(1, 1, 1, t);
+
+            button.rectTransform.localPosition = Vector3.Lerp(button.rectTransform.localPosition, targetPos, t);
+            t += Time.deltaTime * buttonFadeSpeed;
             yield return 0;
         }
 
