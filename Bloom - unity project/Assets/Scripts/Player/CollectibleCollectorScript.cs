@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CollectibleCollectorScript : MonoBehaviour
+public class CollectibleCollectorScript : PlayerBaseScript
 {
     [SerializeField] float recycleRange;
     [SerializeField] LayerMask recycleLayer;
@@ -21,9 +21,11 @@ public class CollectibleCollectorScript : MonoBehaviour
 
     TextMeshProUGUI collectibleText;
 
-    private void Awake()
+    public override void Awake()
     {
         collectibleText = GameObject.Find("CollectibleText").GetComponent<TextMeshProUGUI>();
+
+        neededForUpgrade = FindObjectsOfType<CollectibleScript>().Length;
     }
 
     private void Update()
@@ -47,9 +49,6 @@ public class CollectibleCollectorScript : MonoBehaviour
         {
             recycleText.SetActive(false);
         }
-        
-
-        
     }
 
     public void Collect(CollectibleScript collectible)

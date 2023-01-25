@@ -7,7 +7,7 @@ public class CollectibleScript : MonoBehaviour
     [SerializeField] List<GameObject> trash = new List<GameObject>();
     [SerializeField] float rotationSpeed;
 
-    float susDomesticus;
+    float susDomesticus; //bra namn på variabel kj, jag förstår exakt vad den gör
 
     private void Start()
     {

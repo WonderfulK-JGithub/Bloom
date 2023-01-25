@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerMovementScript : PlayerBaseScript
 {
     [Header("Movement parameters")]
     [SerializeField] float speed = 6;
@@ -20,21 +20,24 @@ public class PlayerMovementScript : MonoBehaviour
     public bool canJump = true;
 
     Vector3 targetVelocity;
-    Rigidbody rb;
-    CollectibleCollectorScript cc;
 
     public static bool canMove = true;
-
     public static bool isBathing = false;
 
     bool footstep = true;
 
+    //Så man inte kan gå snabbare när man går snett
+    float maxMagnitude = 1;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        cc = GetComponent<CollectibleCollectorScript>();
-
         canMove = true;
+        maxMagnitude = new Vector3(1, 0, 0).magnitude;
     }
 
     private void Update()
@@ -46,6 +49,7 @@ public class PlayerMovementScript : MonoBehaviour
         Vector3 input = Vector3.zero;
         input += Input.GetAxisRaw("Horizontal") * transform.right;
         input += Input.GetAxisRaw("Vertical") * transform.forward;
+        input = input.normalized * maxMagnitude;
         SetSpeed(input, speed);
         isMoving = (input != Vector3.zero);
 
@@ -115,7 +119,7 @@ public class PlayerMovementScript : MonoBehaviour
                 AudioManager.current.PlaySound(AudioManager.AudioNames.HeartSound);
 
                 //är lat
-                FindObjectOfType<PlayerHealthScript>().Damage(-100);
+                h.Damage(-1000);
                 Destroy(helathPickups[0].gameObject);
             }
         }

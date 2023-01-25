@@ -6,47 +6,50 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerHealthScript : MonoBehaviour, IDamageable
+public class PlayerHealthScript : PlayerBaseScript, IDamageable
 {
-    [SerializeField] int startHealth = 100;
+    //Health
+    [SerializeField] int maxHealth = 100; //Det är gjort för att health ska vara procentuellt, med början på 100%.
     float _health;
-    float health
+    [HideInInspector] public float health
     {
         get { return _health; }
-        set { if(healthSlider != null) healthSlider.value = value / 100f; _health = value; }
+        set { if(healthSlider != null) healthSlider.value = value / maxHealth; _health = value; }
     }
 
     public static bool isDead = false;
 
+    //UI
     [SerializeField] Slider healthSlider;
 
-    [SerializeField] float damageOverlayFadeSpeed;
-
-    [SerializeField] float damageTickTime;
-    [SerializeField] int oilTickDamage;
-
+    //Regen
     [SerializeField] float regenSpeed = 1;
+    bool isRegenerating = false;
 
+    //damageoverlays
+    [SerializeField] float damageOverlayFadeSpeed;
     Image damageOverlay;
     Image damageOverlay2;
 
-    ColorAdjustments colAd;
-
-    float tickTimer;
-
+    //Pretty shit solution, ngl
     Coroutine[] fadeCoroutines = new Coroutine[3];
 
-    PlayerCameraScript cam;
-
+    //Saturation
+    ColorAdjustments colAd;
     float targetSaturation = 0;
-
     public static float saturationMultiplier = 1;
 
-    private void Awake()
-    {
-        saturationMultiplier = 1;
+    //k-j
+    [Header("Oil")]
+    [SerializeField] float damageTickTime;
+    [SerializeField] int oilTickDamage;
+    float tickTimer;
 
-        cam = FindObjectOfType<PlayerCameraScript>();
+    public override void Awake()
+    {
+        base.Awake();
+
+        saturationMultiplier = 1;
 
         Volume volume = FindObjectOfType<Volume>();
         ColorAdjustments tmp;
@@ -56,7 +59,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             colAd = tmp;
         }
 
-        health = startHealth;
+        health = maxHealth;
 
         isDead = false;
 
@@ -67,7 +70,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         health -= damage;
-        health = Mathf.Clamp(health, 0, 100);
+        health = Mathf.Clamp(health, 0, maxHealth);
 
         if (health <= 0) Die();
 
@@ -82,9 +85,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, (((40f - health) / 40f) * 100f) / 256f));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, (((40f - health) / 40f) * 300f) / 256f));
 
-            //if (colAd != null)
-            //    fadeCoroutines[2] = StartCoroutine(FadeSaturation(((40f - health) / 40f) * -100f));
-
             saturationMultiplier = 1f - ((40f - health) / 40f);
         }
         else
@@ -97,8 +97,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             }
             fadeCoroutines[0] = StartCoroutine(FadeTo(damageOverlay, 0));
             fadeCoroutines[1] = StartCoroutine(FadeTo(damageOverlay2, 0));
-            //if (colAd != null)
-            //    fadeCoroutines[2] = StartCoroutine(FadeSaturation(0));
         }
 
         if(damage > 0)
@@ -108,7 +106,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             AudioManager.current.PlaySound(AudioManager.AudioNames.PlayerDamage);
 
             StopCoroutine(nameof(tilRegen));
-            StopCoroutine(nameof(regen));
+            isRegenerating = false;
+            //StopCoroutine(nameof(regen));
             if (health < 50)
             {
                 StartCoroutine(nameof(tilRegen));
@@ -125,17 +124,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
             yield return null;
         }
     }
-
-    //IEnumerator FadeSaturation(float target)
-    //{
-    //    while (Mathf.Abs(colAd.saturation.value - target) > 0.01f)
-    //    {
-    //        if (colAd == null) break;
-    //        targetSaturation = Mathf.Lerp(targetSaturation, target, damageOverlayFadeSpeed * Time.deltaTime);
-    //        yield return null;
-    //    }
-    //}
-
 
     public void Die()
     {
@@ -170,6 +158,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     void Update()
     {
+        Regen();
+
         if (transform.position.y < -20) Die();
 
         #if UNITY_EDITOR
@@ -194,16 +184,29 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     IEnumerator tilRegen()
     {
         yield return new WaitForSeconds(8);
-        StartCoroutine(nameof(regen));
+        isRegenerating = true;
+        //StartCoroutine(nameof(regen));
     }
 
-    IEnumerator regen()
+    void Regen()
     {
-        while(health < 50)
+        if(isRegenerating)
         {
-            Damage(-regenSpeed * Time.deltaTime);
-            yield return null;
+            if(health < 50)
+            {
+                Damage(-regenSpeed * Time.deltaTime);
+            }
+            else
+            {
+                isRegenerating = false;
+            }           
         }
+    }
+
+    public void SetMaxHealth(int newMaxHealth) //För upgrades
+    {
+        maxHealth = newMaxHealth;
+        health = health;
     }
 }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ShootingScript : MonoBehaviour
 {
+    [Header("Shooting")]
     [SerializeField] Transform barrel;
     [SerializeField] GameObject bullet;
 
@@ -13,7 +14,7 @@ public class ShootingScript : MonoBehaviour
     [SerializeField] float bulletsPerSecond = 1;
 
     bool canShoot = true;
-
+    
     [SerializeField] float bulletCost = 5;
 
     float _ammo = 100;
@@ -23,6 +24,7 @@ public class ShootingScript : MonoBehaviour
         set { value = Mathf.Clamp(value, 0, 100); if (waterSlider != null) waterSlider.value = value / 100f; _ammo = value; }
     }
 
+    [Header("Reloading")]
     [SerializeField] Slider waterSlider;
 
     [SerializeField] float waterReloadSpeed;
@@ -36,11 +38,10 @@ public class ShootingScript : MonoBehaviour
     Animator anim;
 
 
-    private void Awake()
+    public virtual void Awake()
     {
         visual = GetComponent<GunScript>();
         anim = GetComponentInChildren<Animator>();
-
     }
 
 
@@ -53,15 +54,16 @@ public class ShootingScript : MonoBehaviour
             visual.Fire();
 
             GameObject newBullet = Instantiate(bullet, barrel.position, barrel.rotation);
+            WaterBullet bul = newBullet.GetComponent<WaterBullet>();
 
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100, LayerMask.GetMask("Ground")))
             {
-                newBullet.GetComponent<WaterBullet>().SetVelocity((hit.point - barrel.position).normalized, bulletSpeed);
+                bul.SetVelocity((hit.point - barrel.position).normalized, bulletSpeed);
             }
             else
             {
-                newBullet.GetComponent<WaterBullet>().SetVelocity((barrel.forward).normalized, bulletSpeed);
+                bul.SetVelocity((barrel.forward).normalized, bulletSpeed);
                 //newBullet.GetComponent<WaterBullet>().SetVelocity((Camera.main.transform.forward * 100 - barrel.position).normalized, bulletSpeed);
             }
 

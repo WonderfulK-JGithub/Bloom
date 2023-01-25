@@ -3524,8 +3524,8 @@ MonoBehaviour:
   velocityMultiplier: 0.015
   velocitySmooth: 20
   smooth: 8
-  multiplier: 35
-  maxSway: 20
+  multiplier: 10
+  maxSway: 15
   weaponBob: 1
   weaponBobScale: {x: 0.015625, y: 0.03125}
   weaponBobSpeed: {x: 7.5, y: 15}
@@ -3584,12 +3584,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961310f16991aa94e8c231b12b952e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
+  maxHealth: 100
   healthSlider: {fileID: 8554426570210206235}
+  regenSpeed: 10
   damageOverlayFadeSpeed: 4
   damageTickTime: 1
   oilTickDamage: 5
-  regenSpeed: 10
 --- !u!114 &8554426570220972980
 MonoBehaviour:
   m_ObjectHideFlags: 0
