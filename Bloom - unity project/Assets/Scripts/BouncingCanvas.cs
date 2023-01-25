@@ -38,7 +38,7 @@ public class BouncingCanvas : MonoBehaviour
     
     public void StartBounce()
     {
-        startY = transform.position.y;
+        startY = transform.localPosition.y;
         currentY = startY;
 
         speed = startForce;
@@ -80,7 +80,7 @@ public class BouncingCanvas : MonoBehaviour
             }
             else
             {
-                transform.position = new Vector3(transform.position.x, currentY, transform.position.z);
+                transform.localPosition = new Vector3(transform.localPosition.x, currentY, transform.localPosition.z);
             }
 
             

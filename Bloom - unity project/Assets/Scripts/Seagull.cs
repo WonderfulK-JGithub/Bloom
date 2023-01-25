@@ -296,6 +296,10 @@ public class Seagull : MonoBehaviour,IWaterable
         currentThing = new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(player.position.x, 0f, player.position.z);
 
         anim.Play("Bird_Jump");
+
+        
+        EnemyWarnings.current.AddEnemy(transform);
+        
     }
 
     public void StartFlying()
@@ -350,6 +354,8 @@ public class Seagull : MonoBehaviour,IWaterable
 
     void Happy()
     {
+        EnemyWarnings.current.RemoveEnemy(transform);
+
         state = SeagullState.Happy;
         
         rb.useGravity = true;

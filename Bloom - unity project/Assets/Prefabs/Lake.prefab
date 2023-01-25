@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1359204802633240547}
   m_Layer: 4
   m_Name: Lake
-  m_TagString: Untagged
+  m_TagString: Oil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

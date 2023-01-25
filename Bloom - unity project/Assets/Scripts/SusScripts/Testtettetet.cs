@@ -7,10 +7,12 @@ public class Testtettetet : MonoBehaviour
     
     [SerializeField] RectTransform rekt;
     [SerializeField] Transform a;
+
+    
     
     void Update()
     {
-        print(Screen.width);
+        
 
         Vector3 _screenPos = Camera.main.WorldToScreenPoint(a.position);
 
@@ -36,7 +38,7 @@ public class Testtettetet : MonoBehaviour
 
             float _m = _cos / _sin;
 
-            Vector3 _screenBounds = _screenCenter;
+            Vector3 _screenBounds = _screenCenter * 0.95f;
 
             if(_cos > 0)
             {
