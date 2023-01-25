@@ -41,6 +41,7 @@ public class IgelkottMovement : enemymovement
         {
             if (!lastchase)
             {
+                utropstecken.SetActive(true);
                 StopCoroutine(wander);
                 kropp.localPosition = kroppPos;
             }
@@ -68,7 +69,6 @@ public class IgelkottMovement : enemymovement
         {
             if (lastchase)
             {
-                utropstecken.SetActive(true);
                 wander = StartCoroutine(Wander());
                 if (attack != null)
                 {
@@ -123,6 +123,7 @@ public class IgelkottMovement : enemymovement
         }
 
     }
+    
     protected override void Rotation()
     {
         if (chase)
