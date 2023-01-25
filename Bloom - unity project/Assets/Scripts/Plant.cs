@@ -30,7 +30,7 @@ public class Plant : MonoBehaviour,IWaterable
         }
     }
 
-    float suspect = 0.7f;
+    
     float shaderValue;
 
     private void Awake()

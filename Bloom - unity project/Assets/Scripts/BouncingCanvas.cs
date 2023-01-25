@@ -91,7 +91,7 @@ public class BouncingCanvas : MonoBehaviour
 
     public void Disapear()
     {
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 
     void FallOffBounce()
@@ -128,4 +128,6 @@ public class BouncingCanvas : MonoBehaviour
             StartBounce();
         }
     }
+
+    
 }
