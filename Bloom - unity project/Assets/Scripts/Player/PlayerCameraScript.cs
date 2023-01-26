@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerCameraScript : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] float sensitivity = 100f;
+    public float sensitivity = 100f;
 
     [Header("Headbobbing")]
     [SerializeField] bool headBob = true;

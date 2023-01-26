@@ -3476,7 +3476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c43c60901ec164b90a27bdb6042734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 10
+  sensitivity: 5
   headBob: 1
   headBobScale: {x: 0.05, y: 0.05}
   headBobSpeed: {x: 7.5, y: 15}

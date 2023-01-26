@@ -326,10 +326,11 @@ public class Seagull : MonoBehaviour,IWaterable
 
     public void Water()
     {
-        healthPoints--;
-
         hitFlashTimer = hitFlashDuration;
 
+        if (healthPoints == 0) return;
+
+        healthPoints--;
         looseOilPS.Play();
 
         if (healthPoints == 0)
