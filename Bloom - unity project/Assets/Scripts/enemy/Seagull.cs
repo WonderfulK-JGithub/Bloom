@@ -62,6 +62,8 @@ public class Seagull : MonoBehaviour,IWaterable
     Vector3 currentThing;
     Vector3 targetForward;
 
+    Vector3 lastVelocity;
+
     int healthPoints;
 
     float timer;
@@ -82,7 +84,7 @@ public class Seagull : MonoBehaviour,IWaterable
 
         healthPoints = startHealthPoints;
 
-        
+        PauseMenu.OnPause += Pause;
 
         
     }
@@ -347,7 +349,6 @@ public class Seagull : MonoBehaviour,IWaterable
             //rend.material.SetFloat("_OilLevel", 1f - healthPoints / (float)startHealthPoints);
             foreach (var _material in rend.materials)
             {
-                print(healthPoints / (float)startHealthPoints);
                 _material.SetFloat("_OilLevel",healthPoints / (float)startHealthPoints);
             }
         }
@@ -376,13 +377,36 @@ public class Seagull : MonoBehaviour,IWaterable
         
     }
 
+    void Pause(bool _pause)
+    {
+        if (_pause)
+        {
+            lastVelocity = rb.velocity;
+            rb.isKinematic = true;
+            anim.speed = 0f;
+        }
+        else
+        {
+            rb.isKinematic = false;
+            rb.velocity = lastVelocity;
+            anim.speed = state == SeagullState.Happy ? flappingSpeed : 1f;
+        }
 
+        enabled = !_pause;
+
+        
+    }
 
     public void DropOil()
     {
         OilBullet _oil = Instantiate(oilDropPrefab, transform.position, Quaternion.identity).GetComponent<OilBullet>();
 
         _oil.SetVelocity(Vector3.down, dropStartSpeed);
+    }
+
+    private void OnDestroy()
+    {
+        PauseMenu.OnPause -= Pause;
     }
 }
 

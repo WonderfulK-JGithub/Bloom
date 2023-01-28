@@ -4880,7 +4880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af09d7e4f7430f4cbce93ad93cee8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleTrail: {fileID: 3494090087311429502}
+  particleTrail: {fileID: 3494090087311429497}
   splashParticle: {fileID: 1062824231876019855, guid: 5987a75ad2edc924aad3745b486bceb2, type: 3}
   splashTime: 5
   splashSound: 9

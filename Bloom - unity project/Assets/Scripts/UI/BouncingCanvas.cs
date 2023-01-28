@@ -24,6 +24,9 @@ public class BouncingCanvas : MonoBehaviour
     float timer;
 
     bool bounce;
+    bool active;
+
+    float appearTimer;
 
     private void Awake()
     {
@@ -44,21 +47,33 @@ public class BouncingCanvas : MonoBehaviour
         speed = startForce;
 
         bounce = true;
+        active = true;
 
         nextForce = startForce;
 
         timer = gravityTime;
 
-        if (appearTime > 0f)
+        appearTimer = appearTime;    }
+
+    private void Update()
+    {
+        if (PauseMenu.paused || !active) return;
+
+        appearTimer -= Time.deltaTime;
+
+        
+
+        if (appearTimer <= 0f)
         {
-            CancelInvoke();
-            Invoke("Disapear", appearTime);
+            transform.parent.gameObject.SetActive(false);
+            active = false;
         }
     }
 
-    
     private void FixedUpdate()
     {
+        if (PauseMenu.paused) return;
+
         if (bounce)
         {
             currentY += speed;
@@ -87,11 +102,6 @@ public class BouncingCanvas : MonoBehaviour
         }
 
         transform.LookAt(cameraTransform, Vector3.up);
-    }
-
-    public void Disapear()
-    {
-        transform.parent.gameObject.SetActive(false);
     }
 
     void FallOffBounce()

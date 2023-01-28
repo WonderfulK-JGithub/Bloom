@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7914374634495969474}
+  - component: {fileID: 1387198384127958009}
   m_Layer: 0
   m_Name: SplashWater
   m_TagString: Untagged
@@ -31,6 +32,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387198384127958009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062824231876019855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad244471ccd28a41b81d4d4c35f2ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 1.5
+  ps:
+  - {fileID: 8003602163423433138}
+  - {fileID: 8003602164033394574}
+  - {fileID: 8003602164403560906}
 --- !u!1 &8003602163423433140
 GameObject:
   m_ObjectHideFlags: 0

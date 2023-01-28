@@ -10,7 +10,7 @@ using UnityEngine.Audio;
 public class PauseMenu : MonoBehaviour
 {
     public static Action<bool> OnPause;
-    bool paused;
+    public static bool paused;
 
     [SerializeField] GameObject overlay;
     [SerializeField] GameObject pausePanel;
@@ -146,6 +146,11 @@ public class PauseMenu : MonoBehaviour
     {
         float _percent = Mathf.InverseLerp(_origFrom, _origTo, _value);
         return Mathf.Lerp(_targetFrom, _targetTo, _percent);
+    }
+
+    private void OnDestroy()
+    {
+        paused = false;
     }
 }
 

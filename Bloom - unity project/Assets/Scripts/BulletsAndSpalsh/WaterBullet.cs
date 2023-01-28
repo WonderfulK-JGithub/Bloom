@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterBullet : MonoBehaviour
 {
     
-    [SerializeField] GameObject particleTrail;
+    [SerializeField] ParticleSystem particleTrail;
     [SerializeField] GameObject splashParticle;
     [SerializeField] float splashTime = 1.5f;
     [SerializeField] AudioManager.AudioNames splashSound;
@@ -17,11 +17,20 @@ public class WaterBullet : MonoBehaviour
     protected SphereCollider col;
     protected RaycastHit lastHit;
 
+    Vector3 lastVelocity;
+
     private void Awake()
     {
         Destroy(gameObject, 20f);
         rb = GetComponent<Rigidbody>();
         col = GetComponent<SphereCollider>();
+
+        PauseMenu.OnPause += Paused;
+    }
+
+    private void OnDestroy()
+    {
+        PauseMenu.OnPause -= Paused;
     }
 
     public void SetVelocity(Vector3 _direction, float _speed)
@@ -35,12 +44,12 @@ public class WaterBullet : MonoBehaviour
         Transform _trans = Instantiate(splashParticle, lastHit.point, Quaternion.identity).transform;
         _trans.up = lastHit.normal;
         _trans.SetParent(_other.transform);
-        Destroy(_trans.gameObject, splashTime);
+        //Destroy(_trans.gameObject, splashTime);
 
         particleTrail.transform.SetParent(null);
 
         Destroy(gameObject);
-        Destroy(particleTrail, 1f);
+        Destroy(particleTrail.gameObject, 1f);
 
         AudioManager.current.PlaySound(splashSound);
     }
@@ -74,6 +83,25 @@ public class WaterBullet : MonoBehaviour
         }
 
         
+    }
+
+    void Paused(bool _pause)
+    {
+        if (_pause)
+        {
+            lastVelocity = rb.velocity;
+            rb.velocity = Vector3.zero;
+
+            particleTrail.Pause();
+        }
+        else
+        {
+            rb.velocity = lastVelocity;
+
+            particleTrail.Play();
+        }
+
+        enabled = false;
     }
 }
 
