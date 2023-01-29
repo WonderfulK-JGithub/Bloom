@@ -59,6 +59,8 @@ public class PauseMenu : MonoBehaviour
             overlay.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            Time.timeScale = 0f;
         }
         else
         {
@@ -70,6 +72,8 @@ public class PauseMenu : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            Time.timeScale = 1f;
         }
     }
 

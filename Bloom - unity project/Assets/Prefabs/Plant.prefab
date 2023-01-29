@@ -117,6 +117,7 @@ Transform:
   m_Children:
   - {fileID: 9147763573313893602}
   - {fileID: 3345008581429908203}
+  - {fileID: 7409439536911890577}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -185,6 +186,7 @@ MonoBehaviour:
   meshStartY: -1.5
   fillPerShoot: 0.4
   fillSpeed: 0.125
+  flowerParticles: {fileID: 7409439536911890578}
   lakes: []
   waterIcon: {fileID: 3345008581429908200}
   rend: {fileID: 3098536513735259667}
@@ -247,6 +249,73 @@ Transform:
   m_Father: {fileID: 4145376622828577133}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4924967422637321109
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4145376622828577133}
+    m_Modifications:
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849161, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_Name
+      value: Flower1 Particles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+--- !u!4 &7409439536911890577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+  m_PrefabInstance: {fileID: 4924967422637321109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7409439536911890578 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2489190724280849159, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+  m_PrefabInstance: {fileID: 4924967422637321109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6154598810514064300
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class Plant : MonoBehaviour,IWaterable
     //[SerializeField] Material mat;
     [SerializeField] float fillPerShoot;
     [SerializeField] float fillSpeed;
+    [SerializeField] ParticleSystem flowerParticles;
 
     [SerializeField] List<Lake> lakes;
     [SerializeField] GameObject waterIcon;
@@ -68,6 +69,8 @@ public class Plant : MonoBehaviour,IWaterable
 
         if (WaterValue == 1f)
         {
+            flowerParticles.Play(true);
+
             AudioManager.current.PlaySound(AudioManager.AudioNames.FlowerGreen, transform.position);
             PlantCompletionHandler.current.SetGridBox(WaterValue, transform.position, plantID);
             waterIcon.SetActive(false);

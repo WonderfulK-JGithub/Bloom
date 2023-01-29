@@ -772,7 +772,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34616
+  m_Name: pb_Mesh26106
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1458,6 +1458,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82a301b636b40c24a8fa494ac6934b59, type: 3}
+--- !u!1001 &2489190725428579726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849156, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489190724280849161, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
+      propertyPath: m_Name
+      value: Flower1 Particles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2436dedfdacedc4ea3528e2850cf862, type: 3}
 --- !u!1001 &4003594121910768350
 PrefabInstance:
   m_ObjectHideFlags: 0
