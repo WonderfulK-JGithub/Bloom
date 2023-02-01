@@ -14,24 +14,18 @@ AnimatorStateMachine:
     m_Position: {x: 260, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6947428414475018214}
-    m_Position: {x: 250, y: 170, z: 0}
+    m_Position: {x: 260, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4402155093245217919}
-    m_Position: {x: 520, y: 10, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -6912392898262477220}
-    m_Position: {x: 555, y: 75, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 204963616014341962}
-    m_Position: {x: -30, y: 40, z: 0}
+    m_Position: {x: 260, y: 10, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -40, y: -60, z: 0}
-  m_EntryPosition: {x: -60, y: 180, z: 0}
-  m_ExitPosition: {x: 770, y: -210, z: 0}
+  m_AnyStatePosition: {x: 280, y: 10, z: 0}
+  m_EntryPosition: {x: 280, y: 10, z: 0}
+  m_ExitPosition: {x: 280, y: 10, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 7169001767347989349}
 --- !u!1102 &-6947428414475018214
@@ -41,7 +35,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Igelkott_Bone|AIgelkottboneAction
+  m_Name: "g\xE5"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -55,7 +49,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3205206789229131992, guid: 8a9b961ef6075a0408fa52249775807d, type: 3}
+  m_Motion: {fileID: -5638531959667237300, guid: f2210251eb581d64aaea049c459adabe, type: 3}
   m_Tag: springa
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -226,7 +220,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Igelkott_Bone|Igelkott_BoneAction
+  m_Name: attackera
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -240,7 +234,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8e5b38908507348488d8cdfa9923c52c, type: 2}
+  m_Motion: {fileID: 6037150341298312106, guid: 4e9bf092e09fe7449abf9602b60a401d, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

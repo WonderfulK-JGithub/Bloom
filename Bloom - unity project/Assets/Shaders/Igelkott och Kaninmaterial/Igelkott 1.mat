@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Igelkott
-  m_Shader: {fileID: -6465566751694194690, guid: 9211cb79e0caa1d4faed70c6513768e8, type: 3}
+  m_Name: Igelkott 1
+  m_Shader: {fileID: -6465566751694194690, guid: 1303a66a6e3116a48aaeddd65ded893e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -45,16 +45,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ChangeOverTime: 0.2
+    - _LevelPowering: 1
     - _Metallic: 0
-    - _OilLevel: 0
+    - _OilLevel: 1
     - _OilMetallic: 0
     - _OilNormapStrength: 0.01
     - _OilNormapStrength_1: 0.073
-    - _OilSampleSize: 10
+    - _OilSampleSize: 1.4
     - _OilSmoothness: 1
     - _Smoothness: 0.5
     m_Colors:
     - _OtherTint: {r: 1, g: 1, b: 1, a: 1}
-    - _Tint: {r: 0.4056604, g: 0.3104308, b: 0.19607843, a: 0}
+    - _Tint: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
     - _UpVector: {r: 0, g: -1, b: 0.8, a: 0}
   m_BuildTextureStacks: []
