@@ -94,7 +94,7 @@ public class ShootingScript : MonoBehaviour
 
                 if (Input.GetMouseButton(1))
                 {
-                    if (Input.GetMouseButtonDown(1) && ammo != maxAmmo)
+                    if (Input.GetMouseButtonDown(1))
                     {
                         AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
                     }
