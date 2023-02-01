@@ -52,7 +52,7 @@ public class RabbitMovement : enemymovement
             if (wander != null)
             {
                 StopCoroutine(wander);
-                rb.velocity = Gravity();
+                //rb.velocity = Gravity();
             }
         }
 
@@ -88,7 +88,7 @@ public class RabbitMovement : enemymovement
                 yield return 0;
             }
             animator.SetBool("wander", false);
-            rb.velocity = Gravity();
+            //rb.velocity = Gravity();
         }
     }
 

@@ -103,6 +103,7 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     protected virtual IEnumerator Transformation()
     {
+        chase = false;
         if (!hasTransformed)
         {
             hasTransformed = true;
@@ -136,33 +137,62 @@ public class enemymovement : MonoBehaviour, IWaterable
     public void DamageEnemy(float damage)
     {
         hp -= damage;
-        if (hp >= 0)
+        foreach (var mat in color.materials)
         {
-            color.material.SetFloat("_OilLevel", 1 - (hp / 100f));
+            if (hp >= 0 && mat.HasProperty("_OilLevel"))
+            {
+                mat.SetFloat("_OilLevel", hp / 100f);
+            }
+            else
+            {
+                mat.SetFloat("_OilLevel", 0);
+            }
         }
-        else
-        {
-            color.material.SetFloat("_OilLevel", 1);
-        }
-        StartCoroutine(DamageTint());
+            StartCoroutine(DamageTint());
     }
 
     IEnumerator DamageTint()
     {
-        Color originalcolor = color.material.GetColor("_Tint");
-        Color newColor = new Color(0.5f, 0.75f, 1, 1);
-        color.material.SetColor("_Tint", newColor);
+        Color[] ogcols = new Color[color.materials.Length];
 
-        float t = 0;
-
-        while (t < 1)
+        for (int i = 0; i < color.materials.Length; i++)
         {
-            color.material.SetColor("_Tint", Color.Lerp(newColor, originalcolor, t));
-            t += Time.deltaTime * 3;
-            yield return null;
+            if (color.materials[i].HasProperty("_Tint"))
+            {
+                ogcols[i] = color.materials[i].GetColor("_Tint");
+            }
+        }
+        Color newColor = new Color(0.5f, 0.75f, 1, 1);
+
+        foreach (var mat in color.materials)
+        {
+            if (mat.HasProperty("_Tint"))
+            {
+                mat.SetColor("_Tint", newColor);
+            }
         }
 
-        color.material.SetColor("_Tint", originalcolor);
+        float t = 1;
+
+        while (t > 0)
+        {
+            for (int i = 0; i < color.materials.Length; i++)
+            {
+                if (color.materials[i].HasProperty("_Tint"))
+                {
+                    color.materials[i].SetColor("_Tint", Color.Lerp(newColor, ogcols[i], t));
+                }
+            }
+            t -= Time.deltaTime * 3;
+            yield return null;
+        }
+        for (int i = 0; i < color.materials.Length; i++)
+        {
+            if (color.materials[i].HasProperty("_Tint"))
+            {
+                color.materials[i].SetColor("_Tint", ogcols[i]);
+            }
+        }
     }
     protected virtual IEnumerator Wander()
     {
