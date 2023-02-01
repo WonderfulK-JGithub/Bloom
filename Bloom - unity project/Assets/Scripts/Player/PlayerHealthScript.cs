@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using TMPro;
 
 public class PlayerHealthScript : PlayerBaseScript, IDamageable
 {
@@ -14,7 +15,7 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     [HideInInspector] public float health
     {
         get { return _health; }
-        set { if(healthSlider != null) healthSlider.value = value / maxHealth; _health = value; }
+        set { if(healthSlider != null) healthSlider.value = value / maxHealth; healthSlider.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString() + "%"; _health = value; }
     }
 
     public static bool isDead = false;
@@ -152,8 +153,8 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
 
     void Restart()
     {
-        //Temporärt, gör nåt bättre - Max
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        FindObjectOfType<SceneTransition>().EnterScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void Update()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,11 +18,12 @@ public class ShootingScript : MonoBehaviour
     
     [SerializeField] float bulletCost = 5;
 
+    float maxAmmo = 100;
     float _ammo = 100;
     float ammo
     {
         get { return _ammo; }
-        set { value = Mathf.Clamp(value, 0, 100); if (waterSlider != null) waterSlider.value = value / 100f; _ammo = value; }
+        set { value = Mathf.Clamp(value, 0, maxAmmo); if (waterSlider != null) waterSlider.value = value / (float)maxAmmo; waterSlider.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString("0.") + "%"; _ammo = value; }
     }
 
     [Header("Reloading")]
@@ -47,6 +49,8 @@ public class ShootingScript : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.paused) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (!canShoot || ammo <= 0 || PlayerHealthScript.isDead) return;
@@ -70,7 +74,7 @@ public class ShootingScript : MonoBehaviour
             Physics.IgnoreCollision(newBullet.GetComponent<SphereCollider>(), GetComponentInChildren<CapsuleCollider>());
 
             ammo -= bulletCost;
-            ammo = Mathf.Clamp(ammo, 0, 100);
+            ammo = Mathf.Clamp(ammo, 0, maxAmmo);
 
             AudioManager.current.PlaySound(AudioManager.AudioNames.WaterSpray);
 
@@ -90,7 +94,7 @@ public class ShootingScript : MonoBehaviour
 
                 if (Input.GetMouseButton(1))
                 {
-                    if (Input.GetMouseButtonDown(1) && ammo != 100)
+                    if (Input.GetMouseButtonDown(1) && ammo != maxAmmo)
                     {
                         AudioManager.current.PlaySound(AudioManager.AudioNames.WaterFill);
                     }
@@ -117,5 +121,16 @@ public class ShootingScript : MonoBehaviour
         tilNextShotLoading.fillAmount = 0;
 
         canShoot = true;
+    }
+
+    public void FillAmmo()
+    {
+        ammo = maxAmmo;
+    }
+
+    public void SetMaxAmmo(int newMax)
+    {
+        maxAmmo = newMax;
+        ammo = ammo;
     }
 }

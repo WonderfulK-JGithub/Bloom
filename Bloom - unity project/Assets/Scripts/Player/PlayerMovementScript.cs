@@ -42,7 +42,7 @@ public class PlayerMovementScript : PlayerBaseScript
 
     private void Update()
     {
-        if (!canMove) return;
+        if (!canMove || PauseMenu.paused) return;
 
         GroundCheck();
 

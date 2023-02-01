@@ -80,6 +80,8 @@ public class PlayerCameraScript : MonoBehaviour
         //Saturation
         HandleSaturation();
 
+        if (PauseMenu.paused) return;
+
         //Look
         if (!canLook) return;
 
