@@ -415,9 +415,9 @@ float remap(float origFrom, float origTo, float targetFrom, float targetTo, floa
 
             half3 _saturatedColor = color.rgb * (1.0 - _strength) + _avarage * _strength;
 
-            return half4(pow(_saturatedColor.rgb, (1 / _gammaStrength)),color.a);
+            
 
-            float4 amog = _Time;
+            return half4(pow(_saturatedColor.rgb, (1 / _gammaStrength)),color.a);
         }
 
 #endif
