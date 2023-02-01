@@ -19,8 +19,11 @@ public class enemymovement : MonoBehaviour, IWaterable
     protected bool lastchase = true;
     protected bool hasTransformed = false;
     public SkinnedMeshRenderer color;
-    public ParticleSystem ps;
+    [Tooltip("Oljans partikelsystem!")] public ParticleSystem ps;
     public GameObject utropstecken;
+    public ParticleSystem friendlyPS;
+    bool fpshp = false;
+    
 
     protected virtual void Start()
     {
@@ -92,7 +95,6 @@ public class enemymovement : MonoBehaviour, IWaterable
 
     protected virtual void Rotation()
     {
-
         if (chase)
         {
             rb.angularVelocity = Vector3.zero;
@@ -148,7 +150,13 @@ public class enemymovement : MonoBehaviour, IWaterable
                 mat.SetFloat("_OilLevel", 0);
             }
         }
-            StartCoroutine(DamageTint());
+
+        if (hp <= 0 && !fpshp)
+        {
+            friendlyPS.Play();
+            fpshp = true;
+        }
+        StartCoroutine(DamageTint());
     }
 
     IEnumerator DamageTint()
