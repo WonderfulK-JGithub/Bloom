@@ -38,14 +38,14 @@ Material:
     m_Floats:
     - Vector1_561466ce7a134cb89ddfda6a34ab7958: 0.41
     - Vector1_6b9c6e2b86ad4f2fa8ed81695095db44: 0
-    - _DisplacementSpeed: 0.1
+    - _DisplacementSpeed: 0.15
     - _Distortion: 0.01
-    - _NormalSize: 0.88
-    - _NormalSpeed: 0.02
-    - _NormalStrength: 0.12
-    - _SeaThroughPower: 0.506
-    - _Smooth: 1
-    - _VertexDisplacement: 0.00025
+    - _NormalSize: 5
+    - _NormalSpeed: 0.04
+    - _NormalStrength: 0.46
+    - _SeaThroughPower: 1
+    - _Smooth: 0.7
+    - _VertexDisplacement: 0.0003125
     m_Colors:
     - _OtherColor: {r: 0, g: 0.40446377, b: 1, a: 0}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
