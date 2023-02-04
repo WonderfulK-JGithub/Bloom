@@ -168,6 +168,14 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
         #endif
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Oil"))
+        {
+            tickTimer = 0f;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Oil"))

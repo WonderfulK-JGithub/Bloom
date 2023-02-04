@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 501745387356438019}
   - component: {fileID: 2159039194356096983}
   - component: {fileID: 1359204802633240547}
-  m_Layer: 4
+  m_Layer: 11
   m_Name: Lake
   m_TagString: Oil
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2159039194356096982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.63, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,7 +55,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
@@ -103,7 +103,9 @@ MonoBehaviour:
   waterColor: {r: 0, g: 0.8901961, b: 1, a: 0}
   waterSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   waterEmissionPower: 0.35
-  waterSeaThroughPower: 1
+  waterSeaThroughPower: 0.7
+  splashParticleOil: {fileID: 7104555295073785107, guid: 20734489b205c5d4195c58fb066472a7, type: 3}
+  splashParticleWater: {fileID: 7104555295073785107, guid: 9ffa977daa2483e4d9c641294749454a, type: 3}
 --- !u!64 &1359204802633240547
 MeshCollider:
   m_ObjectHideFlags: 0

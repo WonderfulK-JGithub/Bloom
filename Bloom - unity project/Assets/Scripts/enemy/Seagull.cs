@@ -49,6 +49,7 @@ public class Seagull : MonoBehaviour,IWaterable
     [SerializeField] float flappForce;
     [SerializeField] float flappingSpeed;
     [SerializeField] float flappingDistanceY;
+    [SerializeField] ParticleSystem happyParticles;
 
     SeagullState state;
 
@@ -129,6 +130,7 @@ public class Seagull : MonoBehaviour,IWaterable
                     state = SeagullState.Dive;
                     diveStartY = transform.position.y;
                     anim.Play("Bird_Dive");
+                    AudioManager.current.PlaySound(AudioManager.AudioNames.Seagull2);
                 }
 
                 oilTimer += Time.deltaTime;
@@ -301,6 +303,8 @@ public class Seagull : MonoBehaviour,IWaterable
 
         
         EnemyWarnings.current.AddEnemy(transform);
+
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Seagull);
         
     }
 
@@ -365,6 +369,8 @@ public class Seagull : MonoBehaviour,IWaterable
         anim.speed = flappingSpeed;
         anim.Play("Bird_Fly");
 
+        transform.forward = new Vector3(transform.forward.x, 0f, transform.forward.z);
+
         if(Physics.Raycast(transform.position, Vector3.down,out RaycastHit _hit, groundLayer))
         {
             centerPos = _hit.point + Vector3.up * flappingDistanceY;
@@ -374,7 +380,7 @@ public class Seagull : MonoBehaviour,IWaterable
             centerPos = transform.position;
         }
 
-        
+        happyParticles.Play();
     }
 
     void Pause(bool _pause)

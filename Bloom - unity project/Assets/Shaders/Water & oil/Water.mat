@@ -38,11 +38,16 @@ Material:
     m_Floats:
     - Vector1_561466ce7a134cb89ddfda6a34ab7958: 0.35
     - Vector1_6b9c6e2b86ad4f2fa8ed81695095db44: 0
+    - _DisplacementSpeed: 1
     - _Distortion: 0.01
+    - _NormalSize: 1
     - _NormalSpeed: 0.2
     - _NormalStrength: 0.91
+    - _SeaThroughPower: 1
     - _Smooth: 0.4
     - _VertexDisplacement: 0.03
     m_Colors:
+    - _OtherColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecularColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
     - _Tint: {r: 0, g: 0.6186278, b: 1, a: 0}
   m_BuildTextureStacks: []

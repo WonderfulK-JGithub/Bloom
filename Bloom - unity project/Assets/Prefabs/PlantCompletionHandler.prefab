@@ -233,12 +233,17 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   barImage: {fileID: 4229886398957466319}
+  bigLake: {fileID: 0}
   groundMaterials:
   - {fileID: 2100000, guid: 49ba261bcb131514e9ef4f2637d08996, type: 2}
   - {fileID: 2100000, guid: 6819e73f24e808f4185b130ab22128b5, type: 2}
   - {fileID: 2100000, guid: d44608e9c3a0c684d81e212f68126c26, type: 2}
   - {fileID: 2100000, guid: 28253ff084c85554c91b2e470787287b, type: 2}
   - {fileID: 2100000, guid: ece3fba46f5f7b148b81330742e87cba, type: 2}
+  - {fileID: 2100000, guid: d1d5eb2208d1d1449952161ad783d247, type: 2}
+  - {fileID: 2100000, guid: 3b2d5669a73d9c54daa6abc8675755ab, type: 2}
+  - {fileID: 2100000, guid: a1f50dc246172de4a816886b62059e50, type: 2}
+  - {fileID: 2100000, guid: ab0b931e9f0bd0845ad93563f7ef37a1, type: 2}
 --- !u!95 &700080215452960675
 Animator:
   serializedVersion: 3
@@ -271,7 +276,7 @@ GameObject:
   - component: {fileID: 974012000913091646}
   - component: {fileID: 4172781696951006937}
   m_Layer: 0
-  m_Name: kj be like
+  m_Name: max gay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

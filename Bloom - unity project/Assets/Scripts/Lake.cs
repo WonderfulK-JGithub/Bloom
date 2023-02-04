@@ -16,6 +16,9 @@ public class Lake : MonoBehaviour
     [SerializeField] float waterEmissionPower;
     [SerializeField] float waterSeaThroughPower;
 
+    [SerializeField] GameObject splashParticleOil;
+    [SerializeField] GameObject splashParticleWater;
+
     float timer;
     bool transition;
 
@@ -57,5 +60,24 @@ public class Lake : MonoBehaviour
         timer = transitionTime;
 
         gameObject.layer = 4;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject _newPS;
+        if (gameObject.CompareTag("Untagged"))
+        {
+            _newPS = Instantiate(splashParticleWater, other.transform.position, Quaternion.identity);
+            AudioManager.current.PlaySound(AudioManager.AudioNames.JumpInWater, other.transform.position);
+        }
+        else
+        {
+            _newPS = Instantiate(splashParticleOil, other.transform.position, Quaternion.identity);
+            AudioManager.current.PlaySound(AudioManager.AudioNames.JumpInOil, other.transform.position);
+        }
+
+        Destroy(_newPS, 0.7f);
+
+        
     }
 }

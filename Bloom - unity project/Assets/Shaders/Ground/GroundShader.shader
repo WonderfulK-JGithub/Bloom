@@ -20,6 +20,7 @@ Shader "Universal Render Pipeline/GroundShader"
         _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
         _MetallicGlossMap("Metallic", 2D) = "white" {}
         _CoolColor("CoolColor", Color) = (1,1,1,1)
+        _CAvoid("circleAvoid",Float) = 0.0
 
         _SpecColor("Specular", Color) = (0.2, 0.2, 0.2)
         _SpecGlossMap("Specular", 2D) = "white" {}
@@ -87,6 +88,7 @@ Shader "Universal Render Pipeline/GroundShader"
 
         float _Oaoa;
         float4 _Ost[1];
+        float _CAvoid;
         
         float _SaturationStrength;
         float _GammaEffect;
@@ -355,7 +357,7 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
                 _value += _plantBuffer[i].z * saturate(1 -distance(_plantPos, input.worldSpacePos.xz) / _plantReach) * _innerPlantReach;
             }
 
-            float _coolFactor = ceil(saturate(0.35 - _value)) * ceil(saturate(_value - 0.3));
+            float _coolFactor = ceil(saturate(0.35 - _value)) * ceil(saturate(_value - 0.3)) * _CAvoid;
 
             _value = min(_value, 1);
             //_value = floor(_value);
@@ -369,7 +371,7 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 
             half3 _finalColor = pow(_saturatedColor.rgb, (1 / _gammaStrength));
 
-                _finalColor += _coolFactor * 5 * _finalColor;
+            _finalColor = (1 - _coolFactor) * _finalColor + _coolFactor * half3(20.0,20.0, 20.0);
 
             return half4(_finalColor,color.a);
         }

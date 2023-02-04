@@ -22,6 +22,7 @@ public class PlantCompletionHandler : MonoBehaviour
     [SerializeField] float appearTime;
     [SerializeField] Gradient completionGradient;
     [SerializeField] Image barImage;
+    [SerializeField] Lake bigLake;
 
     ComputeBuffer plantDataBuffer;
 
@@ -129,6 +130,11 @@ public class PlantCompletionHandler : MonoBehaviour
         completeCount++;
 
         appearTimer = appearTime;
+
+        if(completeCount == gridLength)
+        {
+            bigLake.Transition();
+        }
     }
 
     private void OnDestroy()

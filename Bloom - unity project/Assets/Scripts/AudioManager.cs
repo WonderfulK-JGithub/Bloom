@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public enum AudioNames { WaterSpray, WaterFill, TrashCollect, Footstep1, Footstep2, Footstep3, WaterSplash, HeartSound, PlayerDamage,OilSplash,FlowerGreen,Tagg,KaninHopp };
+    public enum AudioNames { WaterSpray, WaterFill, TrashCollect, Footstep1, Footstep2, Footstep3, WaterSplash, HeartSound, PlayerDamage,OilSplash,FlowerGreen,Tagg,KaninHopp,Seagull,Seagull2,JumpInWater,JumpInOil };
 
     public List<AudioClip> audioClips = new List<AudioClip>();
 
@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource sfx2D;
 
     [SerializeField] AudioSource footstepSFX;
+
+    [SerializeField] GameObject sourcePrefab;
 
     private void Awake()
     {
@@ -26,16 +28,18 @@ public class AudioManager : MonoBehaviour
         sfx2D.PlayOneShot(audioClips[(int)audioName]);
     }
 
-    public void PlaySound(AudioNames audioName, Vector3 position)
+    public void PlaySound(AudioNames audioName, Vector3 position, float lifetime = 1f)
     {
-        GameObject go = new GameObject("SFX", typeof(AudioSource));
-        go.transform.position = position;
+        //GameObject go = new GameObject("SFX", typeof(AudioSource));
+        //go.transform.position = position;
+
+        GameObject go = Instantiate(sourcePrefab, position, Quaternion.identity);
 
         AudioSource src = go.GetComponent<AudioSource>();
         src.spatialBlend = 1;
         src.PlayOneShot(audioClips[(int)audioName]);
-
-        Destroy(go, 2);
+        
+        Destroy(go, lifetime);
     }
 
     public void PlayFootStep()

@@ -42,12 +42,12 @@ Material:
     - _Distortion: 0.01
     - _NormalSize: 5
     - _NormalSpeed: 0.04
-    - _NormalStrength: 0.46
-    - _SeaThroughPower: 1
-    - _Smooth: 0.7
-    - _VertexDisplacement: 0.0003125
+    - _NormalStrength: 5.27
+    - _SeaThroughPower: 0
+    - _Smooth: 0.333
+    - _VertexDisplacement: 0.55
     m_Colors:
-    - _OtherColor: {r: 0, g: 0.40446377, b: 1, a: 0}
+    - _OtherColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Tint: {r: 0, g: 0.8901403, b: 1, a: 0}
+    - _Tint: {r: 0, g: 0.8509803, b: 1, a: 0}
   m_BuildTextureStacks: []

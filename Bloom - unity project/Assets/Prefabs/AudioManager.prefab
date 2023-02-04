@@ -58,10 +58,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fbdb5aae67c40d4449c4101bf93cde8e, type: 3}
   - {fileID: 8300000, guid: 01908a8676e950c44bd6f1418c17feb5, type: 3}
   - {fileID: 8300000, guid: f5de450b2a4972d46b835174987a6dcb, type: 3}
-  - {fileID: 8300000, guid: 10626b67a19ee9c46b1e4c9b17497a9f, type: 3}
-  - {fileID: 8300000, guid: 16677e114d3711944ad1e6c530f37496, type: 3}
+  - {fileID: 8300000, guid: be70efdfdf507d14caa0a666826454b5, type: 3}
+  - {fileID: 8300000, guid: 9c334ae9da6a7c64c8e4bb7895d862e2, type: 3}
+  - {fileID: 8300000, guid: c77f3ab8683b5c546a30273fd2c58696, type: 3}
+  - {fileID: 8300000, guid: c4e9056b3f0f7ed4eb7b73a84855561c, type: 3}
+  - {fileID: 8300000, guid: b0e05924822f7764da38b0feda9f26f4, type: 3}
+  - {fileID: 8300000, guid: 749bb1345b5766b41818a00368ebef4c, type: 3}
   sfx2D: {fileID: 7134582154515098758}
   footstepSFX: {fileID: 7186754391865058814}
+  sourcePrefab: {fileID: 719681022224660314, guid: c1e01f939adb6f24381dfbcdb17ae18c, type: 3}
 --- !u!82 &7134582154515098758
 AudioSource:
   m_ObjectHideFlags: 0
