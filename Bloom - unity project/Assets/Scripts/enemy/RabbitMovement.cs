@@ -58,6 +58,11 @@ public class RabbitMovement : enemymovement
 
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     protected override IEnumerator Wander()
     {
         Vector3 startPos = transform.position;
@@ -99,6 +104,7 @@ public class RabbitMovement : enemymovement
 
     void Jump()
     {
+        rb.angularVelocity = Vector3.zero;
         rb.velocity += new Vector3((transform.forward * moveSpeed * Convert.ToInt32(chase)).x, jumpBoost, (transform.forward * moveSpeed * Convert.ToInt32(chase)).z);
         AudioManager.current.PlaySound(AudioManager.AudioNames.KaninHopp, transform.position);
     }

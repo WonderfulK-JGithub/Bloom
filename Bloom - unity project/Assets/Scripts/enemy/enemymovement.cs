@@ -32,7 +32,7 @@ public class enemymovement : MonoBehaviour, IWaterable
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
-    void Update()
+    protected virtual void Update()
     {
         lastchase = chase;
 

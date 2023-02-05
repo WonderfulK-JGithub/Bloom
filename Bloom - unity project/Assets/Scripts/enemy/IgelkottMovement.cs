@@ -69,6 +69,7 @@ public class IgelkottMovement : enemymovement
         {
             if (lastchase)
             {
+                animator.SetBool("walk", true);
                 wander = StartCoroutine(Wander());
                 if (attack != null)
                 {
@@ -81,6 +82,43 @@ public class IgelkottMovement : enemymovement
             }
         }
     }
+
+    protected override IEnumerator Wander()
+    {
+        Vector3 startPos = transform.position;
+        while (true)
+        {
+            float t = 0;
+            float randomRotation = UnityEngine.Random.Range(0f, 360f);
+
+            if (Mathf.Abs(transform.position.x - startPos.x) > 10 || Mathf.Abs(transform.position.z - startPos.z) > 10)
+            {
+                randomRotation = Quaternion.LookRotation(startPos).y + 180;
+            }
+            while (t < 1)
+            {
+                rb.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, randomRotation, 0)), t);
+                t += Time.deltaTime;
+                yield return 0;
+            }
+
+            float secs = Random.Range(1f, 3f);
+            float time = 0;
+
+            animator.SetBool("walk", true);
+
+            while (time < secs && !brake)
+            {
+                rb.velocity = (transform.forward * moveSpeed) + Gravity() * System.Convert.ToInt32(!onGround);
+                rb.angularVelocity = new Vector3(0, 0, 0);
+                time += Time.deltaTime;
+                yield return 0;
+            }
+
+            rb.velocity = Gravity();
+        }
+    }
+
     IEnumerator Attack()
     {
         attacking = true;
