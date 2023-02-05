@@ -13,6 +13,8 @@ public class PlayerMovementScript : PlayerBaseScript
     [SerializeField] float jumpForce = 500;
     [SerializeField] float jumpCooldown = 0.3f;
 
+    [SerializeField, Range(0, 90)] float maxSlope = 45f;
+
     [Header("Info")]
     public static bool isGrounded = false;
     public static bool completelyGrounded = false;
@@ -92,7 +94,20 @@ public class PlayerMovementScript : PlayerBaseScript
 
     void GroundCheck()
     {
-        isGrounded = OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground"));
+        isGrounded = false;
+        if(OverlapSphere(transform.position, 0.5f, LayerMask.GetMask("Ground")))
+        {
+            RaycastHit hitGround;
+            if (Physics.Raycast(transform.position + transform.up, Vector3.down, out hitGround, 10, LayerMask.GetMask("Ground")))
+            {
+                Debug.Log((Vector3.Angle(hitGround.normal, -Vector3.down)));
+                if (Vector3.Angle(hitGround.normal, -Vector3.down) < maxSlope)
+                {
+                    isGrounded = true;
+                }
+            }
+        }        
+        
         RaycastHit hit;
         if(Physics.Raycast(transform.position + transform.up, Vector3.down, out hit, 10, LayerMask.GetMask("Ground", "Water")))
         {

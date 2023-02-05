@@ -46853,6 +46853,10 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 23159
       objectReference: {fileID: 0}
+    - target: {fileID: 8554426570220972976, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
+      propertyPath: maxSlope
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8554426570220972978, guid: f3785a2f964478e48bdde47fe2b66c2a, type: 3}
       propertyPath: m_RootOrder
       value: 4
