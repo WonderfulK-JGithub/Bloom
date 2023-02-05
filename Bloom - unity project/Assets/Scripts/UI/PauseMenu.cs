@@ -29,6 +29,8 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] AudioMixer mixer;
 
+    [SerializeField] Button[] pausePanelButtons;
+
     PlayerCameraScript cameraScript;
 
     
@@ -36,6 +38,25 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         cameraScript = FindObjectOfType<PlayerCameraScript>();
+
+        SettingsData _data;
+        if(File.Exists(Application.persistentDataPath + SettingsData.saveName))
+        {
+            _data = JsonUtility.FromJson<SettingsData>(File.ReadAllText(Application.persistentDataPath + SettingsData.saveName));
+        }
+        else
+        {
+            _data = new SettingsData();
+        }
+
+        sfxSlider.value = _data.sfxVolume;
+        sfxPercent.text = Mathf.Round(sfxSlider.value * 100).ToString() + "%";
+
+        musicSlider.value = _data.musicVolume;
+        musicPercent.text = Mathf.Round(musicSlider.value * 100).ToString() + "%";
+
+        sensSlider.value = _data.mouseSensitivity;
+        sensPercent.text = Mathf.Round(sensSlider.value * 100).ToString() + "%";
     }
 
     private void Update()
@@ -50,6 +71,8 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         paused = !paused;
+
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Pause);
 
         OnPause?.Invoke(paused);
 
@@ -91,6 +114,13 @@ public class PauseMenu : MonoBehaviour
         SaveSettings();
 
         enabled = false;
+
+        foreach (var item in pausePanelButtons)
+        {
+            item.interactable = false;
+        }
+
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Select);
     }
 
     public void Settings()
@@ -98,16 +128,14 @@ public class PauseMenu : MonoBehaviour
         settingsPanel.SetActive(true);
         pausePanel.SetActive(false);
 
-        SettingsData _data = JsonUtility.FromJson<SettingsData>(File.ReadAllText(Application.persistentDataPath + SettingsData.saveName));
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Select);
+    }
 
-        sfxSlider.value = _data.sfxVolume;
-        sfxPercent.text = Mathf.Round(sfxSlider.value * 100).ToString() + "%";
 
-        musicSlider.value = _data.musicVolume;
-        musicPercent.text = Mathf.Round(musicSlider.value * 100).ToString() + "%";
 
-        sensSlider.value = _data.mouseSensitivity;
-        sensPercent.text = Mathf.Round(sensSlider.value * 100).ToString() + "%";
+    public void PlaySelectSound()
+    {
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Select);
     }
 
     void SaveSettings()

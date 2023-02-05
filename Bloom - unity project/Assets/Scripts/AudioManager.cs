@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public enum AudioNames { WaterSpray, WaterFill, TrashCollect, Footstep1, Footstep2, Footstep3, WaterSplash, HeartSound, PlayerDamage,OilSplash,FlowerGreen,Tagg,KaninHopp,Seagull,Seagull2,JumpInWater,JumpInOil };
+    public enum AudioNames { WaterSpray, WaterFill, TrashCollect, Footstep1, Footstep2, Footstep3, WaterSplash, HeartSound, PlayerDamage,OilSplash,FlowerGreen,Tagg,KaninHopp,Seagull,Seagull2,JumpInWater,JumpInOil,Alerted,Pause,Select };
 
     public List<AudioClip> audioClips = new List<AudioClip>();
 

@@ -39,7 +39,7 @@ Material:
     - _Brightness: 0.71
     - _Height: 2.65793
     - _Saturation: 1
-    - _StartY: -2
+    - _StartY: -2.46
     - _Value: 0
     m_Colors:
     - _Color: {r: 0.25809893, g: 0.7075472, b: 0.33921066, a: 0}

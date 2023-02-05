@@ -25,5 +25,8 @@ public class SceneTransition : MonoBehaviour
     void LoadScene()
     {
         SceneManager.LoadScene(sceneToEnter);
+
+        Time.timeScale = 1f;
+        PauseMenu.paused = false;
     }
 }

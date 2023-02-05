@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using System.IO;
 
 public class MenuAnimations : MonoBehaviour
 {
@@ -36,6 +37,11 @@ public class MenuAnimations : MonoBehaviour
     public AudioMixer mixer;
     public TextMeshProUGUI musicText;
     public TextMeshProUGUI sfxText;
+    [SerializeField] TextMeshProUGUI sensText;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider sensSlider;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -58,6 +64,45 @@ public class MenuAnimations : MonoBehaviour
         logo.color = new Color(1, 1, 1, 0);
 
         StartCoroutine(FadeLogo());
+
+        GetData();
+    }
+
+    void GetData()
+    {
+        SettingsData _data;
+        if (File.Exists(Application.persistentDataPath + SettingsData.saveName))
+        {
+            _data = JsonUtility.FromJson<SettingsData>(File.ReadAllText(Application.persistentDataPath + SettingsData.saveName));
+        }
+        else
+        {
+            _data = new SettingsData();
+        }
+
+        sfxSlider.value = _data.sfxVolume;
+        sfxText.text = Mathf.Round(sfxSlider.value * 100).ToString() + "%";
+
+        musicSlider.value = _data.musicVolume;
+        musicText.text = Mathf.Round(musicSlider.value * 100).ToString() + "%";
+
+        sensSlider.value = _data.mouseSensitivity;
+        sensText.text = Mathf.Round(sensSlider.value * 100).ToString() + "%";
+
+        mixer.SetFloat("musicvol", Mathf.Log10(_data.musicVolume) * 40);
+        mixer.SetFloat("sfxvol", Mathf.Log10(_data.sfxVolume) * 40);
+    }
+
+    void SaveData()
+    {
+        SettingsData _data = new SettingsData()
+        {
+            sfxVolume = sfxSlider.value,
+            musicVolume = musicSlider.value,
+            mouseSensitivity = sensSlider.value,
+        };
+
+        File.WriteAllText(Application.persistentDataPath + SettingsData.saveName, JsonUtility.ToJson(_data));
     }
 
     IEnumerator FadeLogo()
@@ -191,6 +236,11 @@ public class MenuAnimations : MonoBehaviour
     public void OpenScreen(int screen)
     {
         StartCoroutine(CenterCameraToScreen(screen));
+
+        if(screen == 0)
+        {
+            SaveData();
+        }
     }
 
     public void LoadScene(int index)
@@ -208,6 +258,11 @@ public class MenuAnimations : MonoBehaviour
     {
         mixer.SetFloat("sfxvol", Mathf.Log10(volume) * 40);
         sfxText.text = Mathf.Round(volume * 100).ToString() + "%";
+    }
+
+    public void ChangeSensitivity()
+    {
+        sfxText.text = Mathf.Round(sfxSlider.value * 100).ToString() + "%";
     }
 
     public void ToggleCS(bool toggle)

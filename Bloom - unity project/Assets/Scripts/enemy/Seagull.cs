@@ -87,7 +87,7 @@ public class Seagull : MonoBehaviour,IWaterable
 
         PauseMenu.OnPause += Pause;
 
-        
+        GetNewTargetPos();
     }
 
     private void Update()
@@ -97,7 +97,7 @@ public class Seagull : MonoBehaviour,IWaterable
         switch (state)
         {
             case SeagullState.Idle:
-
+                /*
                 timer += Time.deltaTime;
 
                 if(timer >= timeBetweenIdleWalk)
@@ -119,7 +119,7 @@ public class Seagull : MonoBehaviour,IWaterable
                     }
                     
                 }
-
+                */
                 break;
             case SeagullState.FlyUp:
 
@@ -164,6 +164,27 @@ public class Seagull : MonoBehaviour,IWaterable
         }
     }
 
+    void GetNewTargetPos()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            Vector3 _dir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+            Vector3 _newTarget = _dir * Random.Range(0f, idleRadius) + centerPos;
+
+            if (Physics.Raycast(_newTarget + Vector3.up, Vector3.down, out RaycastHit _hit, groundLayer))
+            {
+                
+                if (Mathf.Abs(_hit.point.y - transform.position.y - 0.5f) > heighestYDiff && _hit.normal.y > 0.95f)
+                {
+                    
+                    targetPos = _newTarget;
+                    //timer = 0f;
+                    break;
+                }
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         Vector3 _radiusOffset;
@@ -193,6 +214,8 @@ public class Seagull : MonoBehaviour,IWaterable
                 {
                     rb.velocity = Vector3.zero;
                     transform.position = targetPos;
+
+                    GetNewTargetPos();
                 }
 
 
@@ -275,7 +298,7 @@ public class Seagull : MonoBehaviour,IWaterable
             
         }
 
-        float _extraSpeed = state == SeagullState.FlyUp ? 2f : 1f;
+        float _extraSpeed = state == SeagullState.StartCircle || state == SeagullState.StartCircle ? 2f : 1f;
 
         if(state != SeagullState.Idle && state != SeagullState.Happy) transform.forward = Vector3.MoveTowards(transform.forward,targetForward,rotationSpeed * Time.deltaTime * _extraSpeed);
     }
@@ -305,7 +328,8 @@ public class Seagull : MonoBehaviour,IWaterable
         EnemyWarnings.current.AddEnemy(transform);
 
         AudioManager.current.PlaySound(AudioManager.AudioNames.Seagull);
-        
+
+        AudioManager.current.PlaySound(AudioManager.AudioNames.Alerted, transform.position);
     }
 
     public void StartFlying()
