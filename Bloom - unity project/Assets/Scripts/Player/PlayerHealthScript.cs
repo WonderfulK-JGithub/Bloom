@@ -47,6 +47,7 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     float tickTimer;
     Image oilOverlay;
     [SerializeField] Material oilOverlayMat;
+    [SerializeField] float oilOvelaySpeed;
     float oilOverlayValue = 1;
     bool noOIl = false;
 
@@ -55,8 +56,8 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
         base.Awake();
 
         oilOverlay = GameObject.Find("OilOverlay").GetComponent<Image>();
-        oilOverlay.material = oilOverlayMat;
-        oilOverlay.material.SetFloat("_idk", 1);
+        //oilOverlay.material = oilOverlayMat;
+        //oilOverlay.material.SetFloat("_idk", 1);
 
         saturationMultiplier = 1;
 
@@ -113,9 +114,6 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
             cam.ShakeScreen();
 
             AudioManager.current.PlaySound(AudioManager.AudioNames.PlayerDamage);
-
-            StopCoroutine(nameof(tilNoOil));
-            StartCoroutine(nameof(tilNoOil));
 
             StopCoroutine(nameof(tilRegen));
             isRegenerating = false;
@@ -175,7 +173,8 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     void Update()
     {
         Regen();
-        GetRidOfOil();
+        //GetRidOfOil();
+        OilOverlayMoment();
 
         if (transform.position.y < -20) Die();
 
@@ -184,11 +183,20 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
         #endif
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Oil"))
+        {
+            noOIl = true;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Oil"))
         {
             tickTimer = 0f;
+            noOIl = false;
         }
     }
 
@@ -200,12 +208,26 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
             if(tickTimer <= 0f)
             {
                 Damage(oilTickDamage);
+                AudioManager.current.PlaySound(AudioManager.AudioNames.OilSplash);
                 tickTimer = damageTickTime;
                 print("damage");
-                oilOverlayValue -= 0.1f;
-                oilOverlay.material.SetFloat("_idk", oilOverlayValue);
+                
             }
         }
+    }
+
+    void OilOverlayMoment()
+    {
+        if (noOIl)
+        {
+            oilOverlayValue = Mathf.MoveTowards(oilOverlayValue, 1f, oilOvelaySpeed * Time.deltaTime);
+        }
+        else
+        {
+            oilOverlayValue = Mathf.MoveTowards(oilOverlayValue, 0.3f, oilOvelaySpeed * Time.deltaTime);
+        }
+
+        oilOverlay.material.SetFloat("_OilValue", oilOverlayValue);
     }
 
     IEnumerator tilRegen()
@@ -229,13 +251,6 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
             }           
         }
     }
-
-    IEnumerator tilNoOil()
-    {
-        yield return new WaitForSeconds(3);
-        noOIl = true;
-    }
-
     void GetRidOfOil()
     {
         if (!noOIl || !PlayerCameraScript.inRadiusOfPlant) return;

@@ -100,7 +100,7 @@ public class PlayerMovementScript : PlayerBaseScript
             RaycastHit hitGround;
             if (Physics.Raycast(transform.position + transform.up, Vector3.down, out hitGround, 10, LayerMask.GetMask("Ground")))
             {
-                Debug.Log((Vector3.Angle(hitGround.normal, -Vector3.down)));
+                //Debug.Log((Vector3.Angle(hitGround.normal, -Vector3.down)));
                 if (Vector3.Angle(hitGround.normal, -Vector3.down) < maxSlope)
                 {
                     isGrounded = true;
