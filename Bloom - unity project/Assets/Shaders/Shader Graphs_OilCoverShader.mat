@@ -36,10 +36,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_92bf5d424d4545b6bde58e0f44053383: 3.35
     - Vector1_a74a882f27394500890e3c6babeaf54b: 0
     - Vector1_ccf8b43270d147c69e20e9c4b48acd1f: 0.05
     - _KlassiskK_JReference: 0.521
-    - _idk: 1
+    - _OilValue: 1
+    - _idk: 0.39
+    - _moveAmount: 0.15
     m_Colors:
     - Color_1825df3c1878485fb90040a2bedc3e96: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

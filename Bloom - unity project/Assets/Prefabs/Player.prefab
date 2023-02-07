@@ -3592,6 +3592,7 @@ MonoBehaviour:
   damageTickTime: 1
   oilTickDamage: 5
   oilOverlayMat: {fileID: 2100000, guid: bc33eafba4f6ec34bb3f12488ace0cc6, type: 2}
+  oilOvelaySpeed: 2
 --- !u!114 &8554426570220972980
 MonoBehaviour:
   m_ObjectHideFlags: 0
