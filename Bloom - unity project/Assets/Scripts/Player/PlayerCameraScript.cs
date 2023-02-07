@@ -39,6 +39,7 @@ public class PlayerCameraScript : MonoBehaviour
     float shakePower;
     float powerReduction;
     public static bool cameraShake = true;
+    public static bool inRadiusOfPlant = false;
 
     //Saturation
     ColorAdjustments colAd;
@@ -164,16 +165,16 @@ public class PlayerCameraScript : MonoBehaviour
     void HandleSaturation()
     {
         //Saturation
-        bool b = false;
+        inRadiusOfPlant = false;
         foreach (Plant plant in wateredPlants)
         {
             if (Vector3.Distance(transform.position, plant.transform.position) < plantReach)
             {
-                b = true;
+                inRadiusOfPlant = true;
                 break;
             }
         }
-        targetSaturation = b ? greenSaturation : notGreenSaturation;
+        targetSaturation = inRadiusOfPlant ? greenSaturation : notGreenSaturation;
 
         if (colAd != null)
         {

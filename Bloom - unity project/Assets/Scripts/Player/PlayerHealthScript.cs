@@ -15,7 +15,7 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     [HideInInspector] public float health
     {
         get { return _health; }
-        set { if(healthSlider != null) healthSlider.value = value / maxHealth; healthSlider.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString() + "%"; _health = value; }
+        set { if(healthSlider != null) healthSlider.value = value / maxHealth; healthSlider.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString("0") + "%"; _health = value; }
     }
 
     public static bool isDead = false;
@@ -45,10 +45,18 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     [SerializeField] float damageTickTime;
     [SerializeField] int oilTickDamage;
     float tickTimer;
+    Image oilOverlay;
+    [SerializeField] Material oilOverlayMat;
+    float oilOverlayValue = 1;
+    bool noOIl = false;
 
     public override void Awake()
     {
         base.Awake();
+
+        oilOverlay = GameObject.Find("OilOverlay").GetComponent<Image>();
+        oilOverlay.material = oilOverlayMat;
+        oilOverlay.material.SetFloat("_idk", 1);
 
         saturationMultiplier = 1;
 
@@ -106,14 +114,21 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
 
             AudioManager.current.PlaySound(AudioManager.AudioNames.PlayerDamage);
 
+            StopCoroutine(nameof(tilNoOil));
+            StartCoroutine(nameof(tilNoOil));
+
             StopCoroutine(nameof(tilRegen));
             isRegenerating = false;
             //StopCoroutine(nameof(regen));
-            if (health < 50)
+            if (health < maxHealth / 2)
             {
                 StartCoroutine(nameof(tilRegen));
             }
         }   
+        else if(damage < 0)
+        {
+            noOIl = true;
+        }
     }
 
     IEnumerator FadeTo(Image img, float target)
@@ -160,6 +175,7 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
     void Update()
     {
         Regen();
+        GetRidOfOil();
 
         if (transform.position.y < -20) Die();
 
@@ -186,22 +202,24 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
                 Damage(oilTickDamage);
                 tickTimer = damageTickTime;
                 print("damage");
+                oilOverlayValue -= 0.1f;
+                oilOverlay.material.SetFloat("_idk", oilOverlayValue);
             }
         }
     }
 
     IEnumerator tilRegen()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(5);
         isRegenerating = true;
         //StartCoroutine(nameof(regen));
     }
 
     void Regen()
     {
-        if(isRegenerating)
+        if(isRegenerating && PlayerCameraScript.inRadiusOfPlant)
         {
-            if(health < 50)
+            if (health < (maxHealth / 2))
             {
                 Damage(-regenSpeed * Time.deltaTime);
             }
@@ -210,6 +228,21 @@ public class PlayerHealthScript : PlayerBaseScript, IDamageable
                 isRegenerating = false;
             }           
         }
+    }
+
+    IEnumerator tilNoOil()
+    {
+        yield return new WaitForSeconds(3);
+        noOIl = true;
+    }
+
+    void GetRidOfOil()
+    {
+        if (!noOIl || !PlayerCameraScript.inRadiusOfPlant) return;
+
+        oilOverlayValue = 1;
+        oilOverlay.material.SetFloat("_idk", oilOverlayValue);
+        noOIl = false;
     }
 
     public void SetMaxHealth(int newMaxHealth) //För upgrades
