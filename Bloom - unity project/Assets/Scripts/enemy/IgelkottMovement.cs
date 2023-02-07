@@ -76,6 +76,7 @@ public class IgelkottMovement : enemymovement
                     StopCoroutine(attack);
                     kropp.localPosition = kroppPos;
                     attacking = false;
+                    animator.SetBool("walk", true);
 
                 }
                 transform.rotation *= Quaternion.Euler(new Vector3(0, 180, 0));

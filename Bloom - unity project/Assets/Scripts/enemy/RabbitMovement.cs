@@ -30,7 +30,15 @@ public class RabbitMovement : enemymovement
         if (secsSinceLastJump > jumpCooldown && onGround && ((distanceToPlayer > attackRange && chase) || detectionRange == 0))
         {
             secsSinceLastJump = 0;
-            Jump();
+            if (detectionRange == 0)
+            {
+                Jump();
+            }
+            else
+            {
+                Invoke("Jump", 0.5f);
+            }
+            
         }
         else if (distanceToPlayer <= attackRange && secsSinceLastDamage > damageCooldown && detectionRange > 0)
         {
@@ -100,6 +108,14 @@ public class RabbitMovement : enemymovement
     protected override Vector3 Gravity()
     {
         return base.Gravity() * gravityMultiplier;
+    }
+
+    protected override void Rotation()
+    {
+        if (animator.GetBool("hoppar") == false)
+        {
+            base.Rotation();
+        }
     }
 
     void Jump()
