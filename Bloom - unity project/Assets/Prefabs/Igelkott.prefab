@@ -730,7 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 18
   moveSpeed: 1
-  detectionRange: 16
+  detectionRange: 10
   brake: 0
   ignoreLayers:
     serializedVersion: 2

@@ -3613,7 +3613,7 @@ MonoBehaviour:
   recycleText: {fileID: 7991043627243243502}
   xOfxCansText: {fileID: 6023598679214620261}
   upgradeText: {fileID: 848499470862117629}
-  neededForUpgrades: 50
+  neededForUpgrades: 15
   biggestBird: {fileID: 0}
   upgradeSlider: {fileID: 2171474740431417772}
   checkmarks:

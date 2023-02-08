@@ -42,6 +42,7 @@ public class IgelkottMovement : enemymovement
             if (!lastchase)
             {
                 utropstecken.SetActive(true);
+                AudioManager.current.PlaySound(AudioManager.AudioNames.Alerted,transform.position);
                 StopCoroutine(wander);
                 kropp.localPosition = kroppPos;
             }

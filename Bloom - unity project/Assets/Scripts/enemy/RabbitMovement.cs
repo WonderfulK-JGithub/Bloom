@@ -56,6 +56,7 @@ public class RabbitMovement : enemymovement
         else if (!lastchase && chase)
         {
             utropstecken.SetActive(true);
+            AudioManager.current.PlaySound(AudioManager.AudioNames.Alerted,transform.position);
             animator.SetBool("wander", false);
             if (wander != null)
             {

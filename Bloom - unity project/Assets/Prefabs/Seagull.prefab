@@ -927,7 +927,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  detectionRadius: 5
+  detectionRadius: 7.5
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
