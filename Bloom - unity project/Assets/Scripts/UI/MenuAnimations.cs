@@ -34,6 +34,8 @@ public class MenuAnimations : MonoBehaviour
     private Vector3 centerPos;
     public Image black;
 
+    float time;
+
     public AudioMixer mixer;
     public TextMeshProUGUI musicText;
     public TextMeshProUGUI sfxText;
@@ -55,17 +57,17 @@ public class MenuAnimations : MonoBehaviour
 
         buttons = buttonParent.GetComponentsInChildren<Image>();
 
-        for (int i = 0; i < buttons.Length; i++)
+        /* for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].color -= new Color(0, 0, 0, 1);
             buttons[i].GetComponent<Button>().enabled = false;
-        }
+        } */
 
         bg.color = new Color(0, 0, 0, 1);
         anyKeyText.color = new Color(anyKeyText.color.r, anyKeyText.color.b, anyKeyText.color.g, 0);
         logo.color = new Color(1, 1, 1, 0);
 
-        StartCoroutine(FadeLogo());
+        //StartCoroutine(FadeLogo());
 
         GetData();
     }
@@ -127,12 +129,13 @@ public class MenuAnimations : MonoBehaviour
 
     private void Update()
     {
-        if (awaitInput)
+        time += Time.deltaTime;
+
+        if (time > 1.2f)
         {
             if (Input.anyKeyDown)
             {
-                awaitInput = false;
-                StartCoroutine(LoadMenu());
+                FindObjectOfType<Animator>().SetTrigger("keyPressed");
             }
         }
     }
