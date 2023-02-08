@@ -102,7 +102,7 @@ public class CollectibleCollectorScript : PlayerBaseScript
         {
             upgradeText.SetActive(true);
             Invoke(nameof(Mogus), 2f);
-            biggestBird.SetActive(true);
+            //biggestBird.SetActive(true);
         }
     }
 
