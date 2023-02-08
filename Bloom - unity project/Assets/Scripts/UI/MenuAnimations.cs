@@ -44,6 +44,8 @@ public class MenuAnimations : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt("TotalRecycled", 0);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
