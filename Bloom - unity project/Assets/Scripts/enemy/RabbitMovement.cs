@@ -32,6 +32,7 @@ public class RabbitMovement : enemymovement
             secsSinceLastJump = 0;
             if (detectionRange == 0)
             {
+                CancelInvoke("Jump");
                 Jump();
             }
             else

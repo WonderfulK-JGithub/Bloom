@@ -91,7 +91,7 @@ public class IgelkottMovement : enemymovement
         while (true)
         {
             float t = 0;
-            float randomRotation = UnityEngine.Random.Range(0f, 360f);
+            float randomRotation = Random.Range(0f, 360f);
 
             if (Mathf.Abs(transform.position.x - startPos.x) > 10 || Mathf.Abs(transform.position.z - startPos.z) > 10)
             {
